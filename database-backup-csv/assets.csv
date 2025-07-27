@@ -1,0 +1,11 @@
+id,equipment_type_id,system_id,serial_number,status
+asset1,et1,sys1,CB-001-2024,operational
+asset2,et2,sys1,CNC-002-2024,maintenance
+asset3,et3,sys2,PUMP-003-2024,operational
+asset4,et4,sys3,GEN-004-2024,operational
+asset5,et5,sys2,HVAC-005-2024,offline
+LAK-ECS-01,EQ-009,SYS003,SN-ECS-01A,Working
+LAK-FAN-02,EQ-005,SYS002,SN-VF-9845,Faulty
+LAK-GEN-01,EQ-001,SYS001,SN-G55842A,Working
+SM-MDB-01,EQ-002,SYS027,SN-MDB-SM-01,Working
+TKB-PUMP-01,EQ-012,SYS021,SN-PUMP-5512,Working

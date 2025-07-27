@@ -1,0 +1,45 @@
+id,name,name_th,description
+EQ-001,Generator,Generator,เครื่องกำเนิดไฟฟ้าสำรองสำหรับใช้ในกรณีไฟฟ้าดับ
+EQ-002,Main Distribution Board (MDB),MDB,ตู้ควบคุมและกระจายไฟหลักของระบบ
+EQ-003,Transformer,Transformer,อุปกรณ์แปลงแรงดันไฟฟ้าให้เหมาะสมกับระบบใช้งาน
+EQ-004,Climate Controller,Climate Controller,ระบบควบคุมอุณหภูมิและความชื้นอัตโนมัติในโรงเรือน
+EQ-005,Ventilation Fans,Ventilation Fans,พัดลมสำหรับถ่ายเทอากาศภายในโรงเรือน
+EQ-006,Cooling Pad System,Cooling Pad,ระบบลดอุณหภูมิด้วยการระเหยน้ำผ่านแผ่นเปียก
+EQ-007,Lighting System,Lighting System,ระบบไฟฟ้าส่องสว่างในพื้นที่ทำงานหรือโรงเรือน
+EQ-008,Feeding System,ระบบให้อาหาร,ระบบลำเลียงและจ่ายอาหารสัตว์แบบอัตโนมัติ
+EQ-009,Egg Conveyor System,ระบบลำเลียงไข่,ระบบลำเลียงไข่จากกรงไปยังจุดจัดเก็บหรือคัดเกรด
+EQ-010,Manure Belt System,Manure Belt,ระบบสายพานสำหรับลำเลียงมูลสัตว์ออกจากโรงเรือน
+EQ-011,Chlorine Dosing System,ระบบจ่ายคลอรีน,ระบบเติมคลอรีนในน้ำเพื่อการฆ่าเชื้อ
+EQ-012,Main Water Pump,ปั๊มน้ำหลัก,ปั๊มน้ำหลักสำหรับจ่ายน้ำไปยังระบบต่างๆ
+EQ-013,Champagne Tank,ถังแชมเปญ,ถังน้ำในระบบประปาภายใน
+EQ-014,Shredder/Grinder Machine,เครื่องสับย่อย,เครื่องย่อยวัสดุหรือเศษอาหารในงานปุ๋ย
+EQ-015,Composting Tank System,ระบบถังอบ,ระบบหมักปุ๋ยอินทรีย์แบบถังปิด
+EQ-016,Control Panel / Control System,ระบบควบคุม,ตู้ควบคุมระบบไฟฟ้าหรือเครื่องจักรต่างๆ
+EQ-017,Odor Control System,ระบบควบคุมกลิ่น,ระบบควบคุมกลิ่นจากของเสียหรือการหมัก
+EQ-018,Egg Grading Machine,เครื่องคัดเกรดไข่,เครื่องคัดแยกไข่ตามขนาด
+EQ-019,Air Ventilation System,ระบบระบายอากาศ,ระบบถ่ายเทอากาศรวมในพื้นที่ฟาร์มหรือโรงเรือน
+EQ-020,Air Compressor,ปั๊มลม,อุปกรณ์สร้างแรงดันลมสำหรับระบบลมอัด
+EQ-021,Disinfection Spray System,ระบบพ่นฆ่าเชื้อ,ระบบพ่นละอองน้ำยาฆ่าเชื้อในพื้นที่เฉพาะ
+EQ-022,Milk Receiving Room,ห้องรับน้ำนม,ห้องรับน้ำนมก่อนเข้าสู่การจัดเก็บหรือแปรรูป
+EQ-023,Milk Storage Tank,ถังเก็บน้ำนม,ถังเก็บน้ำนมที่ควบคุมอุณหภูมิได้
+EQ-024,Cooling Unit / Refrigeration System,เครื่องทำความเย็น,ระบบทำความเย็นสำหรับถังนม
+EQ-025,Ice Bank Tank,ถัง Ice Bank,ถังเก็บน้ำเย็นจากน้ำแข็งเพื่อใช้ในระบบแลกเปลี่ยนความร้อน
+EQ-026,Borehole / Booster Pump,ปั๊มน้ำบาดาล/ปั๊มแรงดัน,ปั๊มน้ำจากบ่อบาดาลหรือปั๊มเพิ่มแรงดัน
+EQ-027,Water Storage Tank,ถังเก็บน้ำ,ถังเก็บน้ำใช้ทั่วไปในระบบฟาร์มหรือโรงงาน
+EQ-028,Clean-In-Place (CIP) System,ระบบ CIP,ระบบทำความสะอาดท่อและถังโดยไม่ต้องรื้อถอด
+EQ-029,UV Sterilization System,ระบบ UV ฆ่าเชื้อ,ระบบฆ่าเชื้อด้วยรังสี UV
+EQ-030,Wastewater Treatment System,ระบบบำบัดน้ำเสีย,ระบบบำบัดน้ำเสียจากกระบวนการฟาร์มหรือผลิต
+EQ-031,CCTV System,ระบบกล้องวงจรปิด,ระบบกล้องวงจรปิดสำหรับตรวจสอบความปลอดภัย
+EQ-032,Fire Protection System,ระบบป้องกันอัคคีภัย,ระบบแจ้งเตือนและควบคุมอัคคีภัยในอาคาร
+EQ-033,Ventilation Fans (2 Units),พัดลมระบายอากาศ (2 ตัว),พัดลมระบายอากาศ
+EQ-034,General Low-Pressure Cabinet (LP Cabinet),ตู้ LP ทั่วไป,ตู้ควบคุมระบบไฟฟ้าแรงต่ำทั่วไป
+EQ-035,Power Transformer,หม้อแปลง,หม้อแปลงสำหรับปรับแรงดันสูง-ต่ำในระบบไฟฟ้า
+EQ-036,LP Cabinet (Per Room/Zone),ตู้ LP แต่ละจุด/ห้อง,ตู้ไฟย่อยสำหรับแต่ละห้องหรือโซนใช้งาน
+EQ-037,General Electrical Outlet,เต้ารับไฟฟ้าทั่วไป,เต้ารับไฟฟ้าใช้งานทั่วไปภายในอาคาร
+EQ-038,Lighting Fixtures / Lamps,หลอดไฟ/แสงสว่าง,หลอดไฟหรือโคมไฟสำหรับให้แสงสว่าง
+EQ-039,Heat Exchanger Plate,เพลทแลกเปลี่ยนความร้อน,ส่วนประกอบหลักของระบบแลกเปลี่ยนความร้อน
+et1,Conveyor Belt,สายพานลำเลียง,Industrial conveyor systems
+et2,CNC Machine,เครื่อง CNC,Computer numerical control machines
+et3,Pump,ปั๊มอุตสาหกรรม,Industrial pumps and compressors
+et4,Generator,เครื่องกำเนิดไฟฟ้า,Backup power generators
+et5,HVAC System,ระบบปรับอากาศ,"Heating, ventilation, and air conditioning"

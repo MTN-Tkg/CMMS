@@ -1,0 +1,10 @@
+id,name,stock_quantity,min_stock_level
+P-001,ไส้กรองน้ำมันเครื่อง Generator,10,5
+P-002,สายพานพัดลม V-Belt B-52,25,10
+P-003,น้ำมันเกียร์เบอร์ 90,5,2
+P-004,ลูกปืน 6204,50,20
+part1,Motor Belt V-Type,25,5
+part2,Hydraulic Filter,12,3
+part3,Ball Bearing 6205,50,10
+part4,Gear Oil SAE 90,8,2
+part5,Electrical Relay 24V,15,5

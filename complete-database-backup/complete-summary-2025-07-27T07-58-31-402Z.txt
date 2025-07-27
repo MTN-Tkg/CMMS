@@ -1,0 +1,189 @@
+COMPLETE CMMS Database Backup Summary
+====================================
+Backup Date: 27/7/2568 14:58:31
+Database URL: https://kdrawlsreggojpxavlnh.supabase.co
+Total Tables Discovered: 42
+Accessible Tables: 10
+Tables with Data: 9
+Total Records: 304
+
+Table Details:
+==============
+
+assets:
+  - Accessible: Yes
+  - Records: 10
+  - Columns (5): id, equipment_type_id, system_id, serial_number, status
+
+work_orders:
+  - Accessible: Yes
+  - Records: 10
+  - Columns (22): id, work_type, title, description, status, priority, asset_id, location_id, system_id, pm_template_id, assigned_to_user_id, requested_by_user_id, created_at, scheduled_date, completed_at, wo_number, estimated_hours, assigned_to, requested_by, total_cost, labor_cost, parts_cost
+
+parts:
+  - Accessible: Yes
+  - Records: 9
+  - Columns (4): id, name, stock_quantity, min_stock_level
+
+locations:
+  - Accessible: Yes
+  - Records: 55
+  - Columns (7): id, company_id, name, code, created_at, address, is_active
+
+systems:
+  - Accessible: Yes
+  - Records: 39
+  - Columns (9): id, company_id, name, name_th, description, code, location_id, created_at, is_active
+
+equipment_types:
+  - Accessible: Yes
+  - Records: 44
+  - Columns (4): id, name, name_th, description
+
+pm_templates:
+  - Accessible: Yes
+  - Records: 123
+  - Columns (13): id, company_id, system_id, equipment_type_id, name, frequency_type, frequency_value, estimated_minutes, remarks, template_code, template_name, description, estimated_duration
+
+work_order_parts:
+  - Accessible: Yes
+  - Records: 5
+  - Columns (4): id, work_order_id, part_id, quantity_used
+
+notifications:
+  - Accessible: Yes
+  - Records: 0
+  - Columns (0): 
+
+users:
+  - Accessible: No
+  - Error: relation "public.users" does not exist
+
+companies:
+  - Accessible: Yes
+  - Records: 9
+  - Columns (10): id, name, latitude, longitude, code, created_at, email, phone, address, is_active
+
+maintenance_logs:
+  - Accessible: No
+  - Error: relation "public.maintenance_logs" does not exist
+
+inventory:
+  - Accessible: No
+  - Error: relation "public.inventory" does not exist
+
+suppliers:
+  - Accessible: No
+  - Error: relation "public.suppliers" does not exist
+
+purchase_orders:
+  - Accessible: No
+  - Error: relation "public.purchase_orders" does not exist
+
+contracts:
+  - Accessible: No
+  - Error: relation "public.contracts" does not exist
+
+warranties:
+  - Accessible: No
+  - Error: relation "public.warranties" does not exist
+
+attachments:
+  - Accessible: No
+  - Error: relation "public.attachments" does not exist
+
+settings:
+  - Accessible: No
+  - Error: relation "public.settings" does not exist
+
+audit_logs:
+  - Accessible: No
+  - Error: relation "public.audit_logs" does not exist
+
+reports:
+  - Accessible: No
+  - Error: relation "public.reports" does not exist
+
+departments:
+  - Accessible: No
+  - Error: relation "public.departments" does not exist
+
+employees:
+  - Accessible: No
+  - Error: relation "public.employees" does not exist
+
+shifts:
+  - Accessible: No
+  - Error: relation "public.shifts" does not exist
+
+schedules:
+  - Accessible: No
+  - Error: relation "public.schedules" does not exist
+
+costs:
+  - Accessible: No
+  - Error: relation "public.costs" does not exist
+
+budgets:
+  - Accessible: No
+  - Error: relation "public.budgets" does not exist
+
+categories:
+  - Accessible: No
+  - Error: relation "public.categories" does not exist
+
+priorities:
+  - Accessible: No
+  - Error: relation "public.priorities" does not exist
+
+statuses:
+  - Accessible: No
+  - Error: relation "public.statuses" does not exist
+
+roles:
+  - Accessible: No
+  - Error: relation "public.roles" does not exist
+
+permissions:
+  - Accessible: No
+  - Error: relation "public.permissions" does not exist
+
+configurations:
+  - Accessible: No
+  - Error: relation "public.configurations" does not exist
+
+templates:
+  - Accessible: No
+  - Error: relation "public.templates" does not exist
+
+workflows:
+  - Accessible: No
+  - Error: relation "public.workflows" does not exist
+
+approvals:
+  - Accessible: No
+  - Error: relation "public.approvals" does not exist
+
+history:
+  - Accessible: No
+  - Error: relation "public.history" does not exist
+
+backups:
+  - Accessible: No
+  - Error: relation "public.backups" does not exist
+
+logs:
+  - Accessible: No
+  - Error: relation "public.logs" does not exist
+
+sessions:
+  - Accessible: No
+  - Error: relation "public.sessions" does not exist
+
+tokens:
+  - Accessible: No
+  - Error: relation "public.tokens" does not exist
+
+preferences:
+  - Accessible: No
+  - Error: relation "public.preferences" does not exist

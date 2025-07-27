@@ -23,6 +23,8 @@ import { Notifications } from "./pages/Notifications";
 import { Users } from "./pages/Users";
 import { Settings } from "./pages/Settings";
 import { DataTransfer } from "./pages/DataTransfer";
+import { InventoryAlerts } from "./pages/InventoryAlerts";
+import SupabaseTest from "./pages/SupabaseTest";
 import { MobileNav } from "./components/MobileNav";
 import { PWAInstall, PWAStatus } from "./components/PWAInstall";
 import NotFound from "./pages/NotFound";
@@ -64,6 +66,8 @@ const App = () => (
               <Route path="/parts/:id" element={<PartDetail />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/data-transfer" element={<DataTransfer />} />
+              <Route path="/inventory/alerts" element={<InventoryAlerts />} />
+              <Route path="/supabase-test" element={<SupabaseTest />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
@@ -75,10 +79,12 @@ const App = () => (
 
 // Prevent duplicate root creation during HMR
 const container = document.getElementById("root")!;
-if (!container._reactRootContainer) {
+const containerWithRoot = container as HTMLElement & { _reactRootContainer?: any };
+
+if (!containerWithRoot._reactRootContainer) {
   const root = createRoot(container);
-  container._reactRootContainer = root;
+  containerWithRoot._reactRootContainer = root;
   root.render(<App />);
 } else {
-  container._reactRootContainer.render(<App />);
+  containerWithRoot._reactRootContainer.render(<App />);
 }

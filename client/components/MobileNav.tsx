@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { NotificationSystem } from "./inventory/NotificationSystem";
 
 const navItems = [
   { path: "/", label: "หน้าหลัก", icon: LayoutDashboard },
@@ -41,12 +42,15 @@ export function MobileNav() {
         <h1 className="text-lg font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
           CMMS Mobile Pro
         </h1>
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="p-2 hover:bg-primary/10 rounded-xl transition-all duration-200 hover:scale-105"
-        >
-          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <NotificationSystem />
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 hover:bg-primary/10 rounded-xl transition-all duration-200 hover:scale-105"
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </header>
 
       {/* Mobile Menu Overlay */}
@@ -96,9 +100,12 @@ export function MobileNav() {
       {/* Desktop Sidebar */}
       <nav className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 glass-nav">
         <div className="p-6">
-          <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent mb-8">
-            CMMS Mobile Pro
-          </h2>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+              CMMS Mobile Pro
+            </h2>
+            <NotificationSystem />
+          </div>
           <div className="space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;

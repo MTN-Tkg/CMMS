@@ -1,0 +1,35 @@
+CMMS Database Backup Summary
+============================
+Backup Date: 27/7/2568 14:50:00
+Database URL: https://kdrawlsreggojpxavlnh.supabase.co
+Total Tables: 9
+Total Records: 295
+
+Table Details:
+--------------
+assets: 10 records
+  Columns: id, equipment_type_id, system_id, serial_number, status
+
+work_orders: 10 records
+  Columns: id, work_type, title, description, status, priority, asset_id, location_id, system_id, pm_template_id, assigned_to_user_id, requested_by_user_id, created_at, scheduled_date, completed_at, wo_number, estimated_hours, assigned_to, requested_by, total_cost, labor_cost, parts_cost
+
+parts: 9 records
+  Columns: id, name, stock_quantity, min_stock_level
+
+locations: 55 records
+  Columns: id, company_id, name, code, created_at, address, is_active
+
+systems: 39 records
+  Columns: id, company_id, name, name_th, description, code, location_id, created_at, is_active
+
+equipment_types: 44 records
+  Columns: id, name, name_th, description
+
+pm_templates: 123 records
+  Columns: id, company_id, system_id, equipment_type_id, name, frequency_type, frequency_value, estimated_minutes, remarks, template_code, template_name, description, estimated_duration
+
+work_order_parts: 5 records
+  Columns: id, work_order_id, part_id, quantity_used
+
+notifications: 0 records
+

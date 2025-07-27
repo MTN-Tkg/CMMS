@@ -1,0 +1,14 @@
+CSV Export Summary
+==================
+Export Date: 27/7/2568 14:51:02
+Export Directory: database-backup-csv/
+
+assets.csv: 10 records
+work_orders.csv: 10 records
+parts.csv: 9 records
+locations.csv: 55 records
+systems.csv: 39 records
+equipment_types.csv: 44 records
+pm_templates.csv: 123 records
+work_order_parts.csv: 5 records
+notifications.csv: 0 records

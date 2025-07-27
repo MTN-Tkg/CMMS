@@ -19,9 +19,14 @@ import {
   DollarSign,
   Settings,
   Bell,
+  Package,
+  ShoppingCart,
+  Eye,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { StockAlerts } from "@/components/inventory/StockAlerts";
+import { useInventory } from "@/hooks/use-inventory";
 
 interface Metric {
   title: string;
@@ -35,6 +40,15 @@ interface Metric {
 
 export function Dashboard() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const {
+    dashboardData,
+    alerts,
+    recommendations,
+    criticalAlertsCount,
+    isLoading,
+    acknowledgeAlert,
+    createPurchaseOrder
+  } = useInventory();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -230,14 +244,57 @@ export function Dashboard() {
           </div>
         </div>
 
-        {/* Alert Banner */}
+        {/* Inventory Alerts Banner */}
+        {criticalAlertsCount > 0 && (
+          <div className="card-elevated rounded-xl p-4 border-l-4 border-l-destructive bg-destructive/5">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h3 className="font-medium text-destructive mb-2">
+                  การแจ้งเตือนสต็อกวิกฤติ
+                </h3>
+                <div className="space-y-1">
+                  {alerts.filter(a => a.severity === 'CRITICAL' && !a.isAcknowledged).slice(0, 2).map((alert) => (
+                    <div
+                      key={alert.id}
+                      className="flex items-center justify-between text-sm"
+                    >
+                      <span className="text-destructive">
+                        {alert.partName}: {alert.message}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {new Date(alert.createdAt).toLocaleTimeString('th-TH', {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                {criticalAlertsCount > 2 && (
+                  <Link to="/inventory/alerts">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="mt-2 h-auto p-0 text-xs text-destructive hover:text-destructive"
+                    >
+                      ดูทั้งหมด ({criticalAlertsCount} รายการ)
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Traditional Alert Banner */}
         {activeAlerts.length > 0 && (
           <div className="card-elevated rounded-xl p-4 border-l-4 border-l-warning bg-warning/5">
             <div className="flex items-start gap-3">
               <Bell className="h-5 w-5 text-warning shrink-0 mt-0.5" />
               <div className="flex-1">
                 <h3 className="font-medium text-warning mb-2">
-                  การแจ้งเตือนสำคัญ
+                  การแจ้งเตือนทั่วไป
                 </h3>
                 <div className="space-y-1">
                   {activeAlerts.slice(0, 2).map((alert, index) => (
@@ -530,6 +587,104 @@ export function Dashboard() {
             </div>
           </div>
         </div>
+
+        {/* Stock Alerts Section */}
+        {alerts.length > 0 && (
+          <div className="card-elevated rounded-xl">
+            <div className="p-4 sm:p-6 border-b bg-gradient-to-r from-warning/5 to-transparent">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg sm:text-xl font-semibold">
+                  การแจ้งเตือนสต็อก
+                </h2>
+                <Link to="/inventory/alerts">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs sm:text-sm"
+                  >
+                    ดูทั้งหมด
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="p-4 sm:p-6">
+              <StockAlerts
+                alerts={alerts.slice(0, 3)}
+                recommendations={recommendations.slice(0, 3)}
+                onAcknowledgeAlert={acknowledgeAlert}
+                onCreateOrder={createPurchaseOrder}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Reorder Recommendations */}
+        {recommendations.length > 0 && (
+          <div className="card-elevated rounded-xl">
+            <div className="p-4 sm:p-6 border-b bg-gradient-to-r from-blue-50 to-transparent">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg sm:text-xl font-semibold">
+                  คำแนะนำการสั่งซื้อ
+                </h2>
+                <Link to="/inventory/reorder">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs sm:text-sm"
+                  >
+                    ดูทั้งหมด
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="p-4 sm:p-6 space-y-3">
+              {recommendations.slice(0, 5).map((rec) => (
+                <div
+                  key={rec.id}
+                  className="flex items-center justify-between p-3 bg-muted/30 rounded-lg"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="font-medium text-sm">{rec.partName}</h4>
+                      <Badge
+                        variant={
+                          rec.urgency === 'IMMEDIATE' ? 'destructive' :
+                          rec.urgency === 'HIGH' ? 'default' :
+                          rec.urgency === 'MEDIUM' ? 'secondary' : 'outline'
+                        }
+                        className="text-xs"
+                      >
+                        {rec.urgency === 'IMMEDIATE' ? 'ด่วนมาก' :
+                         rec.urgency === 'HIGH' ? 'ด่วน' :
+                         rec.urgency === 'MEDIUM' ? 'ปานกลาง' : 'ต่ำ'}
+                      </Badge>
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {rec.partNumber} • สต็อก: {rec.currentStock} • แนะนำ: {rec.recommendedQuantity}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      {rec.reasoning}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Link to={`/parts/${rec.partId}`}>
+                      <Button variant="outline" size="sm">
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <Button
+                      size="sm"
+                      onClick={() => createPurchaseOrder(rec.partId, rec.recommendedQuantity)}
+                    >
+                      <ShoppingCart className="h-4 w-4 mr-1" />
+                      สั่งซื้อ
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

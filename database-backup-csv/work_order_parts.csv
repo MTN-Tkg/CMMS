@@ -1,0 +1,6 @@
+id,work_order_id,part_id,quantity_used
+WOP-002,WO-2025-002,P-002,1
+WOP-003,WO-2025-002,P-004,2
+wop1,wo1,part1,1
+wop2,wo3,part2,2
+wop3,wo2,part5,1
