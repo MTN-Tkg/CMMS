@@ -1,0 +1,431 @@
+id,pm_template_id,step_number,task_description,expected_input_type,standard_text_expected,standard_min_value,standard_max_value,is_critical,remarks
+PMTD-CTC-CP-HD-3MTH-01,PMT-CTC-SYS013-EQ006-3MTH,1,ตรวจเช็คระบบจ่ายน้ำและวาล์ว,Text,ปกติ,,,true,
+PMTD-CTC-CP-HD-3MTH-02,PMT-CTC-SYS013-EQ006-3MTH,2,ตรวจสอบสภาพโครงสร้างโดยรวม,Text,ปกติ,,,false,
+PMTD-CTC-CP-HD-MTH-01,PMT-CTC-SYS013-EQ006-MTH,1,ตรวจสอบการไหลของน้ำ (ทั่วถึงหรือไม่),Text,ทั่วถึง,,,false,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-CTC-CP-HD-MTH-02,PMT-CTC-SYS013-EQ006-MTH,2,ตรวจสอบคราบสกปรก/ตะไคร่น้ำ,Text,ไม่มี,,,false,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-CTC-CP-HD-MTH-03,PMT-CTC-SYS013-EQ006-MTH,3,ตรวจสอบกลิ่นผิดปกติ,Text,ไม่มี,,,false,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-CTC-EO-CM-3MTH-01,PMT-CTC-SYS016-EQ037-3MTH,1,ตรวจสอบสภาพของเต้ารับ,Text,"ปกติ (ไม่มีรอยไหม้, การแตกร้าว)",,,false,
+PMTD-CTC-EO-CM-3MTH-02,PMT-CTC-SYS016-EQ037-3MTH,2,ตรวจสอบความแน่นของเต้ารับกับผนัง/บล็อก,Text,แน่นหนา,,,false,
+PMTD-CTC-LP-CM-3MTH-01,PMT-CTC-SYS015-EQ036-3MTH,1,ทำความสะอาดตู้,Text,สะอาด,,,false,
+PMTD-CTC-LP-CM-3MTH-02,PMT-CTC-SYS015-EQ036-3MTH,2,ตรวจสอบมิเตอร์และหลอดไฟแสดงสถานะ,Text,ปกติ,,,false,
+PMTD-CTC-LP-CM-3MTH-03,PMT-CTC-SYS015-EQ036-3MTH,3,ตรวจสอบเบรกเกอร์ (MCB) แต่ละตัว,Text,สภาพดีและทำงานปกติ,,,true,
+PMTD-CTC-LP-CM-6MTH-01,PMT-CTC-SYS015-EQ036-6MTH,1,ตรวจสอบจุดร้อน (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,หากมีอุปกรณ์
+PMTD-CTC-LP-CM-6MTH-02,PMT-CTC-SYS015-EQ036-6MTH,2,ขันแน่นจุดเชื่อมต่อสายไฟภายในตู้,Text,แน่นหนา,,,true,
+PMTD-CTC-LP-HD-3MTH-01,PMT-CTC-SYS014-EQ034-3MTH,1,วัดโหลดกระแสไฟฟ้าของวงจรหลัก,Number,,,,true,
+PMTD-CTC-LP-HD-3MTH-02,PMT-CTC-SYS014-EQ034-3MTH,2,ตรวจสอบจุดร้อน (PdM) ด้วย Thermal Camera,Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-CTC-LP-HD-3MTH-03,PMT-CTC-SYS014-EQ034-3MTH,3,ขันแน่นจุดเชื่อมต่อสายไฟภายในตู้,Text,แน่นหนา,,,true,
+PMTD-CTC-LP-HD-MTH-01,PMT-CTC-SYS014-EQ034-MTH,1,ตรวจสอบความสะอาดภายนอกตู้,Text,สะอาด,,,false,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-CTC-LP-HD-MTH-02,PMT-CTC-SYS014-EQ034-MTH,2,ตรวจสอบหลอดไฟแสดงสถานะ,Text,ติดปกติ,,,false,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-CTC-LP-HD-MTH-03,PMT-CTC-SYS014-EQ034-MTH,3,ตรวจสอบเสียงหรือกลิ่นผิดปกติ,Text,ไม่มี,,,true,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-CTC-LS-CM-3MTH-01,PMT-CTC-SYS017-EQ038-3MTH,1,ตรวจสอบการทำงานของหลอดไฟแต่ละจุด,Text,ปกติ,,,false,
+PMTD-CTC-LS-CM-3MTH-02,PMT-CTC-SYS017-EQ038-3MTH,2,เปลี่ยนหลอดไฟที่ชำรุดหรือเสื่อมสภาพ,Text,เสร็จสมบูรณ์,,,false,
+PMTD-CTC-LS-CM-3MTH-03,PMT-CTC-SYS017-EQ038-3MTH,3,ตรวจสอบสภาพสวิตช์ไฟ,Text,ปกติ,,,false,
+PMTD-CTC-TRFM-CM-YR-01,PMT-CTC-SYS034-EQ035-YR,1,ตรวจเช็คหม้อแปลง,Text,เสร็จสมบูรณ์,,,true,โดยช่างจากการไฟฟ้า (สำหรับออฟฟิศเชียงใหม่)
+PMTD-CTC-TRFM-HD-YR-01,PMT-CTC-SYS014-EQ035-YR,1,ตรวจเช็คหม้อแปลง,Text,เสร็จสมบูรณ์,,,true,โดยช่างจากการไฟฟ้า
+PMTD-CTC-TRFM-YR-01,PMT-CTC-SYS034-EQ035-YR,1,บำรุงรักษาใหญ่,Text,เสร็จสมบูรณ์,,,true,โดยผู้เชี่ยวชาญ
+PMTD-CTC-VS-HD-3MTH-01,PMT-CTC-SYS013-EQ033-3MTH,1,ตรวจสอบจุดยึดและสกรู,Text,แน่นหนา,,,true,
+PMTD-CTC-VS-HD-3MTH-02,PMT-CTC-SYS013-EQ033-3MTH,2,ตรวจวัดกระแสไฟฟ้ามอเตอร์,Number,,,,true,
+PMTD-CTC-VS-HD-3MTH-03,PMT-CTC-SYS013-EQ033-3MTH,3,ตรวจสอบจุดร้อน (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-CTC-VS-HD-MTH-01,PMT-CTC-SYS013-EQ033-MTH,1,ตรวจสอบการทำงาน (เปิด-ปิดปกติ),Text,ปกติ,,,false,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-CTC-VS-HD-MTH-02,PMT-CTC-SYS013-EQ033-MTH,2,ตรวจสอบเสียงผิดปกติ,Text,ไม่มี,,,false,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-CTC-VS-HD-MTH-03,PMT-CTC-SYS013-EQ033-MTH,3,ตรวจสอบความสะอาดโดยรวม,Text,สะอาด,,,false,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-CTC-VS-HD-MTH-04,PMT-CTC-SYS013-EQ033-MTH,4,ตรวจสอบการสั่นสะเทือนผิดปกติ,Text,ไม่มี,,,false,ทำใบ Checklist ให้พนักงานตรวจสอบ
+PMTD-LAK-AC-3MTH-01,PMT-LAK-SYS007-EQ020-3MTH,1,ตรวจสอบระบบไฟฟ้า,Text,ปกติ,,,true,
+PMTD-LAK-AC-3MTH-02,PMT-LAK-SYS007-EQ020-3MTH,2,วัดกระแสไฟฟ้ามอเตอร์,Number,,,,true,Ampere
+PMTD-LAK-AC-6MTH-01,PMT-LAK-SYS007-EQ020-6MTH,1,เปลี่ยนถ่ายน้ำมันเครื่อง,Text,เสร็จสมบูรณ์,,,true,
+PMTD-LAK-AC-6MTH-02,PMT-LAK-SYS007-EQ020-6MTH,2,เปลี่ยนไส้กรองอากาศ,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-AC-MTH-01,PMT-LAK-SYS007-EQ020-MTH,1,ตรวจสอบระดับน้ำมัน,Text,ปกติ,,,true,
+PMTD-LAK-AC-MTH-02,PMT-LAK-SYS007-EQ020-MTH,2,ตรวจสอบไส้กรอง,Text,ปกติ / สะอาด,,,false,
+PMTD-LAK-AC-MTH-03,PMT-LAK-SYS007-EQ020-MTH,3,ตรวจสอบสายพาน (ความตึง/สึกหรอ),Text,ปกติ,,,false,
+PMTD-LAK-AC-MTH-04,PMT-LAK-SYS007-EQ020-MTH,4,ตรวจสอบ Pressure Switch,Text,ปกติ,,,true,
+PMTD-LAK-AC-MTH-05,PMT-LAK-SYS007-EQ020-MTH,5,ตรวจสอบการรั่วซึม (โดยละเอียด),Text,ไม่มี,,,true,
+PMTD-LAK-AC-WKLY-01,PMT-LAK-SYS007-EQ020-WKLY,1,ตรวจความสะอาด,Text,สะอาด,,,false,
+PMTD-LAK-AC-WKLY-02,PMT-LAK-SYS007-EQ020-WKLY,2,ตรวจสอบระดับน้ำมัน,Text,ปกติ,,,true,
+PMTD-LAK-AC-WKLY-03,PMT-LAK-SYS007-EQ020-WKLY,3,ตรวจสอบการรั่วซึม,Text,ไม่มี,,,true,
+PMTD-LAK-AC-WKLY-04,PMT-LAK-SYS007-EQ020-WKLY,4,ตรวจสอบสภาพสายพาน,Text,ปกติ,,,false,
+PMTD-LAK-AC-WKLY-05,PMT-LAK-SYS007-EQ020-WKLY,5,ตรวจสอบเสียง/สั่นสะเทือน,Text,ไม่มี,,,true,
+PMTD-LAK-AC-WKLY-06,PMT-LAK-SYS007-EQ020-WKLY,6,ทำความสะอาดกรอกอากาศ,Text,สะอาด,,,false,
+PMTD-LAK-AC-WKLY-07,PMT-LAK-SYS007-EQ020-WKLY,7,ถ่ายน้ำทิ้งในถังพักลม,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-CC-3MTH-01,PMT-LAK-SYS002-EQ004-3MTH,1,ทดสอบ Alarm Test,Text,ผ่าน,,,true,
+PMTD-LAK-CC-3MTH-02,PMT-LAK-SYS002-EQ004-3MTH,2,ตรวจสอบแบตเตอรี่สำรอง,Text,ปกติ,,,false,
+PMTD-LAK-CC-6MTH-01,PMT-LAK-SYS002-EQ004-6MTH,1,ตรวจสอบความแม่นยำของเซ็นเซอร์,Text,ปกติ,,,true,อาจต้องใช้เครื่องมือสอบเทียบ
+PMTD-LAK-CC-MTH-01,PMT-LAK-SYS002-EQ004-MTH,1,ทำความสะอาดเซ็นเซอร์และตัวเครื่อง,Text,สะอาด,,,false,
+PMTD-LAK-CC-MTH-02,PMT-LAK-SYS002-EQ004-MTH,2,บันทึกค่าอุณหภูมิ (T),Number,,,,true,ระบุ °C
+PMTD-LAK-CC-MTH-03,PMT-LAK-SYS002-EQ004-MTH,3,บันทึกค่าความชื้น (H),Number,,,,true,ระบุ %
+PMTD-LAK-CDS-MTH-01,PMT-LAK-SYS004-EQ011-MTH,1,ตรวจสอบสภาพ Dosing Pump (การรั่วซึม/การสั่น),Text,ปกติ / ไม่มีรั่วซึม,,,true,
+PMTD-LAK-CDS-MTH-02,PMT-LAK-SYS004-EQ011-MTH,2,ทำความสะอาดหัวฉีดคลอรีน,Text,สะอาด / ไม่มีการอุดตัน,,,false,ควรทำ 2 ครั้งต่อเดือน หากสามารถทำได้
+PMTD-LAK-CDS-MTH-03,PMT-LAK-SYS004-EQ011-MTH,3,ตรวจสอบสายดูด/สายจ่ายคลอรีน,Text,ปกติ (ไม่มีรอยแตก/รั่ว),,,false,
+PMTD-LAK-CDS-WKLY-01,PMT-LAK-SYS004-EQ011-WKLY,1,ทดสอบการเปิด-ปิดระบบจ่ายคลอรีน,Text,ทำงานปกติ,,,true,
+PMTD-LAK-CDS-WKLY-02,PMT-LAK-SYS004-EQ011-WKLY,2,ตรวจสอบสถานะการทำงานของปั๊มจ่ายคลอรีน,Text,ปกติ (ไม่มีเสียง/สั่นผิดปกติ),,,true,
+PMTD-LAK-CDS-WKLY-03,PMT-LAK-SYS004-EQ011-WKLY,3,ตรวจสอบการจ่ายคลอรีน (ด้วยสายตา/ทดสอบน้ำ),Text,จ่ายคลอรีนได้ปกติ,,,true,
+PMTD-LAK-CDS-WKLY-04,PMT-LAK-SYS004-EQ011-WKLY,4,ตรวจสอบระดับคลอรีนในถัง,Text,เพียงพอ / เติม,,,true,
+PMTD-LAK-CP-3MTH-01,PMT-LAK-SYS002-EQ006-3MTH,1,ตรวจเช็คระบบควบคุม (รับคำสั่งจาก Controller),Text,ปกติ,,,true,
+PMTD-LAK-CP-MTH-01,PMT-LAK-SYS002-EQ006-MTH,1,ตรวจสอบการทำงาน (ปั๊ม),Text,ปกติ,,,true,
+PMTD-LAK-CP-MTH-02,PMT-LAK-SYS002-EQ006-MTH,2,ตรวจสอบการทำงาน (ลูกลอย),Text,ปกติ,,,true,
+PMTD-LAK-CP-MTH-03,PMT-LAK-SYS002-EQ006-MTH,3,ตรวจสอบการทำงาน (เซ็นเซอร์),Text,ปกติ,,,true,
+PMTD-LAK-CP-MTH-04,PMT-LAK-SYS002-EQ006-MTH,4,ทำความสะอาดไส้กรองปั๊ม,Text,สะอาด,,,false,
+PMTD-LAK-CT-6MTH-01,PMT-LAK-SYS004-EQ013-6MTH,1,ตรวจสอบโครงสร้างภายนอก,Text,ปกติ,,,false,
+PMTD-LAK-CT-6MTH-02,PMT-LAK-SYS004-EQ013-6MTH,2,ตรวจสอบการทำงานของ Pressure Switch,Text,ปกติ,,,true,
+PMTD-LAK-CT-6MTH-03,PMT-LAK-SYS004-EQ013-6MTH,3,ตรวจสอบการทำงานของเกจ,Text,ปกติ,,,false,
+PMTD-LAK-CT-6MTH-04,PMT-LAK-SYS004-EQ013-6MTH,4,ตรวจสอบการทำงานของลูกลอย,Text,ปกติ,,,false,
+PMTD-LAK-DSS-3MTH-01,PMT-LAK-SYS008-EQ021-3MTH,1,อัดจาระบี,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-DSS-3MTH-02,PMT-LAK-SYS008-EQ021-3MTH,2,ตรวจสอบซีล,Text,ปกติ / ไม่มีรั่วซึม,,,true,
+PMTD-LAK-DSS-6MTH-01,PMT-LAK-SYS008-EQ021-6MTH,1,เปลี่ยนถ่ายน้ำมันเครื่องของปั๊ม,Text,เสร็จสมบูรณ์,,,true,
+PMTD-LAK-DSS-MTH-01,PMT-LAK-SYS008-EQ021-MTH,1,ตรวจสอบสภาพปั๊ม/มอเตอร์/สายพาน,Text,ปกติ,,,true,
+PMTD-LAK-DSS-MTH-02,PMT-LAK-SYS008-EQ021-MTH,2,ตรวจสอบการทำงานของวาล์ว/เกจ,Text,ปกติ,,,true,
+PMTD-LAK-DSS-MTH-03,PMT-LAK-SYS008-EQ021-MTH,3,ทำความสะอาดหัวสเปรย์ (โรงรถยนต์),Text,สะอาด,,,false,
+PMTD-LAK-DSS-MTH-04,PMT-LAK-SYS008-EQ021-MTH,4,ทำความสะอาดห้องอาบน้ำสเปรย์,Text,สะอาด,,,false,
+PMTD-LAK-DSS-MTH-05,PMT-LAK-SYS008-EQ021-MTH,5,ทำความสะอาดห้องสเปรย์หน้าป้อม,Text,สะอาด,,,false,
+PMTD-LAK-ECS-3MTH-01,PMT-LAK-SYS003-EQ009-3MTH,1,หยอดน้ำมันโซ่,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-ECS-3MTH-02,PMT-LAK-SYS003-EQ009-3MTH,2,ตรวจสอบระบบควบคุมอัตโนมัติ,Text,ปกติ,,,true,
+PMTD-LAK-ECS-6MTH-01,PMT-LAK-SYS003-EQ009-6MTH,1,อัดจาระบี,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-ECS-6MTH-02,PMT-LAK-SYS003-EQ009-6MTH,2,ตรวจระดับน้ำมันหล่อลื่น,Text,ปกติ,,,true,
+PMTD-LAK-ECS-MTH-01,PMT-LAK-SYS003-EQ009-MTH,1,ตรวจสอบความสะอาดสายพาน,Text,สะอาด,,,false,
+PMTD-LAK-ECS-MTH-02,PMT-LAK-SYS003-EQ009-MTH,2,ตรวจสอบการทำงานของสายพาน,Text,ปกติ,,,true,
+PMTD-LAK-ECS-MTH-03,PMT-LAK-SYS003-EQ009-MTH,3,ตรวจสอบการทำงานของมอเตอร์,Text,ปกติ,,,true,
+PMTD-LAK-ECS-MTH-04,PMT-LAK-SYS003-EQ009-MTH,4,ตรวจสอบการทำงานของเซ็นเซอร์,Text,ปกติ,,,true,
+PMTD-LAK-EGM-3MTH-01,PMT-LAK-SYS006-EQ018-3MTH,1,ตรวจสอบระบบไฟฟ้า/Load Cell,Text,ปกติ,,,true,
+PMTD-LAK-EGM-3MTH-02,PMT-LAK-SYS006-EQ018-3MTH,2,ตรวจความสะอาดลูกกลิ้ง,Text,สะอาด,,,false,
+PMTD-LAK-EGM-3MTH-03,PMT-LAK-SYS006-EQ018-3MTH,3,หล่อลื่นบางส่วน,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-EGM-6MTH-01,PMT-LAK-SYS006-EQ018-6MTH,1,หล่อลื่นจุดเข้าถึงยาก,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-EGM-6MTH-02,PMT-LAK-SYS006-EQ018-6MTH,2,ตรวจสอบจุดร้อน (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-LAK-EGM-MTH-01,PMT-LAK-SYS006-EQ018-MTH,1,ทำความสะอาดตู้ไฟฟ้า,Text,สะอาด,,,false,
+PMTD-LAK-EGM-MTH-02,PMT-LAK-SYS006-EQ018-MTH,2,ตรวจสอบ Bucket/ระบบลม,Text,ปกติ,,,true,
+PMTD-LAK-EGM-MTH-03,PMT-LAK-SYS006-EQ018-MTH,3,หล่อลื่น (โซ่/เฟืองพลาสติก),Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-EGM-YR-01,PMT-LAK-SYS006-EQ018-YR,1,ตรวจสอบและปรับตั้ง Timing Transfer,Text,เสร็จสมบูรณ์,,,true,Outsource
+PMTD-LAK-FS-3MTH-01,PMT-LAK-SYS003-EQ008-3MTH,1,หยอดน้ำมันโซ่,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-FS-3MTH-02,PMT-LAK-SYS003-EQ008-3MTH,2,ตรวจสอบระบบควบคุมอัตโนมัติ,Text,ปกติ,,,true,
+PMTD-LAK-FS-6MTH-01,PMT-LAK-SYS003-EQ008-6MTH,1,อัดจาระบีตามจุดที่กำหนด,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-FS-MTH-01,PMT-LAK-SYS003-EQ008-MTH,1,ตรวจสอบความสะอาด,Text,สะอาด,,,false,
+PMTD-LAK-FS-MTH-02,PMT-LAK-SYS003-EQ008-MTH,2,ตรวจสอบการทำงานของมอเตอร์,Text,ปกติ,,,true,
+PMTD-LAK-FS-MTH-03,PMT-LAK-SYS003-EQ008-MTH,3,ตรวจสอบการทำงานของเซ็นเซอร์,Text,ปกติ,,,true,
+PMTD-LAK-GEN-6MTH-01,PMT-LAK-SYS001-EQ001-6MTH,1,วัดค่าความต้านทานดิน,Number,,0,5,true,ค่าความต้านทานดิน (Ohm)
+PMTD-LAK-GEN-MTH-01,PMT-LAK-SYS001-EQ001-MTH,1,เวลาในการทดสอบ,Number,,,,true,ระบุเวลา (นาที)
+PMTD-LAK-GEN-MTH-02,PMT-LAK-SYS001-EQ001-MTH,2,บันทึกชั่วโมงการทำงานสะสม,Number,,,,true,จำนวนชั่วโมง
+PMTD-LAK-GEN-MTH-03,PMT-LAK-SYS001-EQ001-MTH,3,บันทึกจำนวนครั้งที่สตาร์ท,Number,,,,false,จำนวนครั้ง
+PMTD-LAK-GEN-MTH-04,PMT-LAK-SYS001-EQ001-MTH,4,เช็คแรงดันแบตเตอรี่,Number,,12,13.7,true,V
+PMTD-LAK-GEN-MTH-05,PMT-LAK-SYS001-EQ001-MTH,5,ความเร็วรอบ (RPM),Number,,,,true,ระบุ RPM
+PMTD-LAK-GEN-MTH-06,PMT-LAK-SYS001-EQ001-MTH,6,อุณหภูมิน้ำมันเครื่อง,Number,,,,true,ระบุ °C
+PMTD-LAK-GEN-MTH-07,PMT-LAK-SYS001-EQ001-MTH,7,แรงดันน้ำมันเครื่อง,Number,,,,true,ระบุ Bar/PSI
+PMTD-LAK-GEN-MTH-08,PMT-LAK-SYS001-EQ001-MTH,8,อุณหภูมิน้ำระบายความร้อน,Number,,,,true,ระบุ °C
+PMTD-LAK-GEN-MTH-09,PMT-LAK-SYS001-EQ001-MTH,9,บันทึกแรงดัน L-N (Volt),Number,,,,true,ระบุ Volt
+PMTD-LAK-GEN-MTH-10,PMT-LAK-SYS001-EQ001-MTH,10,บันทึกแรงดัน L-L (Volt),Number,,,,true,ระบุ Volt
+PMTD-LAK-GEN-MTH-11,PMT-LAK-SYS001-EQ001-MTH,11,ตรวจจุดร้อนสายไฟ (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-LAK-GEN-MTH-12,PMT-LAK-SYS001-EQ001-MTH,12,วัดแรงลมหลังหม้อน้ำ (PdM),Number,,,,false,ค่าแรงลม (CFM)
+PMTD-LAK-GEN-WKLY-01,PMT-LAK-SYS001-EQ001-WKLY,1,ตรวจความสะอาด,Text,สะอาด,,,false,
+PMTD-LAK-GEN-WKLY-02,PMT-LAK-SYS001-EQ001-WKLY,2,ตรวจเช็คระดับน้ำมันเครื่อง,Text,ปกติ,,,true,
+PMTD-LAK-GEN-WKLY-03,PMT-LAK-SYS001-EQ001-WKLY,3,ตรวจเช็คระดับน้ำหล่อเย็น,Text,ปกติ,,,true,
+PMTD-LAK-GEN-WKLY-04,PMT-LAK-SYS001-EQ001-WKLY,4,ตรวจเช็คระดับน้ำมันเชื้อเพลิง,Text,ปกติ,,,true,
+PMTD-LAK-GEN-WKLY-05,PMT-LAK-SYS001-EQ001-WKLY,5,ตรวจเช็คระดับน้ำกลั่นแบตเตอรี่ (ถ้ามี),Text,ปกติ,,,false,
+PMTD-LAK-GEN-WKLY-06,PMT-LAK-SYS001-EQ001-WKLY,6,ตรวจสอบการรั่วซึม,Text,ไม่มี,,,true,"น้ำมัน, น้ำ, เชื้อเพลิง"
+PMTD-LAK-GEN-WKLY-07,PMT-LAK-SYS001-EQ001-WKLY,7,ตรวจสอบสภาพและความตึงสายพาน,Text,ปกติ,,,false,
+PMTD-LAK-GEN-WKLY-08,PMT-LAK-SYS001-EQ001-WKLY,8,ตรวจสอบขั้วแบตเตอรี่,Text,แน่นหนา / สะอาด,,,false,"แน่นหนา, ไม่มีคราบขี้เกลือ"
+PMTD-LAK-GEN-WKLY-09,PMT-LAK-SYS001-EQ001-WKLY,9,ทดสอบเดินเครื่อง (No Load) 10 นาที,Text,ปกติ,,,true,
+PMTD-LAK-GEN-WKLY-10,PMT-LAK-SYS001-EQ001-WKLY,10,ตรวจสอบเสียงการทำงาน,Text,ปกติ,,,false,
+PMTD-LAK-GEN-WKLY-11,PMT-LAK-SYS001-EQ001-WKLY,11,ตรวจสอบการสั่นสะเทือน,Text,ปกติ,,,false,
+PMTD-LAK-GEN-WKLY-12,PMT-LAK-SYS001-EQ001-WKLY,12,ตรวจสอบแรงดันแบตเตอรี่,Number,,12,13.7,true,ค่าแรงดันแบตเตอรี่ (V)
+PMTD-LAK-GEN-YR-01,PMT-LAK-SYS001-EQ001-YR,1,"บำรุงรักษาใหญ่ (เปลี่ยนถ่ายน้ำมัน, ไส้กรอง)",Text,เสร็จสมบูรณ์,,,true,โดยผู้เชี่ยวชาญภายนอก
+PMTD-LAK-LS-3MTH-01,PMT-LAK-SYS002-EQ007-3MTH,1,ตรวจสอบระบบควบคุมแสงสว่าง (Timer / Dimmer),Text,ปกติ,,,false,
+PMTD-LAK-MB-3MTH-01,PMT-LAK-SYS003-EQ010-3MTH,1,หยอดน้ำมันโซ่,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-MB-3MTH-02,PMT-LAK-SYS003-EQ010-3MTH,2,ตรวจสอบระบบควบคุม,Text,ปกติ,,,true,
+PMTD-LAK-MB-6MTH-01,PMT-LAK-SYS003-EQ010-6MTH,1,อัดจาระบี,Text,เสร็จสมบูรณ์,,,false,
+PMTD-LAK-MB-6MTH-02,PMT-LAK-SYS003-EQ010-6MTH,2,ตรวจสอบสภาพลูกปืน/เฟือง/ลูกกลิ้ง,Text,ปกติ,,,true,
+PMTD-LAK-MB-MTH-01,PMT-LAK-SYS003-EQ010-MTH,1,ตรวจสอบการทำงานของสายพาน,Text,ปกติ,,,true,
+PMTD-LAK-MB-MTH-02,PMT-LAK-SYS003-EQ010-MTH,2,ตรวจสอบการทำงานของมอเตอร์,Text,ปกติ,,,true,
+PMTD-LAK-MDB-3MTH-01,PMT-LAK-SYS001-EQ002-3MTH,1,วัดโหลด,Number,,,,true,
+PMTD-LAK-MDB-3MTH-02,PMT-LAK-SYS001-EQ002-3MTH,2,ตรวจสอบสภาพ Capacitor Bank,Text,ปกติ,,,true,
+PMTD-LAK-MDB-3MTH-03,PMT-LAK-SYS001-EQ002-3MTH,3,ทำ PdM (ตรวจจุดร้อน),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-LAK-MDB-6MTH-01,PMT-LAK-SYS001-EQ002-6MTH,1,ขันแน่นจุดเชื่อมต่อสายไฟ,Text,แน่นหนา,,,true,
+PMTD-LAK-MDB-6MTH-02,PMT-LAK-SYS001-EQ002-6MTH,2,ตรวจวัดค่า Capacitor,Number,,,,true,
+PMTD-LAK-MDB-6MTH-03,PMT-LAK-SYS001-EQ002-6MTH,3,วัดค่าความต้านทานดิน,Number,,0,5,true,Ohm
+PMTD-LAK-MDB-MTH-01,PMT-LAK-SYS001-EQ002-MTH,1,ทำความสะอาดตู้,Text,สะอาด,,,false,
+PMTD-LAK-MDB-MTH-02,PMT-LAK-SYS001-EQ002-MTH,2,ตรวจสอบมิเตอร์/หลอดไฟสถานะ,Text,ปกติ,,,false,
+PMTD-LAK-MDB-MTH-03,PMT-LAK-SYS001-EQ002-MTH,3,ตรวจสอบเสียงการทำงานผิดปกติ,Text,ไม่มี,,,false,
+PMTD-LAK-MDB-MTH-04,PMT-LAK-SYS001-EQ002-MTH,4,ตรวจสอบกลิ่นไหม้/ผิดปกติ,Text,ไม่มี,,,true,
+PMTD-LAK-MDB-MTH-05,PMT-LAK-SYS001-EQ002-MTH,5,ตรวจสอบความร้อนผิดปกติ (สัมผัสภายนอก),Text,ไม่มี,,,true,
+PMTD-LAK-MDB-MTH-06,PMT-LAK-SYS001-EQ002-MTH,6,ตรวจสอบสภาพสายไฟและจุดเชื่อมต่อภายนอก,Text,ปกติ,,,false,สภาพฉนวนไม่มีรอยไหม้/แตก
+PMTD-LAK-MDB-MTH-07,PMT-LAK-SYS001-EQ002-MTH,7,ตรวจสอบการทำงานของเบรกเกอร์หลัก,Text,ปกติ (ไม่ Trip),,,true,ตรวจสอบด้วยสายตาว่าไม่มีการ Trip
+PMTD-LAK-MDB-YR-01,PMT-LAK-SYS001-EQ002-YR,1,"บำรุงรักษาใหญ่ (Trip Test, วัดค่าฉนวน)",Text,เสร็จสมบูรณ์,,,true,โดยผู้เชี่ยวชาญ
+PMTD-LAK-MWP-3MTH-01,PMT-LAK-SYS004-EQ012-3MTH,1,วัดกระแสมอเตอร์,Number,,,,true,
+PMTD-LAK-MWP-3MTH-02,PMT-LAK-SYS004-EQ012-3MTH,2,ตรวจสอบตู้ควบคุม,Text,ปกติ,,,true,
+PMTD-LAK-MWP-MTH-01,PMT-LAK-SYS004-EQ012-MTH,1,ตรวจสอบการทำงาน (เสียง/สั่น/ร้อน),Text,ปกติ,,,true,
+PMTD-LAK-MWP-MTH-02,PMT-LAK-SYS004-EQ012-MTH,2,ตรวจสอบ Flow Sensor/Alarm,Text,ปกติ,,,true,
+PMTD-LAK-TRFM-6MTH-01,PMT-LAK-SYS001-EQ003-6MTH,1,ตรวจสอบสายดิน,Text,ปกติ / แน่นหนา,,,true,
+PMTD-LAK-TRFM-6MTH-02,PMT-LAK-SYS001-EQ003-6MTH,2,วัดค่าความต้านทานดิน,Number,,0,5,true,Ohm
+PMTD-LAK-TRFM-MTH-01,PMT-LAK-SYS001-EQ003-MTH,1,ตรวจสี Silica Gel,Text,ปกติ,,,false,(สีน้ำเงิน)
+PMTD-LAK-TRFM-MTH-02,PMT-LAK-SYS001-EQ003-MTH,2,ตรวจอุณหภูมิหม้อแปลง,Number,,,,true,ระบุ °C
+PMTD-LAK-TRFM-YR-01,PMT-LAK-SYS001-EQ003-YR,1,บำรุงรักษาใหญ่,Text,เสร็จสมบูรณ์,,,true,โดยผู้เชี่ยวชาญ
+PMTD-LAK-VS-3MTH-01,PMT-LAK-SYS002-EQ005-3MTH,1,ทดสอบระบบควบคุม,Text,ปกติ,,,true,
+PMTD-LAK-VS-3MTH-02,PMT-LAK-SYS002-EQ005-3MTH,2,วัดกระแสมอเตอร์,Number,,,,true,
+PMTD-LAK-VS-3MTH-03,PMT-LAK-SYS002-EQ005-3MTH,3,ตรวจสอบจุดร้อน (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-LAK-VS-EGG-3MTH-01,PMT-LAK-SYS006-EQ019-3MTH,1,วัดกระแสมอเตอร์,Number,,,,true,
+PMTD-LAK-VS-EGG-3MTH-02,PMT-LAK-SYS006-EQ019-3MTH,2,ตรวจสอบจุดร้อน (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-LAK-VS-EGG-3MTH-03,PMT-LAK-SYS006-EQ019-3MTH,3,ตรวจสอบระบบควบคุม,Text,ปกติ,,,true,
+PMTD-LAK-VS-EGG-MTH-01,PMT-LAK-SYS006-EQ019-MTH,1,ตรวจสอบความสะอาด,Text,สะอาด,,,false,
+PMTD-LAK-VS-EGG-MTH-02,PMT-LAK-SYS006-EQ019-MTH,2,ตรวจสอบการทำงานของพัดลม,Text,ปกติ,,,true,
+PMTD-LAK-VS-EGG-MTH-03,PMT-LAK-SYS006-EQ019-MTH,3,ตรวจสอบการทำงานของปั๊มน้ำ,Text,ปกติ,,,true,
+PMTD-LAK-VS-MTH-01,PMT-LAK-SYS002-EQ005-MTH,1,ตรวจสอบความสะอาด,Text,สะอาด,,,false,
+PMTD-LAK-VS-MTH-02,PMT-LAK-SYS002-EQ005-MTH,2,ตรวจสอบสภาพโดยรวม,Text,ปกติ,,,false,
+PMTD-LAK-VS-MTH-03,PMT-LAK-SYS002-EQ005-MTH,3,ตรวจสอบการทำงาน (เสียง/สั่น),Text,ปกติ,,,true,
+PMTD-LAK-VS-MTH-04,PMT-LAK-SYS002-EQ005-MTH,4,ตรวจสอบความตึงสายพาน,Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-01-01,PMT-LAK-TKB-PRE-CHICKEN,1,"Climate Controller: ตรวจสอบการแสดงผลค่าอุณหภูมิ, ความชื้น, และเทอร์โมสตัส บนหน้าจอว่าถูกต้อง",Text,พร้อมใช้งาน,,,true,
+PMTD-PRE-CHICKEN-01-02,PMT-LAK-TKB-PRE-CHICKEN,2,Climate Controller: ตรวจสอบการทำงานของระบบเซ็นเซอร์ (Sensor) ทั้งหมด,Text,พร้อมใช้งาน,,,true,"เช่น เซ็นเซอร์อุณหภูมิ, เซ็นเซอร์ความชื้น"
+PMTD-PRE-CHICKEN-01-03,PMT-LAK-TKB-PRE-CHICKEN,3,Climate Controller: ทำความสะอาดเซ็นเซอร์และบริเวณโดยรอบ เพื่อให้การวัดค่าแม่นยำ,Text,สะอาด,,,false,
+PMTD-PRE-CHICKEN-01-04,PMT-LAK-TKB-PRE-CHICKEN,4,Ventilation Fans: ตรวจสอบการทำงานของพัดลมทุกตัว (เปิด-ปิดได้ปกติ),Text,พร้อมใช้งาน,,,true,
+PMTD-PRE-CHICKEN-01-05,PMT-LAK-TKB-PRE-CHICKEN,5,Ventilation Fans: ตรวจสอบโครงสร้างและสภาพโดยรวมของพัดลม (ไม่มีชิ้นส่วนเสียหาย/หลวม),Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-01-06,PMT-LAK-TKB-PRE-CHICKEN,6,Ventilation Fans: ฟังเสียงการทำงานของพัดลมว่าปกติหรือไม่ (ไม่มีเสียงดังผิดปกติ),Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-01-07,PMT-LAK-TKB-PRE-CHICKEN,7,Ventilation Fans: ตรวจสอบการสั่นสะเทือนของพัดลมผิดปกติหรือไม่,Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-01-08,PMT-LAK-TKB-PRE-CHICKEN,8,"Ventilation Fans: ตรวจสอบสภาพบานเกล็ดพัดลม (เปิด-ปิดปกติ, ไม่ติดขัด)",Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-01-09,PMT-LAK-TKB-PRE-CHICKEN,9,Ventilation Fans: ตรวจสอบความตึงของสายพาน (ถ้าเป็นพัดลมแบบสายพาน),Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-01-10,PMT-LAK-TKB-PRE-CHICKEN,10,"พัดลมกวนอากาศไก่รุ่น: ตรวจเช็คการทำงาน (การทำงาน, เสียง, การสั่นสะเทือน)",Text,ปกติ,,,false,ระบบนี้ไม่มีสายพาน
+PMTD-PRE-CHICKEN-01-11,PMT-LAK-TKB-PRE-CHICKEN,11,Ventilation Fans: เช็คการทำงานของระบบ By-pass ว่าทำงานปกติ,Text,พร้อมใช้งาน,,,true,
+PMTD-PRE-CHICKEN-01-12,PMT-LAK-TKB-PRE-CHICKEN,12,"Cooling Pad: ตรวจสอบการทำงานของมอเตอร์ปั๊มน้ำ (เสียงปกติ, สั่นสะเทือนปกติ)",Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-01-13,PMT-LAK-TKB-PRE-CHICKEN,13,Cooling Pad: ตรวจสอบกรองมอเตอร์ปั๊มน้ำว่าอุดตันหรือไม่,Text,ไม่อุดตัน,,,false,
+PMTD-PRE-CHICKEN-01-14,PMT-LAK-TKB-PRE-CHICKEN,14,Cooling Pad: ตรวจสอบการไหลของน้ำทั่วแผ่น Cooling Pad ว่าสม่ำเสมอหรือไม่,Text,สม่ำเสมอ,,,true,
+PMTD-PRE-CHICKEN-01-15,PMT-LAK-TKB-PRE-CHICKEN,15,Cooling Pad: ตรวจสอบมีจุดรั่วไหลของน้ำจากระบบ Cooling Pad หรือไม่,Text,ไม่มี,,,true,
+PMTD-PRE-CHICKEN-01-16,PMT-LAK-TKB-PRE-CHICKEN,16,Cooling Pad: ตรวจสอบระดับลูกลอยในอ่างน้ำว่าเหมาะสมและสมบูรณ์หรือไม่,Text,เหมาะสม/สมบูรณ์,,,true,
+PMTD-PRE-CHICKEN-01-17,PMT-LAK-TKB-PRE-CHICKEN,17,"Cooling Pad: ตรวจสอบความสะอาดของแผ่น Cooling Pad (ไม่มีตะไคร่น้ำ, ไม่มีสิ่งอุดตัน)",Text,สะอาด,,,false,
+PMTD-PRE-CHICKEN-01-18,PMT-LAK-TKB-PRE-CHICKEN,18,ระบบทำความร้อน (Heater): ทดสอบการทำงาน (ติด/ดับตามอุณหภูมิที่ตั้งค่า),Text,พร้อมใช้งาน,,,true,
+PMTD-PRE-CHICKEN-01-19,PMT-LAK-TKB-PRE-CHICKEN,19,ระบบทำความร้อน (Heater): เช็คจุดรั่วซึมของท่อแก๊ส/เชื้อเพลิง,Text,ไม่มี,,,true,
+PMTD-PRE-CHICKEN-01-20,PMT-LAK-TKB-PRE-CHICKEN,20,ระบบทำความร้อน (Heater): เช็ควาล์วและเรกูเรเตอร์ของระบบแก๊ส/เชื้อเพลิง,Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-01-21,PMT-LAK-TKB-PRE-CHICKEN,21,"ม่านอากาศ 3 ด้าน: ตรวจสอบการทำงาน (เปิด-ปิดสุดปกติ, ไม่มีสิ่งกีดขวาง)",Text,ปกติ,,,true,"ม่านหน้า, ซ้าย, ขวา"
+PMTD-PRE-CHICKEN-01-22,PMT-LAK-TKB-PRE-CHICKEN,22,"ม่านอากาศ 3 ด้าน: ตรวจสอบสภาพสายสลิงและรอก (ไม่เป็นสนิม, ไม่ชำรุด, ไม่หย่อนยาน)",Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-01-23,PMT-LAK-TKB-PRE-CHICKEN,23,"ม่านอากาศ 3 ด้าน: ตรวจสอบสภาพลูกปืนและมอเตอร์เกียร์ (ไม่มีเสียงดังผิดปกติ, ไม่มีอาการสั่น)",Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-01-24,PMT-LAK-TKB-PRE-CHICKEN,24,"ม่านอากาศ 3 ด้าน: ตรวจสอบการทำงานของมือหมุนปรับระดับม่านอากาศ (ทำงานปกติ, ไม่ติดขัด)",Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-02-01,PMT-LAK-TKB-PRE-CHICKEN,25,"ระบบให้อาหารอัตโนมัติ: สภาพถังไซโล (รอยแตกร้าว, การรั่วซึม, ความสะอาดภายนอก)",Text,ปกติ / สะอาด,,,true,
+PMTD-PRE-CHICKEN-02-02,PMT-LAK-TKB-PRE-CHICKEN,26,"ระบบให้อาหารอัตโนมัติ: ท่อลำเลียงอาหาร (รอยแตกร้าว, รอยรั่ว, การอุดตัน, เสียงและการสั่น)",Text,ปกติ,,,true,Auger/Chain
+PMTD-PRE-CHICKEN-02-03,PMT-LAK-TKB-PRE-CHICKEN,27,"ระบบให้อาหารอัตโนมัติ: มอเตอร์ขับเคลื่อน (การทำงาน, เสียง, การสั่น)",Text,ปกติ,,,true,Feeding Motor
+PMTD-PRE-CHICKEN-02-04,PMT-LAK-TKB-PRE-CHICKEN,28,"ระบบให้อาหารอัตโนมัติ: ระบบโซ่อาหาร/เครนเดินอาหาร (การทำงาน, เสียง, การสั่น, โซ่ไม่ติดขัด, ไม่เป็นสนิม)",Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-02-05,PMT-LAK-TKB-PRE-CHICKEN,29,ระบบให้อาหารอัตโนมัติ: น้ำมันเกียร์มอเตอร์ (ระดับน้ำมันเกียร์มอเตอร์ว่าอยู่ในระดับปกติ),Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-02-06,PMT-LAK-TKB-PRE-CHICKEN,30,"ระบบให้อาหารอัตโนมัติ: อัดจารบีจุดต่างๆ (ลูกปืน, รอก, จุดหมุน)",Text,เสร็จสมบูรณ์,,,false,
+PMTD-PRE-CHICKEN-02-07,PMT-LAK-TKB-PRE-CHICKEN,31,ระบบให้อาหารอัตโนมัติ: สายพานมอเตอร์ดึงอาหาร (ความตึงของสายพาน),Text,ปกติ,,,false,ทั้งตัวที่ดึงขึ้นไซโลและตัวที่ดึงจาก Auger เข้าโรงเรือน
+PMTD-PRE-CHICKEN-02-08,PMT-LAK-TKB-PRE-CHICKEN,32,ระบบให้อาหารอัตโนมัติ: Limit Switch/Sensor (การทำงาน),Text,ปกติ,,,true,จุดต่างๆ
+PMTD-PRE-CHICKEN-02-09,PMT-LAK-TKB-PRE-CHICKEN,33,ระบบให้น้ำอัตโนมัติ: ตรวจสอบการทำงานของระบบกรองน้ำและมิเตอร์น้ำ,Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-02-10,PMT-LAK-TKB-PRE-CHICKEN,34,ระบบให้น้ำอัตโนมัติ: ตรวจสอบจุดรั่วซึมต่างๆ ในระบบท่อน้ำ,Text,ไม่มี,,,true,
+PMTD-PRE-CHICKEN-02-11,PMT-LAK-TKB-PRE-CHICKEN,35,ระบบให้น้ำอัตโนมัติ: ตรวจสอบการทำงานของ Sensor น้ำไก่กิน,Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-03-01,PMT-LAK-TKB-PRE-CHICKEN,36,"ตู้ SMDB (ตู้เมนโรงเรือน): ตรวจสอบสภาพทั่วไป (ความสะอาด, เสียง/กลิ่นผิดปกติ, คราบเขม่า)",Text,ปกติ / สะอาด,,,true,
+PMTD-PRE-CHICKEN-03-02,PMT-LAK-TKB-PRE-CHICKEN,37,"ตู้ SMDB (ตู้เมนโรงเรือน): ตรวจสอบจุดต่อสายไฟ (สภาพสายเสื่อม, ร่องรอยหนูกัด, การเกิดออกไซด์)",Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-03-03,PMT-LAK-TKB-PRE-CHICKEN,38,"ตู้ SMDB (ตู้เมนโรงเรือน): ตรวจวัดค่า แรงดันไฟฟ้า, กระแสไฟฟ้า, อุณหภูมิ (PdM) ภายในตู้",Text,ปกติ,,,true,ส่องด้วย Thermal Camera
+PMTD-PRE-CHICKEN-03-04,PMT-LAK-TKB-PRE-CHICKEN,39,"ตู้ควบคุมพัดลม (Ventilation): ตรวจสอบสภาพทั่วไป (ความสะอาด, เสียง/กลิ่นผิดปกติ, คราบเขม่า)",Text,ปกติ / สะอาด,,,true,
+PMTD-PRE-CHICKEN-03-05,PMT-LAK-TKB-PRE-CHICKEN,40,"ตู้ควบคุมพัดลม (Ventilation): ตรวจสอบจุดต่อสายไฟ (สภาพสายเสื่อม, ร่องรอยหนูกัด, การเกิดออกไซด์)",Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-03-06,PMT-LAK-TKB-PRE-CHICKEN,41,"ตู้ควบคุมพัดลม (Ventilation): ตรวจวัดค่า แรงดันไฟฟ้า, กระแสไฟฟ้ามอเตอร์แต่ละตัว, อุณหภูมิ (PdM) ภายในตู้และที่มอเตอร์",Text,ปกติ,,,true,ส่องด้วย Thermal Camera
+PMTD-PRE-CHICKEN-03-07,PMT-LAK-TKB-PRE-CHICKEN,42,"ตู้ควบคุม Production: ตรวจสอบสภาพทั่วไป (ความสะอาด, เสียง/กลิ่นผิดปกติ, คราบเขม่า)",Text,ปกติ / สะอาด,,,true,"ครอบคลุมระบบอาหาร, แสงสว่าง, เซ็นเซอร์สภาพอากาศ Viper, Cooling Pad, สายพานลำเลียงลิฟท์ไข่, การแจ้งเตือนต่างๆ"
+PMTD-PRE-CHICKEN-03-08,PMT-LAK-TKB-PRE-CHICKEN,43,"ตู้ควบคุม Production: ตรวจสอบจุดต่อสายไฟ (สภาพสายเสื่อม, ร่องรอยหนูกัด, การเกิดออกไซด์)",Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-03-09,PMT-LAK-TKB-PRE-CHICKEN,44,"ตู้ควบคุม Production: ตรวจวัดค่า แรงดันไฟฟ้า, กระแสไฟฟ้ามอเตอร์ของระบบอาหาร/แสงสว่าง/Cooling Pad/ลิฟท์ไข่/อุปกรณ์อื่นๆ ที่เกี่ยวข้องกับการผลิต, อุณหภูมิ (PdM)",Text,ปกติ,,,true,ส่องด้วย Thermal Camera
+PMTD-PRE-CHICKEN-03-10,PMT-LAK-TKB-PRE-CHICKEN,45,"ตู้ควบคุม Production: ตรวจสอบระบบไฟฟ้าสำรอง (UPS) (การทำงาน, แบตเตอรี่, สถานะไฟ)",Text,พร้อมใช้งาน,,,true,"ทำงานปกติ, พร้อมใช้งานเมื่อไฟดับ"
+PMTD-PRE-CHICKEN-03-11,PMT-LAK-TKB-PRE-CHICKEN,46,"ตู้ควบคุมสายพานมูลไก่: ตรวจสอบสภาพทั่วไป (ความสะอาด, เสียง/กลิ่นผิดปกติ, คราบเขม่า)",Text,ปกติ / สะอาด,,,false,
+PMTD-PRE-CHICKEN-03-12,PMT-LAK-TKB-PRE-CHICKEN,47,"ตู้ควบคุมสายพานมูลไก่: ตรวจสอบจุดต่อสายไฟ (สภาพสายเสื่อม, ร่องรอยหนูกัด, การเกิดออกไซด์)",Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-03-13,PMT-LAK-TKB-PRE-CHICKEN,48,"ตู้ควบคุมสายพานมูลไก่: ตรวจวัดค่า แรงดันไฟฟ้า, กระแสไฟฟ้ามอเตอร์สายพานมูลไก่, อุณหภูมิ (PdM)",Text,ปกติ,,,false,ส่องด้วย Thermal Camera
+PMTD-PRE-CHICKEN-03-14,PMT-LAK-TKB-PRE-CHICKEN,49,"หลอดไฟ/ระบบแสงสว่าง: ตรวจสอบหลอดไฟทุกดวง (ติดปกติ), ระบบ Timer/Dimmer (ทำงานตามที่ตั้งค่าไว้)",Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-03-15,PMT-LAK-TKB-PRE-CHICKEN,50,"หลอดไฟ/ระบบแสงสว่าง: ตรวจสอบขั้วต่อและสายไฟของหลอดไฟทุกดวง (สภาพ, เทปดำเสื่อมสภาพ, ร่องรอยชำรุด)",Text,ปกติ,,,true,เพื่อป้องกันความเสี่ยง
+PMTD-PRE-CHICKEN-04-01,PMT-LAK-TKB-PRE-CHICKEN,51,"ระบบสายพานลำเลียงไข่ (ภาพรวม): ตรวจสอบสภาพทั่วไป (ไม่มีรอยแตก, ไม่ขาด), ความสะอาดของราง/สายพาน, เสียงการทำงาน",Text,ปกติ / สะอาด,,,true,
+PMTD-PRE-CHICKEN-04-02,PMT-LAK-TKB-PRE-CHICKEN,52,"มอเตอร์เกียร์ (ทุกจุด): ตรวจสอบการทำงาน (เปิด-ปิด, เสียง, การสั่น), ตรวจเช็คระดับน้ำมันเกียร์",Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-04-03,PMT-LAK-TKB-PRE-CHICKEN,53,"ลูกปืน (ทุกจุด): ตรวจสอบเสียงผิดปกติ, การสั่นสะเทือน, และอัดจารบีตามจุดที่กำหนด",Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-04-04,PMT-LAK-TKB-PRE-CHICKEN,54,"โซ่ลำเลียง (Chain): ตรวจสอบความตึงของโซ่, สภาพข้อโซ่ (ไม่มีสนิม, ไม่บิดงอ), และหยอดน้ำมันโซ่",Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-04-05,PMT-LAK-TKB-PRE-CHICKEN,55,"ลิฟท์ไข่ในโรงเรือน (Egg Lift): ตรวจสอบการทำงาน (ขึ้น-ลงปกติ, ไม่มีเสียงดังผิดปกติ), สภาพสายสลิง/โซ่, ระบบความปลอดภัย, สภาพแมคคานิค, แผงมือจับไข่",Text,ปกติ / พร้อมใช้งาน,,,true,"ความตึงหย่อน, เบี้ยว, บุบ, งอ"
+PMTD-PRE-CHICKEN-04-06,PMT-LAK-TKB-PRE-CHICKEN,56,"คอนเวเยอร์รอง (Secondary Conveyor): ตรวจสอบการทำงาน (การลำเลียงไข่ราบรื่น), สภาพสายพาน/ราง (ความตึงหย่อน), จุดเชื่อมต่อ",Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-04-07,PMT-LAK-TKB-PRE-CHICKEN,57,"กระปุกหยอดน้ำมันอัตโนมัติ: ตรวจสอบระดับน้ำมันในกระปุก, การทำงานของระบบหยอดน้ำมัน (หยดปกติ, ไม่มีการอุดตัน), ทำความสะอาดหัวจ่าย",Text,ปกติ / พร้อมใช้งาน,,,false,
+PMTD-PRE-CHICKEN-05-01,PMT-LAK-TKB-PRE-CHICKEN,58,"Manure Removal Belt: ตรวจสอบสภาพทั่วไปของสายพาน (รอยแตก, การฉีกขาด), ความตึงของสายพาน, และความสะอาด",Text,ปกติ / สะอาด,,,true,
+PMTD-PRE-CHICKEN-05-02,PMT-LAK-TKB-PRE-CHICKEN,59,"Manure Removal Belt: ตรวจสอบการทำงานของ Scrapers ทั้งหมด (ทำความสะอาดสายพานได้ดี, ไม่มีสิ่งอุดตัน)",Text,ปกติ,,,true,ตัวกวาดมูล
+PMTD-PRE-CHICKEN-05-03,PMT-LAK-TKB-PRE-CHICKEN,60,"มอเตอร์เกียร์ (ทุกจุด): ตรวจสอบการทำงาน (เปิด-ปิด, เสียง, การสั่น), ตรวจเช็คระดับน้ำมันเกียร์",Text,ปกติ,,,true,
+PMTD-PRE-CHICKEN-05-04,PMT-LAK-TKB-PRE-CHICKEN,61,"ลูกปืน (ทุกจุด): ตรวจสอบเสียงผิดปกติ, การสั่นสะเทือน, และอัดจารบีตามจุดที่กำหนด",Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-05-05,PMT-LAK-TKB-PRE-CHICKEN,62,"โซ่/Roller/เฟือง (ทุกจุด): ตรวจสอบความตึงของโซ่, สภาพข้อโซ่/Roller/เฟือง (ไม่มีสนิม, ไม่บิดงอ, ไม่สึกหรอ), และหยอดน้ำมัน/อัดจารบี",Text,ปกติ,,,false,
+PMTD-PRE-CHICKEN-06-01,PMT-LAK-TKB-PRE-CHICKEN,63,ทดสอบการทำงานของระบบแสงสว่างทั้งโรงเรือน (รวมถึง Timer/Dimmer และการควบคุมอัตโนมัติ),Text,ทำงานปกติ / ครอบคลุมพื้นที่,,,true,
+PMTD-PRE-CHICKEN-06-02,PMT-LAK-TKB-PRE-CHICKEN,64,ทดสอบการทำงานของระบบควบคุมสภาพอากาศทั้งหมด (เปิด-ปิดพัดลม/Cooling Pad/Heater),Text,ทำงานสัมพันธ์กัน / ตอบสนองตามตั้งค่า,,,true,
+PMTD-PRE-CHICKEN-06-03,PMT-LAK-TKB-PRE-CHICKEN,65,ทดสอบการทำงานของระบบให้อาหารอัตโนมัติทั้งหมด (เริ่มตั้งแต่ไซโลจนถึงรางอาหาร),Text,ทำงานปกติ / ไม่มีสิ่งอุดตัน,,,true,
+PMTD-PRE-CHICKEN-06-04,PMT-LAK-TKB-PRE-CHICKEN,66,ทดสอบการทำงานของระบบให้น้ำอัตโนมัติทั้งหมด (ตั้งแต่ระบบกรองน้ำจนถึงหัวนมให้น้ำ),Text,ทำงานปกติ / ไม่มีจุดรั่วซึม,,,true,
+PMTD-PRE-CHICKEN-06-05,PMT-LAK-TKB-PRE-CHICKEN,67,"ทดสอบการทำงานของระบบม่านอากาศทั้งหมด (เปิด-ปิด, การเคลื่อนที่)",Text,ทำงานสมบูรณ์,,,true,
+PMTD-PRE-CHICKEN-06-06,PMT-LAK-TKB-PRE-CHICKEN,68,ทดสอบการทำงานของระบบสายพานลำเลียงไข่ทั้งหมด (ตั้งแต่จุดเริ่มต้นถึงคอนเวเยอร์รอง),Text,ทำงานราบรื่น / ไม่มีสิ่งติดขัด,,,true,
+PMTD-PRE-CHICKEN-06-07,PMT-LAK-TKB-PRE-CHICKEN,69,"ทดสอบการทำงานของระบบจัดการมูลสัตว์ทั้งหมด (สายพานมูลไก่, สายพานลำเลียงมูลขวาง)",Text,กำจัดมูลได้อย่างมีประสิทธิภาพ,,,true,
+PMTD-PRE-CHICKEN-06-08,PMT-LAK-TKB-PRE-CHICKEN,70,ตรวจสอบและทดสอบการทำงานของระบบอื่นๆ ที่จำเป็นต้องใช้งานก่อนรับไก่,Text,ทำงานปกติ / พร้อมใช้งาน,,,true,หากมี
+PMTD-SA-GEN-6MTH-01,PMT-SA-SYSNULL-EQ001-6MTH,1,วัดค่าความต้านทานดิน,Number,,0,5,true,ค่าความต้านทานดิน (Ohm)
+PMTD-SA-GEN-MTH-01,PMT-SA-SYSNULL-EQ001-MTH,1,เวลาในการทดสอบ,Number,,,,true,ระบุเวลา (นาที)
+PMTD-SA-GEN-MTH-02,PMT-SA-SYSNULL-EQ001-MTH,2,บันทึกชั่วโมงการทำงานสะสม,Number,,,,true,จำนวนชั่วโมง
+PMTD-SA-GEN-MTH-03,PMT-SA-SYSNULL-EQ001-MTH,3,บันทึกจำนวนครั้งที่สตาร์ท,Number,,,,false,จำนวนครั้ง
+PMTD-SA-GEN-MTH-04,PMT-SA-SYSNULL-EQ001-MTH,4,เช็คแรงดันแบตเตอรี่,Number,,12,13.7,true,V
+PMTD-SA-GEN-MTH-05,PMT-SA-SYSNULL-EQ001-MTH,5,ความเร็วรอบ (RPM),Number,,,,true,ระบุ RPM
+PMTD-SA-GEN-MTH-06,PMT-SA-SYSNULL-EQ001-MTH,6,อุณหภูมิน้ำมันเครื่อง,Number,,,,true,ระบุ °C
+PMTD-SA-GEN-MTH-07,PMT-SA-SYSNULL-EQ001-MTH,7,แรงดันน้ำมันเครื่อง,Number,,,,true,ระบุ Bar/PSI
+PMTD-SA-GEN-MTH-08,PMT-SA-SYSNULL-EQ001-MTH,8,อุณหภูมิน้ำระบายความร้อน,Number,,,,true,ระบุ °C
+PMTD-SA-GEN-MTH-09,PMT-SA-SYSNULL-EQ001-MTH,9,บันทึกแรงดัน L-N (Volt),Number,,,,true,ระบุ Volt
+PMTD-SA-GEN-MTH-10,PMT-SA-SYSNULL-EQ001-MTH,10,บันทึกแรงดัน L-L (Volt),Number,,,,true,ระบุ Volt
+PMTD-SA-GEN-MTH-11,PMT-SA-SYSNULL-EQ001-MTH,11,ตรวจจุดร้อนสายไฟ (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-SA-GEN-MTH-12,PMT-SA-SYSNULL-EQ001-MTH,12,วัดแรงลมหลังหม้อน้ำ (PdM),Number,,,,false,ค่าแรงลม (CFM)
+PMTD-SA-GEN-WKLY-01,PMT-SA-SYSNULL-EQ001-WKLY,1,ตรวจความสะอาด,Text,สะอาด,,,false,
+PMTD-SA-GEN-WKLY-02,PMT-SA-SYSNULL-EQ001-WKLY,2,ตรวจเช็คระดับน้ำมันเครื่อง,Text,ปกติ,,,true,
+PMTD-SA-GEN-WKLY-03,PMT-SA-SYSNULL-EQ001-WKLY,3,ตรวจเช็คระดับน้ำหล่อเย็น,Text,ปกติ,,,true,
+PMTD-SA-GEN-WKLY-04,PMT-SA-SYSNULL-EQ001-WKLY,4,ตรวจเช็คระดับน้ำมันเชื้อเพลิง,Text,ปกติ,,,true,
+PMTD-SA-GEN-WKLY-05,PMT-SA-SYSNULL-EQ001-WKLY,5,ตรวจเช็คระดับน้ำกลั่นแบตเตอรี่ (ถ้ามี),Text,ปกติ,,,false,
+PMTD-SA-GEN-WKLY-06,PMT-SA-SYSNULL-EQ001-WKLY,6,ตรวจสอบการรั่วซึม,Text,ไม่มี,,,true,"น้ำมัน, น้ำ, เชื้อเพลิง"
+PMTD-SA-GEN-WKLY-07,PMT-SA-SYSNULL-EQ001-WKLY,7,ตรวจสอบสภาพและความตึงสายพาน,Text,ปกติ,,,false,
+PMTD-SA-GEN-WKLY-08,PMT-SA-SYSNULL-EQ001-WKLY,8,ตรวจสอบขั้วแบตเตอรี่,Text,แน่นหนา / สะอาด,,,false,"แน่นหนา, ไม่มีคราบขี้เกลือ"
+PMTD-SA-GEN-WKLY-09,PMT-SA-SYSNULL-EQ001-WKLY,9,ทดสอบเดินเครื่อง (No Load) 10 นาที,Text,ปกติ,,,true,
+PMTD-SA-GEN-WKLY-10,PMT-SA-SYSNULL-EQ001-WKLY,10,ตรวจสอบเสียงการทำงาน,Text,ปกติ,,,false,
+PMTD-SA-GEN-WKLY-11,PMT-SA-SYSNULL-EQ001-WKLY,11,ตรวจสอบการสั่นสะเทือน,Text,ปกติ,,,false,
+PMTD-SA-GEN-WKLY-12,PMT-SA-SYSNULL-EQ001-WKLY,12,ตรวจสอบแรงดันแบตเตอรี่,Number,,12,13.7,true,ค่าแรงดันแบตเตอรี่ (V)
+PMTD-SA-GEN-YR-01,PMT-SA-SYSNULL-EQ001-YR,1,"บำรุงรักษาใหญ่ (เปลี่ยนถ่ายน้ำมัน, ไส้กรอง)",Text,เสร็จสมบูรณ์,,,true,โดยผู้เชี่ยวชาญภายนอก
+PMTD-SM-AC-SM-3MTH-01,PMT-SM-SYS029-EQ020-3MTH,1,ตรวจสอบระดับน้ำมัน,Text,ปกติ,,,true,
+PMTD-SM-AC-SM-3MTH-02,PMT-SM-SYS029-EQ020-3MTH,2,ตรวจสอบไส้กรอง,Text,ปกติ / สะอาด,,,false,
+PMTD-SM-AC-SM-3MTH-03,PMT-SM-SYS029-EQ020-3MTH,3,ตรวจสอบสายพาน (ความตึง/สึกหรอ),Text,ปกติ,,,false,
+PMTD-SM-AC-SM-3MTH-04,PMT-SM-SYS029-EQ020-3MTH,4,ตรวจสอบ Pressure Switch,Text,ปกติ,,,true,
+PMTD-SM-AC-SM-3MTH-05,PMT-SM-SYS029-EQ020-3MTH,5,ตรวจสอบการรั่วซึม (โดยละเอียด),Text,ไม่มี,,,true,
+PMTD-SM-AC-SM-6MTH-01,PMT-SM-SYS029-EQ020-6MTH,1,ตรวจสอบระบบไฟฟ้า,Text,ปกติ,,,true,
+PMTD-SM-AC-SM-6MTH-02,PMT-SM-SYS029-EQ020-6MTH,2,วัดกระแสไฟฟ้ามอเตอร์,Number,,,,true,Ampere
+PMTD-SM-AC-SM-6MTH-03,PMT-SM-SYS029-EQ020-6MTH,3,เปลี่ยนถ่ายน้ำมันเครื่อง,Text,เสร็จสมบูรณ์,,,true,
+PMTD-SM-AC-SM-6MTH-04,PMT-SM-SYS029-EQ020-6MTH,4,เปลี่ยนไส้กรองอากาศ,Text,เสร็จสมบูรณ์,,,false,
+PMTD-SM-AC-SM-MTH-01,PMT-SM-SYS029-EQ020-MTH,1,ตรวจความสะอาด,Text,สะอาด,,,false,
+PMTD-SM-AC-SM-MTH-02,PMT-SM-SYS029-EQ020-MTH,2,ตรวจสอบระดับของน้ำมันเครื่อง,Text,ปกติ,,,true,
+PMTD-SM-AC-SM-MTH-03,PMT-SM-SYS029-EQ020-MTH,3,ตรวจสอบการรั่วซึม,Text,ไม่มี,,,true,
+PMTD-SM-AC-SM-MTH-04,PMT-SM-SYS029-EQ020-MTH,4,ตรวจสอบสภาพสายพาน,Text,ปกติ,,,false,
+PMTD-SM-AC-SM-MTH-05,PMT-SM-SYS029-EQ020-MTH,5,ตรวจสอบเสียง/สั่นสะเทือน,Text,ไม่มี,,,true,
+PMTD-SM-AC-SM-MTH-06,PMT-SM-SYS029-EQ020-MTH,6,ทำความสะอาดกรอก,Text,สะอาด,,,false,
+PMTD-SM-AC-SM-MTH-07,PMT-SM-SYS029-EQ020-MTH,7,ถ่ายน้ำทิ้ง,Text,เสร็จสมบูรณ์,,,false,
+PMTD-SM-BBP-3MTH-01,PMT-SM-SYS028-EQ026-3MTH,1,วัดกระแสมอเตอร์,Number,,,,true,
+PMTD-SM-BBP-3MTH-02,PMT-SM-SYS028-EQ026-3MTH,2,ตรวจสอบตู้ควบคุม,Text,ปกติ,,,true,
+PMTD-SM-BBP-MTH-01,PMT-SM-SYS028-EQ026-MTH,1,ตรวจสอบการทำงาน (เสียง/สั่น/ร้อน),Text,ปกติ,,,true,
+PMTD-SM-BBP-MTH-02,PMT-SM-SYS028-EQ026-MTH,2,ตรวจสอบ Flow Sensor/Alarm,Text,ปกติ,,,true,
+PMTD-SM-CCTV-3MTH-01,PMT-SM-SYS033-EQ031-3MTH,1,ตรวจสอบสถานะการบันทึก,Text,กำลังบันทึก,,,true,
+PMTD-SM-CCTV-3MTH-02,PMT-SM-SYS033-EQ031-3MTH,2,ตรวจสอบพื้นที่จัดเก็บ (Disk Space),Text,เพียงพอ,,,false,
+PMTD-SM-CCTV-3MTH-03,PMT-SM-SYS033-EQ031-3MTH,3,ตรวจสอบพัดลมของ NVR,Text,ทำงานปกติ,,,false,
+PMTD-SM-CCTV-6MTH-01,PMT-SM-SYS033-EQ031-6MTH,1,ทำความสะอาดหน้าเลนส์กล้อง,Text,สะอาด,,,false,
+PMTD-SM-CCTV-6MTH-02,PMT-SM-SYS033-EQ031-6MTH,2,เป่าฝุ่นภายใน NVR,Text,เสร็จสมบูรณ์,,,false,
+PMTD-SM-CCTV-MTH-01,PMT-SM-SYS033-EQ031-MTH,1,ตรวจสอบมุมกล้อง,Text,ปกติ,,,false,
+PMTD-SM-CCTV-MTH-02,PMT-SM-SYS033-EQ031-MTH,2,ตรวจสอบการแสดงภาพ,Text,ปกติ,,,true,
+PMTD-SM-CIP-3MTH-01,PMT-SM-SYS028-EQ028-3MTH,1,ตรวจสอบการทำงานของปั๊ม (ระบบ CIP),Text,ปกติ,,,true,
+PMTD-SM-CIP-3MTH-02,PMT-SM-SYS028-EQ028-3MTH,2,ตรวจสอบการทำงานของวาล์ว (ระบบ CIP),Text,ปกติ,,,true,
+PMTD-SM-CIP-3MTH-03,PMT-SM-SYS028-EQ028-3MTH,3,ตรวจสอบการทำงานของ Heater (ระบบ CIP),Text,ปกติ,,,true,
+PMTD-SM-CIP-3MTH-04,PMT-SM-SYS028-EQ028-3MTH,4,ตรวจสอบการทำงานของตู้ควบคุม (ระบบ CIP),Text,ปกติ,,,true,
+PMTD-SM-CU-3MTH-01,PMT-SM-SYS032-EQ024-3MTH,1,วัดกระแสไฟฟ้าคอมเพรสเซอร์,Number,,,,true,
+PMTD-SM-CU-3MTH-02,PMT-SM-SYS032-EQ024-3MTH,2,ตรวจสอบความร้อนคอมเพรสเซอร์ (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-SM-CU-6MTH-01,PMT-SM-SYS032-EQ024-6MTH,1,ทำความสะอาดแผง Condenser,Text,สะอาด,,,false,
+PMTD-SM-CU-6MTH-02,PMT-SM-SYS032-EQ024-6MTH,2,ตรวจสอบการทำงานของคอมเพรสเซอร์,Text,ปกติ,,,true,
+PMTD-SM-FPS-6MTH-01,PMT-SM-SYS033-EQ032-6MTH,1,ตรวจสอบสภาพของถังดับเพลิง,Text,ปกติ,,,true,
+PMTD-SM-FPS-6MTH-02,PMT-SM-SYS033-EQ032-6MTH,2,ตรวจสอบแรงดันของถังดับเพลิง,Text,ปกติ,,,true,
+PMTD-SM-GEN-6MTH-01,PMT-SM-SYS027-EQ001-6MTH,1,วัดค่าความต้านทานดิน,Number,,0,5,true,ค่าความต้านทานดิน (Ohm)
+PMTD-SM-GEN-MTH-01,PMT-SM-SYS027-EQ001-MTH,1,เวลาในการทดสอบ,Number,,,,true,ระบุเวลา (นาที)
+PMTD-SM-GEN-MTH-02,PMT-SM-SYS027-EQ001-MTH,2,บันทึกชั่วโมงการทำงานสะสม,Number,,,,true,จำนวนชั่วโมง
+PMTD-SM-GEN-MTH-03,PMT-SM-SYS027-EQ001-MTH,3,บันทึกจำนวนครั้งที่สตาร์ท,Number,,,,false,จำนวนครั้ง
+PMTD-SM-GEN-MTH-04,PMT-SM-SYS027-EQ001-MTH,4,เช็คแรงดันแบตเตอรี่,Number,,12,13.7,true,V
+PMTD-SM-GEN-MTH-05,PMT-SM-SYS027-EQ001-MTH,5,ความเร็วรอบ (RPM),Number,,,,true,ระบุ RPM
+PMTD-SM-GEN-MTH-06,PMT-SM-SYS027-EQ001-MTH,6,อุณหภูมิน้ำมันเครื่อง,Number,,,,true,ระบุ °C
+PMTD-SM-GEN-MTH-07,PMT-SM-SYS027-EQ001-MTH,7,แรงดันน้ำมันเครื่อง,Number,,,,true,ระบุ Bar/PSI
+PMTD-SM-GEN-MTH-08,PMT-SM-SYS027-EQ001-MTH,8,อุณหภูมิน้ำระบายความร้อน,Number,,,,true,ระบุ °C
+PMTD-SM-GEN-MTH-09,PMT-SM-SYS027-EQ001-MTH,9,บันทึกแรงดัน L-N (Volt),Number,,,,true,ระบุ Volt
+PMTD-SM-GEN-MTH-10,PMT-SM-SYS027-EQ001-MTH,10,บันทึกแรงดัน L-L (Volt),Number,,,,true,ระบุ Volt
+PMTD-SM-GEN-MTH-11,PMT-SM-SYS027-EQ001-MTH,11,ตรวจจุดร้อนสายไฟ (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-SM-GEN-MTH-12,PMT-SM-SYS027-EQ001-MTH,12,วัดแรงลมหลังหม้อน้ำ (PdM),Number,,,,false,ค่าแรงลม (CFM)
+PMTD-SM-GEN-WKLY-01,PMT-SM-SYS027-EQ001-WKLY,1,ตรวจความสะอาด,Text,สะอาด,,,false,
+PMTD-SM-GEN-WKLY-02,PMT-SM-SYS027-EQ001-WKLY,2,ตรวจเช็คระดับน้ำมันเครื่อง,Text,ปกติ,,,true,
+PMTD-SM-GEN-WKLY-03,PMT-SM-SYS027-EQ001-WKLY,3,ตรวจเช็คระดับน้ำหล่อเย็น,Text,ปกติ,,,true,
+PMTD-SM-GEN-WKLY-04,PMT-SM-SYS027-EQ001-WKLY,4,ตรวจเช็คระดับน้ำมันเชื้อเพลิง,Text,ปกติ,,,true,
+PMTD-SM-GEN-WKLY-05,PMT-SM-SYS027-EQ001-WKLY,5,ตรวจเช็คระดับน้ำกลั่นแบตเตอรี่ (ถ้ามี),Text,ปกติ,,,false,
+PMTD-SM-GEN-WKLY-06,PMT-SM-SYS027-EQ001-WKLY,6,ตรวจสอบการรั่วซึม,Text,ไม่มี,,,true,"น้ำมัน, น้ำ, เชื้อเพลิง"
+PMTD-SM-GEN-WKLY-07,PMT-SM-SYS027-EQ001-WKLY,7,ตรวจสอบสภาพและความตึงสายพาน,Text,ปกติ,,,false,
+PMTD-SM-GEN-WKLY-08,PMT-SM-SYS027-EQ001-WKLY,8,ตรวจสอบขั้วแบตเตอรี่,Text,แน่นหนา / สะอาด,,,false,"แน่นหนา, ไม่มีคราบขี้เกลือ"
+PMTD-SM-GEN-WKLY-09,PMT-SM-SYS027-EQ001-WKLY,9,ทดสอบเดินเครื่อง (No Load) 10 นาที,Text,ปกติ,,,true,
+PMTD-SM-GEN-WKLY-10,PMT-SM-SYS027-EQ001-WKLY,10,ตรวจสอบเสียงการทำงาน,Text,ปกติ,,,false,
+PMTD-SM-GEN-WKLY-11,PMT-SM-SYS027-EQ001-WKLY,11,ตรวจสอบการสั่นสะเทือน,Text,ปกติ,,,false,
+PMTD-SM-GEN-WKLY-12,PMT-SM-SYS027-EQ001-WKLY,12,ตรวจสอบแรงดันแบตเตอรี่,Number,,12,13.7,true,ค่าแรงดันแบตเตอรี่ (V)
+PMTD-SM-GEN-YR-01,PMT-SM-SYS027-EQ001-YR,1,"บำรุงรักษาใหญ่ (เปลี่ยนถ่ายน้ำมัน, ไส้กรอง)",Text,เสร็จสมบูรณ์,,,true,โดยผู้เชี่ยวชาญภายนอก
+PMTD-SM-HXP-YR-01,PMT-SM-SYS032-EQ039-YR,1,ถอดล้างทำความสะอาดแผ่นเพลท,Text,เสร็จสมบูรณ์,,,false,
+PMTD-SM-HXP-YR-02,PMT-SM-SYS032-EQ039-YR,2,ตรวจสอบปะเก็น,Text,ปกติ / ไม่มีรอยรั่ว,,,true,
+PMTD-SM-IBT-3MTH-01,PMT-SM-SYS032-EQ025-3MTH,1,ตรวจสอบระบบควบคุมอัตโนมัติ,Text,ปกติ,,,true,
+PMTD-SM-IBT-3MTH-02,PMT-SM-SYS032-EQ025-3MTH,2,ตรวจสอบเซ็นเซอร์ที่เกี่ยวข้อง,Text,ปกติ,,,true,
+PMTD-SM-IBT-DAILY-01,PMT-SM-SYS032-EQ025-DAILY,1,ตรวจสอบการก่อตัวของน้ำแข็ง,Text,ปกติ,,,false,(พนักงานหน้างานตรวจสอบ)
+PMTD-SM-IBT-MTH-01,PMT-SM-SYS032-EQ025-MTH,1,ตรวจสอบ Blower,Text,ปกติ,,,false,
+PMTD-SM-IBT-MTH-02,PMT-SM-SYS032-EQ025-MTH,2,ตรวจสอบการก่อตัวของน้ำแข็ง (ละเอียด),Text,ปกติ,,,false,
+PMTD-SM-IBT-MTH-03,PMT-SM-SYS032-EQ025-MTH,3,ตรวจสอบการทำงานของปั๊มน้ำเย็น,Text,ปกติ,,,true,
+PMTD-SM-MDB-3MTH-01,PMT-SM-SYS027-EQ002-3MTH,1,วัดโหลด,Number,,,,true,
+PMTD-SM-MDB-3MTH-02,PMT-SM-SYS027-EQ002-3MTH,2,ตรวจสอบสภาพ Capacitor Bank,Text,ปกติ,,,true,
+PMTD-SM-MDB-3MTH-03,PMT-SM-SYS027-EQ002-3MTH,3,ทำ PdM (ตรวจจุดร้อน),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-SM-MDB-6MTH-01,PMT-SM-SYS027-EQ002-6MTH,1,ขันแน่นจุดเชื่อมต่อสายไฟ,Text,แน่นหนา,,,true,
+PMTD-SM-MDB-6MTH-02,PMT-SM-SYS027-EQ002-6MTH,2,ตรวจวัดค่า Capacitor,Number,,,,true,
+PMTD-SM-MDB-6MTH-03,PMT-SM-SYS027-EQ002-6MTH,3,วัดค่าความต้านทานดิน,Number,,0,5,true,Ohm
+PMTD-SM-MDB-MTH-01,PMT-SM-SYS027-EQ002-MTH,1,ทำความสะอาดตู้,Text,สะอาด,,,false,
+PMTD-SM-MDB-MTH-02,PMT-SM-SYS027-EQ002-MTH,2,ตรวจสอบมิเตอร์/หลอดไฟสถานะ,Text,ปกติ,,,false,
+PMTD-SM-MDB-MTH-03,PMT-SM-SYS027-EQ002-MTH,3,ตรวจสอบเสียงการทำงานผิดปกติ,Text,ไม่มี,,,false,
+PMTD-SM-MDB-MTH-04,PMT-SM-SYS027-EQ002-MTH,4,ตรวจสอบกลิ่นไหม้/ผิดปกติ,Text,ไม่มี,,,true,
+PMTD-SM-MDB-MTH-05,PMT-SM-SYS027-EQ002-MTH,5,ตรวจสอบความร้อนผิดปกติ (สัมผัสภายนอก),Text,ไม่มี,,,true,
+PMTD-SM-MDB-MTH-06,PMT-SM-SYS027-EQ002-MTH,6,ตรวจสอบสภาพสายไฟและจุดเชื่อมต่อภายนอก,Text,ปกติ,,,false,สภาพฉนวนไม่มีรอยไหม้/แตก
+PMTD-SM-MDB-MTH-07,PMT-SM-SYS027-EQ002-MTH,7,ตรวจสอบการทำงานของเบรกเกอร์หลัก,Text,ปกติ (ไม่ Trip),,,true,ตรวจสอบด้วยสายตาว่าไม่มีการ Trip
+PMTD-SM-MDB-YR-01,PMT-SM-SYS027-EQ002-YR,1,"บำรุงรักษาใหญ่ (Trip Test, วัดค่าฉนวน)",Text,เสร็จสมบูรณ์,,,true,โดยผู้เชี่ยวชาญ
+PMTD-SM-MRR-3MTH-01,PMT-SM-SYS031-EQ022-3MTH,1,ตรวจสอบการทำงานของตู้ควบคุม (Control Panel),Text,ปกติ,,,true,
+PMTD-SM-MRR-MTH-01,PMT-SM-SYS031-EQ022-MTH,1,ตรวจสอบราง Conveyor,Text,ปกติ,,,false,
+PMTD-SM-MRR-MTH-02,PMT-SM-SYS031-EQ022-MTH,2,ทำความสะอาดราง Conveyor,Text,สะอาด,,,false,
+PMTD-SM-MRR-MTH-03,PMT-SM-SYS031-EQ022-MTH,3,ตรวจสอบฐาน Load Cell,Text,ปกติ,,,true,
+PMTD-SM-MRR-MTH-04,PMT-SM-SYS031-EQ022-MTH,4,ตรวจสอบจอ Monitor,Text,แสดงผลปกติ,,,false,
+PMTD-SM-MRR-MTH-05,PMT-SM-SYS031-EQ022-MTH,5,ตรวจสอบการทำงานของกระบอกสูบลม,Text,ปกติ,,,true,
+PMTD-SM-MRR-MTH-06,PMT-SM-SYS031-EQ022-MTH,6,ตรวจสอบการทำงานของมอเตอร์ปั๊มสูบน้ำนม,Text,ปกติ,,,true,
+PMTD-SM-MRR-YR-01,PMT-SM-SYS031-EQ022-YR,1,สอบเทียบ (Calibrate) Load Cell,Text,เสร็จสมบูรณ์,,,true,Outsource
+PMTD-SM-MST-6MTH-01,PMT-SM-SYS031-EQ023-6MTH,1,ตรวจสอบชุดใบกวน/มอเตอร์เกียร์,Text,ปกติ,,,true,
+PMTD-SM-MST-6MTH-02,PMT-SM-SYS031-EQ023-6MTH,2,ตรวจสอบซีล,Text,ปกติ / ไม่มีรั่วซึม,,,true,
+PMTD-SM-MST-6MTH-03,PMT-SM-SYS031-EQ023-6MTH,3,ตรวจสอบ Cooling Jacket,Text,ปกติ,,,false,
+PMTD-SM-MST-6MTH-04,PMT-SM-SYS031-EQ023-6MTH,4,ตรวจสอบเซ็นเซอร์ต่างๆ,Text,ปกติ,,,true,
+PMTD-SM-TRFM-YR-01,PMT-SM-SYS027-EQ003-YR,1,บำรุงรักษาใหญ่,Text,เสร็จสมบูรณ์,,,true,โดยผู้เชี่ยวชาญ
+PMTD-SM-UVS-6MTH-01,PMT-SM-SYS028-EQ029-6MTH,1,ตรวจสอบและทำความสะอาดแท่งกรองน้ำ,Text,สะอาด,,,false,
+PMTD-SM-UVS-6MTH-02,PMT-SM-SYS028-EQ029-6MTH,2,ตรวจสอบและทำความสะอาดหลอด UV,Text,สะอาด,,,false,
+PMTD-SM-UVS-6MTH-03,PMT-SM-SYS028-EQ029-6MTH,3,ตรวจสอบและทำความสะอาดครอบแก้ว,Text,สะอาด,,,false,
+PMTD-SM-UVS-YR-01,PMT-SM-SYS028-EQ029-YR,1,เปลี่ยนหลอด UV,Text,เสร็จสมบูรณ์,,,true,ตามอายุการใช้งาน
+PMTD-SM-WST-MTH-01,PMT-SM-SYS028-EQ027-MTH,1,ตรวจสอบสภาพถัง,Text,ปกติ,,,false,
+PMTD-SM-WST-MTH-02,PMT-SM-SYS028-EQ027-MTH,2,ตรวจสอบวาล์ว,Text,ปกติ,,,false,
+PMTD-SM-WST-MTH-03,PMT-SM-SYS028-EQ027-MTH,3,ตรวจสอบการทำงานของลูกลอย,Text,ปกติ,,,false,
+PMTD-SM-WWT-3MTH-01,PMT-SM-SYS028-EQ030-3MTH,1,ตรวจสอบการทำงานของปั๊มบำบัดน้ำเสีย,Text,ปกติ,,,true,"(เสียง, การทำงาน)"
+PMTD-SM-WWT-3MTH-02,PMT-SM-SYS028-EQ030-3MTH,2,ตรวจสอบและทำความสะอาดตู้ควบคุม,Text,สะอาด / ปกติ,,,false,
+PMTD-TKB-CC-3MTH-01,PMT-TKB-SYS019-EQ004-3MTH,1,ทดสอบ Alarm Test,Text,ผ่าน,,,true,
+PMTD-TKB-CC-3MTH-02,PMT-TKB-SYS019-EQ004-3MTH,2,ตรวจสอบแบตเตอรี่สำรอง,Text,ปกติ,,,false,
+PMTD-TKB-CC-6MTH-01,PMT-TKB-SYS019-EQ004-6MTH,1,ตรวจสอบความแม่นยำของเซ็นเซอร์,Text,ปกติ,,,true,อาจต้องใช้เครื่องมือสอบเทียบ
+PMTD-TKB-CC-MTH-01,PMT-TKB-SYS019-EQ004-MTH,1,ทำความสะอาดเซ็นเซอร์และตัวเครื่อง,Text,สะอาด,,,false,
+PMTD-TKB-CC-MTH-02,PMT-TKB-SYS019-EQ004-MTH,2,บันทึกค่าอุณหภูมิ (T),Number,,,,true,ระบุ °C
+PMTD-TKB-CC-MTH-03,PMT-TKB-SYS019-EQ004-MTH,3,บันทึกค่าความชื้น (H),Number,,,,true,ระบุ %
+PMTD-TKB-CP-3MTH-01,PMT-TKB-SYS019-EQ006-3MTH,1,ตรวจเช็คระบบควบคุม (รับคำสั่งจาก Controller),Text,ปกติ,,,true,
+PMTD-TKB-CP-MTH-01,PMT-TKB-SYS019-EQ006-MTH,1,ตรวจสอบการทำงาน (ปั๊ม),Text,ปกติ,,,true,
+PMTD-TKB-CP-MTH-02,PMT-TKB-SYS019-EQ006-MTH,2,ตรวจสอบการทำงาน (ลูกลอย),Text,ปกติ,,,true,
+PMTD-TKB-CP-MTH-03,PMT-TKB-SYS019-EQ006-MTH,3,ตรวจสอบการทำงาน (เซ็นเซอร์),Text,ปกติ,,,true,
+PMTD-TKB-CP-MTH-04,PMT-TKB-SYS019-EQ006-MTH,4,ทำความสะอาดไส้กรองปั๊ม,Text,สะอาด,,,false,
+PMTD-TKB-CPS-3MTH-01,PMT-TKB-SYS005-EQ016-3MTH,1,ตรวจสอบ PLC,Text,ปกติ,,,true,
+PMTD-TKB-CPS-3MTH-02,PMT-TKB-SYS005-EQ016-3MTH,2,ตรวจสอบเซ็นเซอร์,Text,ปกติ,,,true,
+PMTD-TKB-CPS-3MTH-03,PMT-TKB-SYS005-EQ016-3MTH,3,ตรวจจุดร้อนตู้ SMDB (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-TKB-CTS-MTH-01,PMT-TKB-SYS005-EQ015-MTH,1,ทำความสะอาดตู้ควบคุมระบบถังอบ,Text,สะอาด,,,false,
+PMTD-TKB-CTS-MTH-02,PMT-TKB-SYS005-EQ015-MTH,2,ตรวจเช็คระบบหล่อลื่นปั๊มน้ำมันอัตโนมัติ,Text,ปกติ,,,true,
+PMTD-TKB-CTS-MTH-03,PMT-TKB-SYS005-EQ015-MTH,3,ตรวจเช็คการทำงานของระบบไฮดรอลิค,Text,ปกติ,,,true,
+PMTD-TKB-CTS-MTH-04,PMT-TKB-SYS005-EQ015-MTH,4,ตรวจสอบ Blower,Text,ปกติ,,,true,
+PMTD-TKB-CTS-MTH-05,PMT-TKB-SYS005-EQ015-MTH,5,ตรวจสอบ Heater,Text,ปกติ,,,true,
+PMTD-TKB-DSS-3MTH-01,PMT-TKB-SYS024-EQ021-3MTH,1,อัดจาระบี,Text,เสร็จสมบูรณ์,,,false,
+PMTD-TKB-DSS-3MTH-02,PMT-TKB-SYS024-EQ021-3MTH,2,ตรวจสอบซีล,Text,ปกติ / ไม่มีรั่วซึม,,,true,
+PMTD-TKB-DSS-6MTH-01,PMT-TKB-SYS024-EQ021-6MTH,1,เปลี่ยนถ่ายน้ำมันเครื่องของปั๊ม,Text,เสร็จสมบูรณ์,,,true,
+PMTD-TKB-DSS-MTH-01,PMT-TKB-SYS024-EQ021-MTH,1,ตรวจสอบสภาพปั๊ม/มอเตอร์/สายพาน,Text,ปกติ,,,true,
+PMTD-TKB-DSS-MTH-02,PMT-TKB-SYS024-EQ021-MTH,2,ตรวจสอบการทำงานของวาล์ว/เกจ,Text,ปกติ,,,true,
+PMTD-TKB-DSS-MTH-03,PMT-TKB-SYS024-EQ021-MTH,3,ทำความสะอาดหัวสเปรย์ (โรงรถยนต์),Text,สะอาด,,,false,
+PMTD-TKB-DSS-MTH-04,PMT-TKB-SYS024-EQ021-MTH,4,ทำความสะอาดห้องอาบน้ำสเปรย์,Text,สะอาด,,,false,
+PMTD-TKB-DSS-MTH-05,PMT-TKB-SYS024-EQ021-MTH,5,ทำความสะอาดห้องสเปรย์หน้าป้อม,Text,สะอาด,,,false,
+PMTD-TKB-FS-3MTH-01,PMT-TKB-SYS020-EQ008-3MTH,1,หยอดน้ำมันโซ่,Text,เสร็จสมบูรณ์,,,false,
+PMTD-TKB-FS-3MTH-02,PMT-TKB-SYS020-EQ008-3MTH,2,ตรวจสอบระบบควบคุมอัตโนมัติ,Text,ปกติ,,,true,
+PMTD-TKB-FS-6MTH-01,PMT-TKB-SYS020-EQ008-6MTH,1,อัดจาระบีตามจุดที่กำหนด,Text,เสร็จสมบูรณ์,,,false,
+PMTD-TKB-FS-MTH-01,PMT-TKB-SYS020-EQ008-MTH,1,ตรวจสอบความสะอาด,Text,สะอาด,,,false,
+PMTD-TKB-FS-MTH-02,PMT-TKB-SYS020-EQ008-MTH,2,ตรวจสอบการทำงานของมอเตอร์,Text,ปกติ,,,true,
+PMTD-TKB-FS-MTH-03,PMT-TKB-SYS020-EQ008-MTH,3,ตรวจสอบการทำงานของเซ็นเซอร์,Text,ปกติ,,,true,
+PMTD-TKB-LS-3MTH-01,PMT-TKB-SYS019-EQ007-3MTH,1,ตรวจสอบระบบควบคุมแสงสว่าง (Timer / Dimmer),Text,ปกติ,,,false,
+PMTD-TKB-MB-3MTH-01,PMT-TKB-SYS020-EQ010-3MTH,1,หยอดน้ำมันโซ่,Text,เสร็จสมบูรณ์,,,false,
+PMTD-TKB-MB-3MTH-02,PMT-TKB-SYS020-EQ010-3MTH,2,ตรวจสอบระบบควบคุม,Text,ปกติ,,,true,
+PMTD-TKB-MB-6MTH-01,PMT-TKB-SYS020-EQ010-6MTH,1,อัดจาระบี,Text,เสร็จสมบูรณ์,,,false,
+PMTD-TKB-MB-6MTH-02,PMT-TKB-SYS020-EQ010-6MTH,2,ตรวจสอบสภาพลูกปืน/เฟือง/ลูกกลิ้ง,Text,ปกติ,,,true,
+PMTD-TKB-MB-MTH-01,PMT-TKB-SYS020-EQ010-MTH,1,ตรวจสอบการทำงานของสายพาน,Text,ปกติ,,,true,
+PMTD-TKB-MB-MTH-02,PMT-TKB-SYS020-EQ010-MTH,2,ตรวจสอบการทำงานของมอเตอร์,Text,ปกติ,,,true,
+PMTD-TKB-OCS-MTH-01,PMT-TKB-SYS005-EQ017-MTH,1,ตรวจสอบปั๊ม (ระบบควบคุมกลิ่น),Text,ปกติ,,,true,
+PMTD-TKB-OCS-MTH-02,PMT-TKB-SYS005-EQ017-MTH,2,ตรวจสอบ Heater (ระบบควบคุมกลิ่น),Text,ปกติ,,,false,
+PMTD-TKB-OCS-MTH-03,PMT-TKB-SYS005-EQ017-MTH,3,ตรวจสอบมอเตอร์/สายพาน (ระบบควบคุมกลิ่น),Text,ปกติ,,,true,
+PMTD-TKB-SGM-6MTH-01,PMT-TKB-SYS005-EQ014-6MTH,1,หล่อลื่นลูกปืนและจุดหมุนต่างๆ,Text,เสร็จสมบูรณ์,,,false,พนง.ทำ
+PMTD-TKB-SGM-MTH-01,PMT-TKB-SYS005-EQ014-MTH,1,ตรวจสอบสภาพโดยรวมเครื่องสับย่อย,Text,ปกติ,,,false,
+PMTD-TKB-SGM-MTH-02,PMT-TKB-SYS005-EQ014-MTH,2,ตรวจสอบสภาพสายพานเครื่องสับย่อย,Text,ปกติ,,,false,พนง.ทำ
+PMTD-TKB-VS-3MTH-01,PMT-TKB-SYS019-EQ005-3MTH,1,ทดสอบระบบควบคุม,Text,ปกติ,,,true,
+PMTD-TKB-VS-3MTH-02,PMT-TKB-SYS019-EQ005-3MTH,2,วัดกระแสมอเตอร์,Number,,,,true,
+PMTD-TKB-VS-3MTH-03,PMT-TKB-SYS019-EQ005-3MTH,3,ตรวจสอบจุดร้อน (PdM),Text,ไม่มีจุดร้อนผิดปกติ,,,true,
+PMTD-TKB-VS-MTH-01,PMT-TKB-SYS019-EQ005-MTH,1,ตรวจสอบความสะอาด,Text,สะอาด,,,false,
+PMTD-TKB-VS-MTH-02,PMT-TKB-SYS019-EQ005-MTH,2,ตรวจสอบสภาพโดยรวม,Text,ปกติ,,,false,
+PMTD-TKB-VS-MTH-03,PMT-TKB-SYS019-EQ005-MTH,3,ตรวจสอบการทำงาน (เสียง/สั่น),Text,ปกติ,,,true,
+PMTD-TKB-VS-MTH-04,PMT-TKB-SYS019-EQ005-MTH,4,ตรวจสอบความตึงสายพาน,Text,ปกติ,,,false,
+pmtd1,pmt1,1,Check belt tension,numeric,,50,80,true,Measure in pounds force
+pmtd2,pmt1,2,Inspect belt condition,text,Good/Fair/Poor,,,false,Visual inspection for cracks
+pmtd3,pmt2,1,Check spindle runout,numeric,,0,0.01,true,Maximum 0.01mm deviation
+pmtd4,pmt2,2,Lubricate guide rails,boolean,Completed,,,false,Apply specified grease
+pmtd5,pmt3,1,Check discharge pressure,numeric,,40,60,true,Operating pressure in PSI

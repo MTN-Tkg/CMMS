@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { AssetMaintenanceSchedule } from "@/components/AssetMaintenanceSchedule";
 
 // Mock asset database - รวมกับข้อมูลประวัติการบำรุงรักษา
 const assetDetailData = {
@@ -470,84 +471,11 @@ export function AssetDetail() {
 
           {/* Maintenance Tab */}
           <TabsContent value="maintenance" className="space-y-4">
-            <Card className="card-elevated">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Wrench className="h-5 w-5" />
-                  ประวัติการบำรุงรักษา
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {asset.maintenanceHistory.map((record) => (
-                    <div key={record.id} className="p-4 border rounded-lg">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="space-y-1">
-                          <h4 className="font-medium">{record.title}</h4>
-                          <p className="text-sm text-muted-foreground">
-                            {record.description}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <div
-                            className={`inline-flex px-2 py-1 rounded text-xs border ${getMaintenanceTypeColor(record.type)}`}
-                          >
-                            {record.type}
-                          </div>
-                          <div className="text-sm text-muted-foreground mt-1">
-                            {record.date}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-                        <div>
-                          <span className="text-muted-foreground">ช่าง:</span>
-                          <div className="font-medium">{record.technician}</div>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">
-                            ระยะเวลา:
-                          </span>
-                          <div className="font-medium">{record.duration}</div>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">
-                            ค่าใช้จ่าย:
-                          </span>
-                          <div className="font-medium">
-                            ฿{record.cost.toLocaleString()}
-                          </div>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">สถานะ:</span>
-                          <div className="font-medium text-success">
-                            {record.status}
-                          </div>
-                        </div>
-                      </div>
-                      {record.parts.length > 0 && (
-                        <div className="mt-3">
-                          <span className="text-sm text-muted-foreground">
-                            อะไหล่ที่ใช้:
-                          </span>
-                          <div className="flex flex-wrap gap-1 mt-1">
-                            {record.parts.map((part, idx) => (
-                              <Badge
-                                key={idx}
-                                variant="outline"
-                                className="text-xs"
-                              >
-                                {part}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <AssetMaintenanceSchedule
+              assetId={asset.id}
+              showHistory={true}
+              showDowntime={true}
+            />
           </TabsContent>
 
           {/* Performance Tab */}

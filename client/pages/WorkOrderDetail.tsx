@@ -37,10 +37,18 @@ import {
   Save,
   MessageSquare,
   Package,
+  Upload,
+  Shield,
+  History
 } from "lucide-react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "sonner";
+import { FileAttachment } from "@/components/FileAttachment";
+import { TimeTracking } from "@/components/TimeTracking";
+import { ApprovalWorkflow } from "@/components/ApprovalWorkflow";
+import { WorkOrderComments } from "@/components/WorkOrderComments";
+import { WorkOrderHistory } from "@/components/WorkOrderHistory";
 
 // Mock data - in real app this would come from API/database
 const workOrderData = {
@@ -170,6 +178,76 @@ export function WorkOrderDetail() {
   const [loggedHours, setLoggedHours] = useState("");
   const [workDescription, setWorkDescription] = useState("");
 
+  // Enhanced features state
+  const [attachedFiles, setAttachedFiles] = useState([
+    {
+      id: "file-1",
+      name: "รูปก่อนบำรุงรักษา.jpg",
+      size: 2048000,
+      type: "image/jpeg",
+      url: "mock://uploaded/before.jpg",
+      uploadedAt: "2024-01-13T09:00:00Z",
+      uploadedBy: "สมชาย รักงาน"
+    },
+    {
+      id: "file-2",
+      name: "รายงานวิเคราะห์น้ำมัน.pdf",
+      size: 1024000,
+      type: "application/pdf",
+      url: "mock://uploaded/report.pdf",
+      uploadedAt: "2024-01-10T14:30:00Z",
+      uploadedBy: "สมศักดิ์ หัวหน้าช่าง"
+    }
+  ]);
+
+  const [timeEntries, setTimeEntries] = useState([
+    {
+      id: "time-1",
+      startTime: "2024-01-13T09:00:00Z",
+      endTime: "2024-01-13T10:30:00Z",
+      duration: 90,
+      description: "ตรวจสอบสภาพเครื่องยนต์และเปลี่ยนไส้กรอง",
+      userId: "user-1",
+      userName: "สมชาย รักงาน",
+      isActive: false
+    },
+    {
+      id: "time-2",
+      startTime: "2024-01-13T13:00:00Z",
+      endTime: "2024-01-13T14:00:00Z",
+      duration: 60,
+      description: "ตรวจสอบระบบไฮดรอลิก",
+      userId: "user-1",
+      userName: "สมชาย รักงาน",
+      isActive: false
+    }
+  ]);
+
+  const [approvalSteps, setApprovalSteps] = useState([
+    {
+      id: "step-1",
+      name: "การอนุมัติเบื้องต้น",
+      description: "ตรวจสอบความจำเป็นและความเหมาะสมของงาน",
+      approverRole: "supervisor",
+      status: "approved" as const,
+      isRequired: true,
+      order: 1,
+      approverName: "สมศักดิ์ หัวหน้าช่าง",
+      approverId: "supervisor-1",
+      approvedAt: "2024-01-10T08:00:00Z",
+      comments: "อนุมัติให้ดำเนินการตามแผน"
+    },
+    {
+      id: "step-2",
+      name: "การอนุมัติงบประมาณ",
+      description: "อนุมัติค่าใช้จ่ายและงบประมาณ",
+      approverRole: "manager",
+      status: "pending" as const,
+      isRequired: true,
+      order: 2
+    }
+  ]);
+
   const workOrder = workOrderData[id as keyof typeof workOrderData];
 
   if (!workOrder) {
@@ -262,6 +340,17 @@ export function WorkOrderDetail() {
     setTaskNote("");
   };
 
+  const handleTimeUpdate = (newActualHours: number) => {
+    // In real app, update the work order actual hours
+    toast.success(`อัปเดตเวลาทำงานเป็น ${newActualHours} ชั่วโมง`);
+  };
+
+  const handleApprovalUpdate = (steps: any[], newStatus: string) => {
+    setApprovalSteps(steps);
+    // In real app, update work order status
+    toast.success(`อัปเดตสถานะการอนุมัติแล้ว`);
+  };
+
   return (
     <div className="min-h-screen">
       <div className="p-3 sm:p-4 pb-20 md:pb-4 space-y-5 max-w-4xl mx-auto">
@@ -346,19 +435,22 @@ export function WorkOrderDetail() {
 
         {/* Tab Navigation */}
         <div className="card-elevated rounded-xl p-1">
-          <div className="grid grid-cols-4 gap-1">
+          <div className="grid grid-cols-7 gap-1">
             {[
               { id: "details", label: "รายละเอียด", icon: FileText },
               { id: "tasks", label: "งาน", icon: CheckCircle },
               { id: "parts", label: "อะไหล่", icon: Package },
-              { id: "attachments", label: "ไฟล์", icon: Camera },
+              { id: "attachments", label: "ไฟล์", icon: Upload },
+              { id: "time", label: "เวลา", icon: Timer },
+              { id: "approval", label: "อนุมัติ", icon: Shield },
+              { id: "history", label: "ประวัติ", icon: History },
             ].map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+                  className={`flex flex-col items-center gap-1 px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
                     activeTab === tab.id
                       ? "bg-primary text-primary-foreground"
                       : "hover:bg-muted/50"
@@ -453,66 +545,12 @@ export function WorkOrderDetail() {
               </div>
             </div>
 
-            {/* Comments Section */}
-            <div className="card-elevated rounded-xl p-5">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4" />
-                  ความเห็น
-                </h3>
-                <Dialog open={commentOpen} onOpenChange={setCommentOpen}>
-                  <DialogTrigger asChild>
-                    <Button size="sm" variant="outline">
-                      เพิ่มความเห็น
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>เพิ่มความเห็น</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="comment">ความเห็น</Label>
-                        <Textarea
-                          id="comment"
-                          value={newComment}
-                          onChange={(e) => setNewComment(e.target.value)}
-                          placeholder="เขียนความเห็นหรือหมายเหตุ..."
-                          rows={3}
-                        />
-                      </div>
-                      <div className="flex gap-3">
-                        <Button onClick={handleAddComment} className="flex-1">
-                          <Save className="h-4 w-4 mr-2" />
-                          บันทึก
-                        </Button>
-                        <Button
-                          variant="outline"
-                          onClick={() => setCommentOpen(false)}
-                        >
-                          ยกเลิก
-                        </Button>
-                      </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </div>
-              <div className="space-y-3">
-                {workOrder.comments.map((comment) => (
-                  <div key={comment.id} className="p-3 bg-muted/30 rounded-lg">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-sm">
-                        {comment.author}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {comment.timestamp}
-                      </span>
-                    </div>
-                    <p className="text-sm">{comment.message}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {/* Comments Section - Using new component */}
+            <WorkOrderComments
+              workOrderId={workOrder.id}
+              currentUserId="current-user"
+              currentUserName="ผู้ใช้ปัจจุบัน"
+            />
           </div>
         )}
 
@@ -648,42 +686,67 @@ export function WorkOrderDetail() {
         )}
 
         {activeTab === "attachments" && (
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold">ไฟล์แนบ</h3>
-              <div className="text-sm text-muted-foreground">
-                {workOrder.attachments.length} ไฟล์
-              </div>
+              <h3 className="font-semibold flex items-center gap-2">
+                <Upload className="h-4 w-4" />
+                ไฟล์แนบ
+              </h3>
             </div>
-            {workOrder.attachments.map((file, index) => (
-              <div key={index} className="card-elevated rounded-xl p-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    {file.type === "image" ? (
-                      <Camera className="h-5 w-5 text-primary" />
-                    ) : (
-                      <FileText className="h-5 w-5 text-primary" />
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-medium">{file.name}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      อัปโหลดโดย: {file.uploadedBy}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {file.uploadedAt}
-                    </p>
-                  </div>
-                  <Button variant="outline" size="sm">
-                    ดู
-                  </Button>
-                </div>
-              </div>
-            ))}
-            <Button className="w-full" variant="outline">
-              <Camera className="h-4 w-4 mr-2" />
-              เพิ่มรูปภาพ/เอกสาร
-            </Button>
+            <FileAttachment
+              files={attachedFiles}
+              onFilesChange={setAttachedFiles}
+              maxFiles={10}
+              maxFileSize={10}
+              readOnly={false}
+            />
+          </div>
+        )}
+
+        {activeTab === "time" && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold flex items-center gap-2">
+                <Timer className="h-4 w-4" />
+                การจับเวลาทำงาน
+              </h3>
+            </div>
+            <TimeTracking
+              workOrderId={workOrder.id}
+              estimatedHours={workOrder.estimatedHours}
+              actualHours={workOrder.actualHours}
+              onTimeUpdate={handleTimeUpdate}
+              timeEntries={timeEntries}
+              onTimeEntriesUpdate={setTimeEntries}
+              readOnly={false}
+            />
+          </div>
+        )}
+
+        {activeTab === "approval" && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold flex items-center gap-2">
+                <Shield className="h-4 w-4" />
+                ขั้นตอนการอนุมัติ
+              </h3>
+            </div>
+            <ApprovalWorkflow
+              workOrderId={workOrder.id}
+              workOrderTitle={workOrder.title}
+              currentStatus={workOrder.status}
+              approvalSteps={approvalSteps}
+              onApprovalUpdate={handleApprovalUpdate}
+              canApprove={true}
+              currentUserRole="manager"
+              readOnly={false}
+            />
+          </div>
+        )}
+
+        {activeTab === "history" && (
+          <div className="space-y-4">
+            <WorkOrderHistory workOrderId={workOrder.id} />
           </div>
         )}
 

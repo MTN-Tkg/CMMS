@@ -1,0 +1,10 @@
+id,work_order_id,description,is_completed,actual_value_text,actual_value_numeric,completed_at
+WOT-001-1,WO-2025-001,ตรวจเช็คระดับน้ำมันเครื่อง,true,ปกติ,,2025-07-21 02:15:00+00
+WOT-001-2,WO-2025-001,ตรวจสอบแรงดันแบตเตอรี่,true,,12.8,2025-07-21 02:20:00+00
+WOT-003-1,WO-2025-003,เตรียมพื้นที่และฐานราก,false,,,
+WOT-003-2,WO-2025-003,ติดตั้งตัวปั๊ม,false,,,
+wot1,wo2,Check spindle runout,true,,0.005,2024-01-18 15:30:00+00
+wot2,wo2,Lubricate guide rails,true,Completed,,2024-01-18 16:00:00+00
+wot3,wo3,Check discharge pressure,true,,45,2024-01-15 11:00:00+00
+wot4,wo4,Load test at 50%,false,,,
+wot5,wo5,Diagnose cooling issue,false,,,

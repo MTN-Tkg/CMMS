@@ -2,30 +2,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   AlertTriangle,
   CheckCircle,
   Clock,
-  Users,
   Wrench,
   QrCode,
-  TrendingUp,
-  Calendar,
-  BarChart3,
-  Target,
-  Zap,
-  Timer,
   Activity,
-  DollarSign,
   Settings,
-  Bell,
   Package,
-  ShoppingCart,
-  Eye,
+  RefreshCw,
+  AlertCircle,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { StockAlerts } from "@/components/inventory/StockAlerts";
+import { useSupabaseData } from "@/hooks/use-supabase-data";
 import { useInventory } from "@/hooks/use-inventory";
 
 interface Metric {
@@ -39,168 +32,70 @@ interface Metric {
 }
 
 export function Dashboard() {
-  const [currentTime, setCurrentTime] = useState(new Date());
   const {
-    dashboardData,
-    alerts,
-    recommendations,
+    metrics,
+    recentWorkOrders,
+    criticalAlerts,
+    loading,
+    error,
+    refresh
+  } = useSupabaseData();
+
+  const {
     criticalAlertsCount,
-    isLoading,
-    acknowledgeAlert,
-    createPurchaseOrder
+    partsNeedingReorder,
+    dashboardData
   } = useInventory();
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString("th-TH", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
-  };
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString("th-TH", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  const metrics: Metric[] = [
+  // แสดงเฉพาะ metrics ที่สำคัญ
+  const dashboardMetrics: Metric[] = [
     {
       title: "งานค้างส่ง",
-      value: 12,
-      change: "+3 จากเมื่อวาน",
-      trend: "up",
+      value: metrics.overdueWorkOrders,
+      change: `จากทั้งหมด ${metrics.totalWorkOrders} งาน`,
+      trend: metrics.overdueWorkOrders > 0 ? "up" : "stable",
       icon: AlertTriangle,
       color: "text-destructive",
-      percentage: 75,
-    },
-    {
-      title: "เสร็จวันนี้",
-      value: 8,
-      change: "+2 จากเมื่อวาน",
-      trend: "up",
-      icon: CheckCircle,
-      color: "text-success",
-      percentage: 85,
+      percentage: metrics.totalWorkOrders > 0 ? (metrics.overdueWorkOrders / metrics.totalWorkOrders) * 100 : 0,
     },
     {
       title: "กำลังดำเนินการ",
-      value: 15,
-      change: "ไม่มีการเปลี่ยนแปลง",
+      value: metrics.inProgressWorkOrders,
+      change: `${metrics.pendingWorkOrders} รอดำเนินการ`,
       trend: "stable",
       icon: Clock,
       color: "text-warning",
-      percentage: 60,
+      percentage: metrics.totalWorkOrders > 0 ? (metrics.inProgressWorkOrders / metrics.totalWorkOrders) * 100 : 0,
     },
     {
-      title: "ช่างที่ใช้งานได้",
-      value: 6,
-      change: "พร้อมใช้งานทั้งหมด",
-      trend: "stable",
-      icon: Users,
-      color: "text-primary",
-      percentage: 100,
-    },
-  ];
-
-  const performanceMetrics = [
-    {
-      title: "อัตราการเสร็จสิ้นตามกำหนด",
-      value: "87%",
-      target: "90%",
-      icon: Target,
-      color: "text-success",
+      title: "อุปกรณ์เสีย",
+      value: metrics.faultyAssets,
+      change: `จากทั้งหมด ${metrics.totalAssets} เครื่อง`,
+      trend: metrics.faultyAssets > 0 ? "down" : "stable",
+      icon: AlertCircle,
+      color: "text-destructive",
+      percentage: metrics.totalAssets > 0 ? (metrics.faultyAssets / metrics.totalAssets) * 100 : 0,
     },
     {
-      title: "เวลาเฉลี่ยในการซ่อม",
-      value: "2.4 ชม.",
-      target: "2.0 ชม.",
-      icon: Timer,
+      title: "อะไหล่ต่ำกว่าเกณฑ์",
+      value: metrics.lowStockParts,
+      change: `จากทั้งหมด ${metrics.totalParts} รายการ`,
+      trend: metrics.lowStockParts > 0 ? "down" : "stable",
+      icon: Package,
       color: "text-warning",
+      percentage: metrics.totalParts > 0 ? (metrics.lowStockParts / metrics.totalParts) * 100 : 0,
     },
-    {
-      title: "ประสิทธิภาพอุปกรณ์",
-      value: "94%",
-      target: "95%",
-      icon: Activity,
-      color: "text-primary",
-    },
-    {
-      title: "ค่าใช้จ่ายรายเดือน",
-      value: "₿45K",
-      target: "₿50K",
-      icon: DollarSign,
-      color: "text-success",
-    },
-  ];
-
-  const recentWorkOrders = [
-    {
-      id: "WO-2024-001",
-      title: "บำรุงรักษาเครื่องยนต์รถแทรกเตอร์",
-      status: "กำลังดำเนินการ",
-      priority: "สูง",
-      assignee: "สมชาย รักงาน",
-      dueDate: "15/01/2567",
-      progress: 65,
-      hoursSpent: 2.5,
-      estimatedHours: 4,
-    },
-    {
-      id: "WO-2024-002",
-      title: "ตรวจสอบระบบน้ำ",
-      status: "รอดำเนินการ",
-      priority: "ปานกลาง",
-      assignee: "สมหญิง ใจดี",
-      dueDate: "16/01/2567",
-      progress: 0,
-      hoursSpent: 0,
-      estimatedHours: 2,
-    },
-    {
-      id: "WO-2024-003",
-      title: "เปลี่ยนเข็มขัดเครื่องเก็บเกี่ยว",
-      status: "เกินกำหนด",
-      priority: "วิกฤติ",
-      assignee: "สมศักดิ์ ช่างเก่ง",
-      dueDate: "14/01/2567",
-      progress: 90,
-      hoursSpent: 5.5,
-      estimatedHours: 6,
-    },
-  ];
-
-  const activeAlerts = [
-    {
-      message: "มีงาน 3 รายการเกินกำหนดแล้ว",
-      type: "error",
-      time: "5 นาทีที่แล้ว",
-    },
-    {
-      message: "อะไหล่หมดคลัง: ไ��้กรองน้ำมัน",
-      type: "warning",
-      time: "10 นาทีที่แล้ว",
-    },
-    { message: "ช่างสมใสเริ่มงานใหม่", type: "info", time: "15 นาทีที่แล้ว" },
   ];
 
   const getStatusVariant = (status: string) => {
     switch (status) {
+      case "Completed":
       case "เสร็จสิ้น":
         return "default" as const;
+      case "In Progress":
       case "กำลังดำเนินการ":
         return "secondary" as const;
+      case "Overdue":
       case "เกินกำหนด":
         return "destructive" as const;
       default:
@@ -208,482 +103,363 @@ export function Dashboard() {
     }
   };
 
-  const getPriorityVariant = (priority: string) => {
+  const getPriorityVariant = (priority: number) => {
     switch (priority) {
-      case "วิกฤติ":
+      case 4:
         return "destructive" as const;
-      case "สูง":
+      case 3:
         return "default" as const;
-      case "ปานกลาง":
+      case 2:
         return "secondary" as const;
       default:
         return "outline" as const;
     }
   };
 
+  const getPriorityText = (priority: number) => {
+    switch (priority) {
+      case 4:
+        return "วิกฤติ";
+      case 3:
+        return "สูง";
+      case 2:
+        return "ปานกลาง";
+      default:
+        return "ต่ำ";
+    }
+  };
+
+  const formatWorkOrderDate = (dateString: string) => {
+    if (!dateString) return "ไม่ระบุ";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("th-TH", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen p-4">
+        <div className="space-y-4">
+          <Skeleton className="h-8 w-48" />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map((i) => (
+              <Skeleton key={i} className="h-32" />
+            ))}
+          </div>
+          <Skeleton className="h-64" />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen p-4">
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>
+            เกิดข้อผิดพลาดในการโหลดข้อมูล: {error}
+          </AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen">
-      <div className="p-3 sm:p-4 pb-20 md:pb-4 space-y-5 max-w-7xl mx-auto">
-        {/* Header with Time */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2">
+      <div className="p-3 sm:p-4 pb-20 md:pb-4 space-y-4 max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
-              หน้าหลัก
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+              หน้าหลัก CMMS
             </h1>
-            <p className="text-muted-foreground text-sm sm:text-base">
-              ยินดีต้อนรับ! นี่คือภาพรวมการบำรุงรักษาของคุณ
+            <p className="text-muted-foreground text-xs sm:text-sm">
+              ระบบบริหารจัดการการบำรุงรักษา
             </p>
           </div>
-          <div className="text-right">
-            <div className="text-xl sm:text-2xl font-bold text-primary">
-              {formatTime(currentTime)}
-            </div>
-            <div className="text-xs sm:text-sm text-muted-foreground">
-              {formatDate(currentTime)}
-            </div>
-          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={refresh}
+            className="h-8 px-3 self-end sm:self-auto"
+          >
+            <RefreshCw className="h-3 w-3 mr-1" />
+            รีเฟรช
+          </Button>
         </div>
 
-        {/* Inventory Alerts Banner */}
-        {criticalAlertsCount > 0 && (
-          <div className="card-elevated rounded-xl p-4 border-l-4 border-l-destructive bg-destructive/5">
-            <div className="flex items-start gap-3">
-              <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <h3 className="font-medium text-destructive mb-2">
-                  การแจ้งเตือนสต็อกวิกฤติ
-                </h3>
-                <div className="space-y-1">
-                  {alerts.filter(a => a.severity === 'CRITICAL' && !a.isAcknowledged).slice(0, 2).map((alert) => (
-                    <div
-                      key={alert.id}
-                      className="flex items-center justify-between text-sm"
-                    >
-                      <span className="text-destructive">
-                        {alert.partName}: {alert.message}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {new Date(alert.createdAt).toLocaleTimeString('th-TH', {
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                {criticalAlertsCount > 2 && (
-                  <Link to="/inventory/alerts">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="mt-2 h-auto p-0 text-xs text-destructive hover:text-destructive"
-                    >
-                      ดูทั้งหมด ({criticalAlertsCount} รายการ)
-                    </Button>
+        {/* Critical Alerts Banner */}
+        {(criticalAlerts.length > 0 || criticalAlertsCount > 0) && (
+          <Alert variant="destructive" className="border-l-4">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertDescription>
+              <div className="font-medium mb-1">การแจ้งเตือนวิกฤติ</div>
+              <div className="text-sm">
+                {criticalAlerts.length > 0 && criticalAlerts[0].message}
+                {criticalAlertsCount > 0 && (
+                  <span className="block mt-1">
+                    มีการแจ้งเตือนสต็อกวิกฤติ {criticalAlertsCount} รายการ
+                    <Link to="/inventory/alerts" className="ml-2 underline">
+                      ดูรายละเอียด
+                    </Link>
+                  </span>
+                )}
+                {criticalAlerts.length > 1 && (
+                  <Link to="/notifications" className="ml-2 underline">
+                    (+{criticalAlerts.length - 1} รายการ)
                   </Link>
                 )}
               </div>
-            </div>
-          </div>
+            </AlertDescription>
+          </Alert>
         )}
 
-        {/* Traditional Alert Banner */}
-        {activeAlerts.length > 0 && (
-          <div className="card-elevated rounded-xl p-4 border-l-4 border-l-warning bg-warning/5">
-            <div className="flex items-start gap-3">
-              <Bell className="h-5 w-5 text-warning shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <h3 className="font-medium text-warning mb-2">
-                  การแจ้งเตือนทั่วไป
-                </h3>
-                <div className="space-y-1">
-                  {activeAlerts.slice(0, 2).map((alert, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between text-sm"
-                    >
-                      <span
-                        className={
-                          alert.type === "error"
-                            ? "text-destructive"
-                            : alert.type === "warning"
-                              ? "text-warning"
-                              : "text-muted-foreground"
-                        }
-                      >
-                        {alert.message}
-                      </span>
-                      <span className="text-xs text-muted-foreground">
-                        {alert.time}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-                {activeAlerts.length > 2 && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="mt-2 h-auto p-0 text-xs"
-                  >
-                    ดูทั้งหมด ({activeAlerts.length} รายการ)
-                  </Button>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {/* Quick Actions - Mobile Optimized */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
           <Link to="/qr-scanner" className="group">
-            <div className="card-elevated rounded-xl p-4 h-24 flex flex-col items-center justify-center space-y-2 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-              <QrCode size={20} className="sm:w-6 sm:h-6" />
-              <span className="text-xs sm:text-sm font-medium">สแกน QR</span>
+            <div className="card-elevated rounded-lg p-3 sm:p-4 h-20 sm:h-24 flex flex-col items-center justify-center space-y-1 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-200 active:scale-95">
+              <QrCode size={18} className="sm:w-5 sm:h-5" />
+              <span className="text-xs font-medium">สแกน QR</span>
             </div>
           </Link>
-          <Link to="/work-orders" className="group">
-            <div className="card-elevated rounded-xl p-4 h-24 flex flex-col items-center justify-center space-y-2 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-              <Wrench size={20} className="sm:w-6 sm:h-6" />
-              <span className="text-xs sm:text-sm font-medium">ใบสั่งงาน</span>
+          <Link to="/work-orders/new" className="group">
+            <div className="card-elevated rounded-lg p-3 sm:p-4 h-20 sm:h-24 flex flex-col items-center justify-center space-y-1 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-200 active:scale-95">
+              <Wrench size={18} className="sm:w-5 sm:h-5" />
+              <span className="text-xs font-medium">สร้างงาน</span>
             </div>
           </Link>
           <Link to="/assets" className="group">
-            <div className="card-elevated rounded-xl p-4 h-24 flex flex-col items-center justify-center space-y-2 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-              <Settings size={20} className="sm:w-6 sm:h-6" />
-              <span className="text-xs sm:text-sm font-medium">อุปกรณ์</span>
+            <div className="card-elevated rounded-lg p-3 sm:p-4 h-20 sm:h-24 flex flex-col items-center justify-center space-y-1 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-200 active:scale-95">
+              <Settings size={18} className="sm:w-5 sm:h-5" />
+              <span className="text-xs font-medium">อุปกรณ์</span>
             </div>
           </Link>
-          <Link to="/schedule" className="group">
-            <div className="card-elevated rounded-xl p-4 h-24 flex flex-col items-center justify-center space-y-2 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-              <Calendar size={20} className="sm:w-6 sm:h-6" />
-              <span className="text-xs sm:text-sm font-medium">ตารางงาน</span>
+          <Link to="/parts" className="group">
+            <div className="card-elevated rounded-lg p-3 sm:p-4 h-20 sm:h-24 flex flex-col items-center justify-center space-y-1 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-200 active:scale-95 relative">
+              <Package size={18} className="sm:w-5 sm:h-5" />
+              <span className="text-xs font-medium">อะไหล่</span>
+              {criticalAlertsCount > 0 && (
+                <div className="absolute -top-1 -right-1 h-3 w-3 bg-destructive rounded-full animate-pulse" />
+              )}
             </div>
           </Link>
         </div>
 
-        {/* Main Metrics Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {metrics.map((metric) => {
+        {/* Main Metrics Grid - Mobile Optimized */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
+          {dashboardMetrics.map((metric) => {
             const Icon = metric.icon;
             return (
-              <div
-                key={metric.title}
-                className="metric-card rounded-xl p-4 sm:p-5"
-              >
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xs sm:text-sm font-medium text-muted-foreground">
-                    {metric.title}
-                  </h3>
-                  <div
-                    className={`p-2 rounded-lg ${
-                      metric.color === "text-destructive"
-                        ? "bg-destructive/10"
-                        : metric.color === "text-success"
-                          ? "bg-success/10"
-                          : metric.color === "text-warning"
-                            ? "bg-warning/10"
-                            : "bg-primary/10"
-                    }`}
-                  >
-                    <Icon className={`h-4 w-4 ${metric.color}`} />
-                  </div>
+              <Card key={metric.title} className="p-3 sm:p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <Icon className={`h-4 w-4 ${metric.color}`} />
+                  <span className="text-xs text-muted-foreground">
+                    {metric.percentage?.toFixed(0)}%
+                  </span>
                 </div>
-                <div className="space-y-2">
-                  <div className="text-xl sm:text-2xl font-bold">
+                <div className="space-y-1">
+                  <div className="text-lg sm:text-xl font-bold">
                     {metric.value}
                   </div>
-                  {metric.percentage && (
-                    <div className="space-y-1">
-                      <Progress value={metric.percentage} className="h-2" />
-                      <div className="text-xs text-muted-foreground">
-                        {metric.percentage}% จากเป้าหมาย
-                      </div>
-                    </div>
-                  )}
+                  <h3 className="text-xs font-medium text-muted-foreground">
+                    {metric.title}
+                  </h3>
                   <p className="text-xs text-muted-foreground">
                     {metric.change}
                   </p>
                 </div>
-              </div>
+              </Card>
             );
           })}
         </div>
 
-        {/* Performance Metrics */}
-        <div className="card-elevated rounded-xl">
-          <div className="p-4 sm:p-6 border-b">
-            <div className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5 text-primary" />
-              <h2 className="text-lg sm:text-xl font-semibold">
-                ประสิทธิภาพการดำเนินงาน
-              </h2>
-            </div>
-          </div>
-          <div className="p-4 sm:p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {performanceMetrics.map((metric) => {
-                const Icon = metric.icon;
-                return (
-                  <div key={metric.title} className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <Icon className={`h-4 w-4 ${metric.color}`} />
-                      <span className="text-sm font-medium">
-                        {metric.title}
-                      </span>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xl font-bold">
-                          {metric.value}
-                        </span>
-                        <span className="text-sm text-muted-foreground">
-                          เป้า: {metric.target}
-                        </span>
-                      </div>
-                      <Progress
-                        value={
-                          metric.title.includes("อัตรา")
-                            ? 87
-                            : metric.title.includes("ประสิทธิภาพ")
-                              ? 94
-                              : metric.title.includes("เวลา")
-                                ? 75
-                                : 90
-                        }
-                        className="h-2"
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Work Orders with Progress */}
-        <div className="card-elevated rounded-xl overflow-hidden">
-          <div className="p-4 sm:p-6 border-b bg-gradient-to-r from-primary/5 to-transparent">
+        {/* Recent Work Orders - Mobile Optimized */}
+        <Card>
+          <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg sm:text-xl font-semibold">
-                ใบสั่งงานล่าสุด
-              </h2>
+              <CardTitle className="text-base sm:text-lg">
+                ใบสั่งงานที่ต้องดำเนินการ
+              </CardTitle>
               <Link to="/work-orders">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-xs sm:text-sm"
-                >
+                <Button variant="ghost" size="sm" className="text-xs h-7">
                   ดูทั้งหมด
                 </Button>
               </Link>
             </div>
-          </div>
-          <div className="p-4 sm:p-6 space-y-3">
-            {recentWorkOrders.map((wo, index) => (
-              <Link key={wo.id} to={`/work-orders/${wo.id}`}>
-                <div
-                  className={`group cursor-pointer p-4 rounded-lg border hover:border-primary/50 transition-all duration-200 ${
-                    index === 0
-                      ? "bg-gradient-to-r from-primary/5 to-transparent"
-                      : "hover:bg-muted/30"
-                  }`}
-                >
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h4 className="font-semibold text-sm sm:text-base truncate">
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {recentWorkOrders.length === 0 ? (
+              <p className="text-sm text-muted-foreground text-center py-4">
+                ไม่มีใบสั่งงานที่ต้องดำเนินการ
+              </p>
+            ) : (
+              recentWorkOrders
+                .filter(wo => wo.status !== "Completed" && wo.status !== "เสร็จสิ้น")
+                .slice(0, 5)
+                .map((wo) => (
+                  <Link key={wo.id} to={`/work-orders/${wo.id}`}>
+                    <div className="p-3 rounded-lg border hover:border-primary/50 transition-all">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-sm truncate">
                             {wo.title}
                           </h4>
+                          <p className="text-xs text-muted-foreground">
+                            {wo.wo_number} • {formatWorkOrderDate(wo.scheduled_date)}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
                           <Badge
                             variant={getPriorityVariant(wo.priority)}
                             className="text-xs"
                           >
-                            {wo.priority}
+                            {getPriorityText(wo.priority)}
+                          </Badge>
+                          <Badge
+                            variant={getStatusVariant(wo.status)}
+                            className="text-xs"
+                          >
+                            {wo.status}
                           </Badge>
                         </div>
-                        <div className="space-y-1">
-                          <p className="text-xs sm:text-sm text-muted-foreground">
-                            {wo.id} • {wo.assignee}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            กำหนดเสร็จ: {wo.dueDate}
-                          </p>
-                        </div>
-                      </div>
-                      <Badge
-                        variant={getStatusVariant(wo.status)}
-                        className="text-xs shrink-0"
-                      >
-                        {wo.status}
-                      </Badge>
-                    </div>
-
-                    {/* Progress and Time Info */}
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-muted-foreground">
-                          ความคืบหน้า
-                        </span>
-                        <span className="font-medium">{wo.progress}%</span>
-                      </div>
-                      <Progress value={wo.progress} className="h-2" />
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span>เวลาใช้: {wo.hoursSpent} ชม.</span>
-                        <span>ประมาณการ: {wo.estimatedHours} ชม.</span>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
+                  </Link>
+                ))
+            )}
+          </CardContent>
+        </Card>
 
-        {/* Quick Stats Summary */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="card-elevated rounded-xl p-4">
+        {/* Summary Stats - Mobile Optimized */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <Card className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-success/10 rounded-lg">
-                <TrendingUp className="h-5 w-5 text-success" />
+                <CheckCircle className="h-4 w-4 text-success" />
               </div>
               <div>
-                <h3 className="font-medium">ประสิทธิภาพสัปดาห์นี้</h3>
-                <p className="text-2xl font-bold text-success">+12%</p>
+                <h3 className="font-medium text-sm">อัตราเสร็จสิ้น</h3>
+                <p className="text-xl font-bold text-success">
+                  {metrics.totalWorkOrders > 0 
+                    ? ((metrics.completedWorkOrders / metrics.totalWorkOrders) * 100).toFixed(0)
+                    : 0}%
+                </p>
                 <p className="text-xs text-muted-foreground">
-                  เมื่อเทียบกับสัปดาห์ก่อน
+                  {metrics.completedWorkOrders} จาก {metrics.totalWorkOrders} งาน
                 </p>
               </div>
             </div>
-          </div>
+          </Card>
 
-          <div className="card-elevated rounded-xl p-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-warning/10 rounded-lg">
-                <Clock className="h-5 w-5 text-warning" />
-              </div>
-              <div>
-                <h3 className="font-medium">เวลาเฉลี่ยต่องาน</h3>
-                <p className="text-2xl font-bold text-warning">2.4 ชม.</p>
-                <p className="text-xs text-muted-foreground">
-                  ลดลง 0.3 ชม. จากเดือนก่อน
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="card-elevated rounded-xl p-4">
+          <Card className="p-3">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-primary/10 rounded-lg">
-                <Users className="h-5 w-5 text-primary" />
+                <Activity className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <h3 className="font-medium">ช่างที่มีภาระงานสูง</h3>
-                <p className="text-2xl font-bold text-primary">2 คน</p>
+                <h3 className="font-medium text-sm">อุปกรณ์พร้อมใช้</h3>
+                <p className="text-xl font-bold text-primary">
+                  {metrics.totalAssets > 0 
+                    ? ((metrics.workingAssets / metrics.totalAssets) * 100).toFixed(0)
+                    : 0}%
+                </p>
                 <p className="text-xs text-muted-foreground">
-                  ควรปรับสมดุลภาระงาน
+                  {metrics.workingAssets} จาก {metrics.totalAssets} เครื่อง
                 </p>
               </div>
             </div>
-          </div>
+          </Card>
+
+          <Card className="p-3">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-warning/10 rounded-lg">
+                <Package className="h-4 w-4 text-warning" />
+              </div>
+              <div>
+                <h3 className="font-medium text-sm">สต็อกปกติ</h3>
+                <p className="text-xl font-bold text-warning">
+                  {metrics.totalParts > 0 
+                    ? (((metrics.totalParts - metrics.lowStockParts - metrics.outOfStockParts) / metrics.totalParts) * 100).toFixed(0)
+                    : 0}%
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {metrics.lowStockParts} รายการต่ำกว่าเกณฑ์
+                </p>
+              </div>
+            </div>
+          </Card>
         </div>
 
-        {/* Stock Alerts Section */}
-        {alerts.length > 0 && (
-          <div className="card-elevated rounded-xl">
-            <div className="p-4 sm:p-6 border-b bg-gradient-to-r from-warning/5 to-transparent">
+        {/* Inventory Quick Overview */}
+        {dashboardData && (
+          <Card>
+            <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg sm:text-xl font-semibold">
-                  การแจ้งเตือนสต็อก
-                </h2>
-                <Link to="/inventory/alerts">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-xs sm:text-sm"
-                  >
+                <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                  <Package className="h-5 w-5" />
+                  ภาพรวมคลังอะไหล่
+                </CardTitle>
+                <Link to="/inventory">
+                  <Button variant="ghost" size="sm" className="text-xs h-7">
                     ดูทั้งหมด
                   </Button>
                 </Link>
               </div>
-            </div>
-            <div className="p-4 sm:p-6">
-              <StockAlerts
-                alerts={alerts.slice(0, 3)}
-                recommendations={recommendations.slice(0, 3)}
-                onAcknowledgeAlert={acknowledgeAlert}
-                onCreateOrder={createPurchaseOrder}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Reorder Recommendations */}
-        {recommendations.length > 0 && (
-          <div className="card-elevated rounded-xl">
-            <div className="p-4 sm:p-6 border-b bg-gradient-to-r from-blue-50 to-transparent">
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg sm:text-xl font-semibold">
-                  คำแนะนำการสั่งซื้อ
-                </h2>
-                <Link to="/inventory/reorder">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-xs sm:text-sm"
-                  >
-                    ดูทั้งหมด
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <div className="p-4 sm:p-6 space-y-3">
-              {recommendations.slice(0, 5).map((rec) => (
-                <div
-                  key={rec.id}
-                  className="flex items-center justify-between p-3 bg-muted/30 rounded-lg"
-                >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-medium text-sm">{rec.partName}</h4>
-                      <Badge
-                        variant={
-                          rec.urgency === 'IMMEDIATE' ? 'destructive' :
-                          rec.urgency === 'HIGH' ? 'default' :
-                          rec.urgency === 'MEDIUM' ? 'secondary' : 'outline'
-                        }
-                        className="text-xs"
-                      >
-                        {rec.urgency === 'IMMEDIATE' ? 'ด่วนมาก' :
-                         rec.urgency === 'HIGH' ? 'ด่วน' :
-                         rec.urgency === 'MEDIUM' ? 'ปานกลาง' : 'ต่ำ'}
-                      </Badge>
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      {rec.partNumber} • สต็อก: {rec.currentStock} • แนะนำ: {rec.recommendedQuantity}
-                    </div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {rec.reasoning}
-                    </div>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="text-center">
+                  <div className="text-lg font-bold text-primary">
+                    {dashboardData.summary.totalParts}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Link to={`/parts/${rec.partId}`}>
-                      <Button variant="outline" size="sm">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                    </Link>
-                    <Button
-                      size="sm"
-                      onClick={() => createPurchaseOrder(rec.partId, rec.recommendedQuantity)}
-                    >
-                      <ShoppingCart className="h-4 w-4 mr-1" />
-                      สั่งซื้อ
-                    </Button>
+                  <div className="text-xs text-muted-foreground">รายการทั้งหมด</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-bold text-warning">
+                    {dashboardData.summary.lowStockCount}
+                  </div>
+                  <div className="text-xs text-muted-foreground">สต็อกต่ำ</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-bold text-destructive">
+                    {dashboardData.summary.outOfStockCount}
+                  </div>
+                  <div className="text-xs text-muted-foreground">หมดสต็อก</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-bold text-blue-600">
+                    {dashboardData.summary.pendingOrders}
+                  </div>
+                  <div className="text-xs text-muted-foreground">รอสั่งซื้อ</div>
+                </div>
+              </div>
+              
+              {partsNeedingReorder.length > 0 && (
+                <div className="mt-4 p-3 bg-muted/30 rounded-lg">
+                  <div className="text-sm font-medium mb-2">อะไหล่ที่ต้องสั่งซื้อด่วน:</div>
+                  <div className="space-y-1">
+                    {partsNeedingReorder.slice(0, 3).map((part) => (
+                      <div key={part.id} className="flex items-center justify-between text-xs">
+                        <span className="truncate">{part.name}</span>
+                        <span className="text-muted-foreground ml-2">
+                          {part.stockQuantity} {part.unit}
+                        </span>
+                      </div>
+                    ))}
+                    {partsNeedingReorder.length > 3 && (
+                      <div className="text-xs text-muted-foreground">
+                        และอีก {partsNeedingReorder.length - 3} รายการ
+                      </div>
+                    )}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
+              )}
+            </CardContent>
+          </Card>
         )}
       </div>
     </div>

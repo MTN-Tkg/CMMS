@@ -1,0 +1,10 @@
+id,name,status
+T-001,มัลติมิเตอร์,Available
+T-002,ชุดประแจบล็อก,Available
+T-003,กล้องถ่ายภาพความร้อน,Available
+T-004,เครื่องวัดการสั่นสะเทือน,Available
+tool1,Torque Wrench Set,available
+tool2,Digital Multimeter,checked_out
+tool3,Hydraulic Jack,available
+tool4,Oscilloscope,maintenance
+tool5,Pipe Cutter,available

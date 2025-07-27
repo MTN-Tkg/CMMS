@@ -1,0 +1,4 @@
+id,work_order_id,file_name,file_path
+WOA-002,WO-2025-002,fan_broken_bearing.jpg,/attachments/fan_broken_bearing.jpg
+woa1,wo1,belt_inspection_photo.jpg,/maintenance-files/wo1/belt_inspection_photo.jpg
+woa2,wo3,pressure_readings.pdf,/maintenance-files/wo3/pressure_readings.pdf

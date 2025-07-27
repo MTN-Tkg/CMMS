@@ -1,0 +1,4 @@
+id,req_number,description,status,priority,requested_by,approved_by,approved_at,total_estimated_cost,work_order_id,created_at,updated_at
+pr1,PR-2024-001,Belt replacement parts,pending,2,Technician A,,,150.00,wo1,2025-07-26 01:55:17.283687+00,2025-07-26 01:55:17.283687+00
+pr2,PR-2024-002,CNC maintenance supplies,approved,3,Technician B,,,75.50,wo2,2025-07-26 01:55:17.283687+00,2025-07-26 01:55:17.283687+00
+pr3,PR-2024-003,Emergency pump repair parts,completed,1,Technician C,,,320.00,wo5,2025-07-26 01:55:17.283687+00,2025-07-26 01:55:17.283687+00

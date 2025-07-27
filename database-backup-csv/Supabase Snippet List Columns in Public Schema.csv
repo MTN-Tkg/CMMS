@@ -1,0 +1,101 @@
+table_name,column_name,data_type
+assets,id,text
+assets,equipment_type_id,text
+assets,system_id,text
+assets,serial_number,text
+assets,status,text
+companies,id,text
+companies,name,text
+companies,latitude,numeric
+companies,longitude,numeric
+companies,code,text
+companies,created_at,timestamp with time zone
+companies,email,text
+companies,phone,text
+companies,address,text
+companies,is_active,boolean
+equipment_types,id,text
+equipment_types,name,text
+equipment_types,name_th,text
+equipment_types,description,text
+locations,id,text
+locations,company_id,text
+locations,name,text
+locations,code,text
+locations,created_at,timestamp with time zone
+locations,address,text
+locations,is_active,boolean
+notifications,id,text
+notifications,user_id,uuid
+notifications,title,text
+notifications,message,text
+notifications,type,text
+notifications,is_read,boolean
+notifications,reference_type,text
+notifications,reference_id,text
+notifications,created_at,timestamp with time zone
+notifications,updated_at,timestamp with time zone
+parts,id,text
+parts,name,text
+parts,stock_quantity,integer
+parts,min_stock_level,integer
+parts_requisition_items,id,text
+parts_requisition_items,requisition_id,text
+parts_requisition_items,part_number,text
+parts_requisition_items,part_description,text
+parts_requisition_items,quantity_requested,integer
+parts_requisition_items,quantity_issued,integer
+parts_requisition_items,unit_cost,numeric
+parts_requisition_items,estimated_cost,numeric
+parts_requisition_items,created_at,timestamp with time zone
+parts_requisition_items,updated_at,timestamp with time zone
+parts_requisitions,id,text
+parts_requisitions,req_number,text
+parts_requisitions,description,text
+parts_requisitions,status,text
+parts_requisitions,priority,integer
+parts_requisitions,requested_by,text
+parts_requisitions,approved_by,text
+parts_requisitions,approved_at,timestamp with time zone
+parts_requisitions,total_estimated_cost,numeric
+parts_requisitions,work_order_id,text
+parts_requisitions,created_at,timestamp with time zone
+parts_requisitions,updated_at,timestamp with time zone
+pm_template_details,id,text
+pm_template_details,pm_template_id,text
+pm_template_details,step_number,integer
+pm_template_details,task_description,text
+pm_template_details,expected_input_type,text
+pm_template_details,standard_text_expected,text
+pm_template_details,standard_min_value,numeric
+pm_template_details,standard_max_value,numeric
+pm_template_details,is_critical,boolean
+pm_template_details,remarks,text
+pm_templates,id,text
+pm_templates,company_id,text
+pm_templates,system_id,text
+pm_templates,equipment_type_id,text
+pm_templates,name,text
+pm_templates,frequency_type,text
+pm_templates,frequency_value,integer
+pm_templates,estimated_minutes,integer
+pm_templates,remarks,text
+pm_templates,template_code,text
+pm_templates,template_name,text
+pm_templates,description,text
+pm_templates,estimated_duration,integer
+systems,id,text
+systems,company_id,text
+systems,name,text
+systems,name_th,text
+systems,description,text
+systems,code,text
+systems,location_id,text
+systems,created_at,timestamp with time zone
+systems,is_active,boolean
+tool_checkouts,id,text
+tool_checkouts,tool_id,text
+tool_checkouts,work_order_id,text
+tool_checkouts,checked_out_by_user_id,uuid
+tool_checkouts,checked_out_at,timestamp with time zone
+tool_checkouts,checked_in_at,timestamp with time zone

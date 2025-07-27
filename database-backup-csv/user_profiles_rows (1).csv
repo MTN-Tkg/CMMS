@@ -1,0 +1,5 @@
+id,user_id,company_id,first_name,last_name,role,email,is_active,created_at,updated_at,department,employee_code,phone,location_id,manager_id,specialization,certification,skills,certifications,emergency_contact
+08da004e-a702-4c8a-a108-de299548ba2d,e4a3a58c-5a60-49de-9213-0fdef2bf0bf8,,Nattapon,Tipma,admin,nattapon.m.mtn@gmail.com,true,2025-07-19 09:45:54.485887+00,2025-07-19 09:45:54.485887+00,,,,,,,,,,
+208176d1-540c-42d0-a707-8ccddbec13ad,6c38cfa1-776f-40c7-8efe-ad7b7c9082bf,,,,technician,demo@cmms.com,true,2025-07-23 15:29:13.33834+00,2025-07-23 15:29:13.33834+00,,,,,,,,,,
+375ce304-afe0-46e7-b7b3-a91e8eff3d83,03668aa4-38b7-4f36-8ddf-0f637d5db68a,,Admin,User,admin,m.mtn.tkg@gmail.com,true,2025-07-19 13:20:17.045218+00,2025-07-19 13:20:17.045218+00,,,,,,,,,,
+e4d99a34-5848-4ece-9aab-a9539a5fd761,d3339678-0026-4781-bed5-6fba545b6cef,,วัชรินทร์,ลีสุขสาม,manager,0932676176omkoi@gmail.com,true,2025-07-20 09:38:31.996931+00,2025-07-20 09:38:31.996931+00,,,,,,,,,,

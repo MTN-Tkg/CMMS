@@ -1,0 +1,5 @@
+id,tool_id,work_order_id,checked_out_by_user_id,checked_out_at,checked_in_at
+TC-002,T-002,WO-2025-002,208176d1-540c-42d0-a707-8ccddbec13ad,2025-07-25 09:29:05.335969+00,
+TC-003,T-003,WO-2025-005,208176d1-540c-42d0-a707-8ccddbec13ad,2025-07-25 09:29:05.335969+00,
+tc1,tool2,wo2,,2024-01-18 14:00:00+00,
+tc2,tool1,wo3,,2024-01-15 10:00:00+00,2024-01-15 12:00:00+00
