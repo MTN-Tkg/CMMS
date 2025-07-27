@@ -5,7 +5,9 @@ import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { AuthProvider, useAuth } from "./hooks/useAuth";
+import LoginPage from "./pages/Index";
 import { Dashboard } from "./pages/Dashboard";
 import { WorkOrders } from "./pages/WorkOrders";
 import { WorkOrderDetail } from "./pages/WorkOrderDetail";
@@ -37,22 +39,47 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <div className="min-h-screen bg-background">
-          <MobileNav />
+    <BrowserRouter>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <AppRoutes />
+        </TooltipProvider>
+      </AuthProvider>
+    </BrowserRouter>
+  </QueryClientProvider>
+);
 
-          {/* PWA Install Component */}
-          <PWAInstall showBanner={true} autoShow={false} />
+const ProtectedRoute = () => {
+  const { session, loading } = useAuth();
 
-          {/* Main Content */}
-          <main className="md:ml-64">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/work-orders" element={<WorkOrders />} />
-              <Route path="/work-orders/new" element={<WorkOrderForm />} />
+  if (loading) {
+    return <div>Loading...</div>; // Or a spinner component
+  }
+
+  if (!session) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+};
+
+const AppRoutes = () => {
+  const { session } = useAuth();
+
+  return (
+    <div className="min-h-screen bg-background">
+      {session && <MobileNav />}
+      {session && <PWAInstall showBanner={true} autoShow={false} />}
+      
+      <main className={session ? "md:ml-64" : ""}>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/work-orders" element={<WorkOrders />} />
+            <Route path="/work-orders/new" element={<WorkOrderForm />} />
               <Route path="/work-orders/edit/:id" element={<WorkOrderForm />} />
               <Route path="/work-orders/:id" element={<WorkOrderDetail />} />
               <Route path="/qr-scanner" element={<QRScanner />} />
@@ -80,13 +107,12 @@ const App = () => (
               <Route path="/inventory/dashboard" element={<InventoryDashboard />} />
               <Route path="/supabase-test" element={<SupabaseTest />} />
               <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+          </Route>
+        </Routes>
+      </main>
+    </div>
+  );
+};
 
 // Prevent duplicate root creation during HMR
 const container = document.getElementById("root")!;

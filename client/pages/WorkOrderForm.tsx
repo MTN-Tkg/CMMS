@@ -182,6 +182,13 @@ export function WorkOrderForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Basic validation
+    if (!formData.title) {
+      setError('กรุณากรอกหัวข้องาน');
+      return;
+    }
+    
     setSaving(true);
     setError(null);
 
@@ -193,32 +200,34 @@ export function WorkOrderForm() {
         updated_at: new Date().toISOString(),
       };
 
+      let result;
       if (isEditMode) {
         // Update existing work order
-        const { error } = await supabase
+        result = await supabase
           .from('work_orders')
           .update(dataToSave)
           .eq('id', id);
-
-        if (error) throw error;
       } else {
         // Create new work order
-        const { error } = await supabase
+        result = await supabase
           .from('work_orders')
           .insert([{
             ...dataToSave,
             created_at: new Date().toISOString(),
           }]);
+      }
 
-        if (error) throw error;
+      if (result.error) {
+        console.error('Supabase error:', result.error);
+        throw new Error(`Database error: ${result.error.message}`);
       }
 
       // Refresh data and navigate back
       await refresh();
       navigate('/work-orders');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error saving work order:', err);
-      setError('ไม่สามารถบันทึกข้อมูลได้');
+      setError(err.message || 'ไม่สามารถบันทึกข้อมูลได้');
     } finally {
       setSaving(false);
     }
@@ -462,14 +471,14 @@ export function WorkOrderForm() {
                 <div className="space-y-2">
                   <Label htmlFor="asset_id">อุปกรณ์</Label>
                   <Select
-                    value={formData.asset_id}
-                    onValueChange={(value) => handleInputChange('asset_id', value)}
+                    value={formData.asset_id || "__none__"}
+                    onValueChange={(value) => handleInputChange('asset_id', value === "__none__" ? "" : value)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="เลือกอุปกรณ์" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">ไม่ระบุ</SelectItem>
+                      <SelectItem value="__none__">ไม่ระบุ</SelectItem>
                       {assets.map((asset) => (
                         <SelectItem key={asset.id} value={asset.id}>
                           {asset.serial_number} - {
@@ -485,14 +494,14 @@ export function WorkOrderForm() {
                 <div className="space-y-2">
                   <Label htmlFor="location_id">สถานที่</Label>
                   <Select
-                    value={formData.location_id}
-                    onValueChange={(value) => handleInputChange('location_id', value)}
+                    value={formData.location_id || "__none__"}
+                    onValueChange={(value) => handleInputChange('location_id', value === "__none__" ? "" : value)}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="เลือกสถานที่" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">ไม่ระบุ</SelectItem>
+                      <SelectItem value="__none__">ไม่ระบุ</SelectItem>
                       {locations.map((location) => (
                         <SelectItem key={location.id} value={location.id}>
                           {location.name}
@@ -507,14 +516,14 @@ export function WorkOrderForm() {
               <div className="space-y-2">
                 <Label htmlFor="assigned_to">มอบหมายให้</Label>
                 <Select
-                  value={formData.assigned_to}
-                  onValueChange={(value) => handleInputChange('assigned_to', value)}
+                  value={formData.assigned_to || "__none__"}
+                  onValueChange={(value) => handleInputChange('assigned_to', value === "__none__" ? "" : value)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="เลือกผู้รับผิดชอบ" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">ไม่ระบุ</SelectItem>
+                    <SelectItem value="__none__">ไม่ระบุ</SelectItem>
                     {users.map((user) => (
                       <SelectItem key={user.id} value={user.id}>
                         {user.name} - {user.role}

@@ -54,6 +54,8 @@ import { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "../../shared/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import type { User as SupabaseUser } from '@supabase/supabase-js';
 
 interface Asset {
   id: string;
@@ -94,27 +96,20 @@ interface PMTemplateDetail {
 }
 
 interface WorkOrderTask {
-  id?: string;
+  id: string;
   work_order_id: string;
-  pm_template_detail_id?: string;
-  step_number: number;
-  task_description: string;
-  expected_input_type?: string;
-  standard_text_expected?: string;
-  standard_min_value?: number;
-  standard_max_value?: number;
-  is_critical?: boolean; // Made optional to handle missing database column
-  status: 'pending' | 'in_progress' | 'completed' | 'failed' | 'skipped' | 'na';
-  result_value?: string;
-  result_status: 'pending' | 'pass' | 'fail' | 'warning' | 'na';
-  notes?: string;
-  photo_urls?: string[];
-  started_at?: string;
-  completed_at?: string;
-  duration_minutes?: number;
+  description: string;
+  is_completed: boolean;
+  is_critical?: boolean;
+  actual_value_text?: string | null;
+  actual_value_numeric?: number | null;
+  completed_at?: string | null;
+  // Store template details for reference during execution
+  template_detail?: PMTemplateDetail;
 }
 
 export function PMQRScanner() {
+  const { session, user } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const preselectedCode = searchParams.get("code");
@@ -168,6 +163,10 @@ export function PMQRScanner() {
 
   // Search for PM template by QR code
   const searchPMTemplate = async (qrCode: string) => {
+    if (!session) {
+      toast.error("Please log in to search for PM Templates.");
+      return;
+    }
     setLoading(true);
     setPmTemplates([]); // Clear previous results
     setSelectedTemplate(null);
@@ -313,6 +312,76 @@ export function PMQRScanner() {
     }
   };
 
+  // Ensures a user profile exists, creating one if necessary.
+  const ensureUserProfile = async (user: SupabaseUser) => {
+    // First try to get the profile by user_id (not id)
+    const { data: profile, error } = await supabase
+      .from('user_profiles')
+      .select('*')
+      .eq('user_id', user.id)
+      .single();
+
+    // error.code 'PGRST116' means no rows found, which is an expected outcome.
+    if (error && error.code !== 'PGRST116') {
+      console.error('Error checking user profile:', error);
+      throw new Error(`Could not verify user profile: ${error.message}`);
+    }
+
+    if (!profile) {
+      console.log(`Profile not found for user ${user.id}. Creating one.`);
+      
+      // Extract name from email if no metadata available
+      const emailName = user.email?.split('@')[0] || 'User';
+      const nameParts = emailName.split('.');
+      const firstName = nameParts[0] || emailName;
+      const lastName = nameParts[1] || '';
+      
+      // Create new profile with proper structure
+      const newProfile = {
+        user_id: user.id,
+        email: user.email,
+        first_name: user.user_metadata?.first_name || firstName,
+        last_name: user.user_metadata?.last_name || lastName,
+        role: 'technician', // Default role for PM execution
+        is_active: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+      
+      const { data: createdProfile, error: insertError } = await supabase
+        .from('user_profiles')
+        .insert(newProfile)
+        .select()
+        .single();
+
+      if (insertError) {
+        // If it's a unique constraint error, the profile might already exist
+        if (insertError.code === '23505') {
+          console.log('Profile already exists, fetching it...');
+          // Try to fetch again
+          const { data: existingProfile, error: fetchError } = await supabase
+            .from('user_profiles')
+            .select('*')
+            .eq('user_id', user.id)
+            .single();
+          
+          if (fetchError || !existingProfile) {
+            throw new Error(`Could not fetch existing profile: ${fetchError?.message}`);
+          }
+          
+          return existingProfile;
+        }
+        
+        console.error('Error creating user profile:', insertError);
+        throw new Error(`Could not create user profile: ${insertError.message}`);
+      }
+      
+      return createdProfile;
+    }
+    
+    return profile;
+  };
+
   // Create work order and tasks
   const startPMExecution = async () => {
     if (!selectedTemplate || templateDetails.length === 0) {
@@ -320,9 +389,17 @@ export function PMQRScanner() {
       return;
     }
 
+    if (!user) {
+      toast.error('ไม่พบข้อมูลผู้ใช้ กรุณาล็อกอินใหม่อีกครั้ง');
+      return;
+    }
+
     setLoading(true);
     try {
-      // Create work order
+      // Ensure user profile exists and get the profile
+      const profile = await ensureUserProfile(user);
+
+      // Create work order using profile.id (not user.id)
       const workOrderId = `WO-PM-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
       const workOrderData = {
         id: workOrderId,
@@ -334,6 +411,8 @@ export function PMQRScanner() {
         pm_template_id: selectedTemplate.id,
         estimated_hours: Math.ceil(selectedTemplate.estimated_minutes / 60),
         created_at: new Date().toISOString(),
+        requested_by_user_id: profile.id, // Use profile.id, not user.id
+        assigned_to_user_id: profile.id,  // Use profile.id, not user.id
       };
 
       const { data: workOrder, error: woError } = await supabase
@@ -347,27 +426,34 @@ export function PMQRScanner() {
       setCurrentWorkOrderId(workOrder.id);
 
       // Create work order tasks from template details
-      // Note: Handle missing is_critical column gracefully
-      const tasks: Omit<WorkOrderTask, 'id'>[] = templateDetails.map(detail => ({
+      // Map to the actual work_order_tasks table structure
+      const tasksForDB = templateDetails.map((detail, index) => ({
+        id: `${workOrder.id}-${index + 1}`, // Generate task ID
         work_order_id: workOrder.id,
-        pm_template_detail_id: detail.id,
-        step_number: detail.step_number,
-        task_description: detail.task_description,
-        // Only include is_critical if we know the column exists
-        // This prevents PGRST204 errors when the column is missing
-        ...(detail.is_critical !== undefined && { is_critical: detail.is_critical }),
-        status: 'pending' as const,
-        result_status: 'pending' as const,
+        description: detail.task_description, // Map task_description to description
+        is_completed: false, // New tasks start as not completed
+        is_critical: detail.is_critical || false,
+        // Don't set actual values yet - these will be filled during execution
+        actual_value_text: null,
+        actual_value_numeric: null,
+        completed_at: null,
+        // Don't include template_detail in DB insert - it's not a column
       }));
 
       const { data: createdTasks, error: tasksError } = await supabase
         .from('work_order_tasks')
-        .insert(tasks)
+        .insert(tasksForDB)
         .select();
 
       if (tasksError) throw tasksError;
 
-      setWorkOrderTasks(createdTasks || []);
+      // Map the created tasks with their corresponding template details
+      const tasksWithDetails = (createdTasks || []).map((task, index) => ({
+        ...task,
+        template_detail: templateDetails[index], // Add template detail reference for UI use
+      }));
+
+      setWorkOrderTasks(tasksWithDetails);
       setIsExecuting(true);
       setCurrentTaskIndex(0);
       setActiveTab("execution");
@@ -382,22 +468,24 @@ export function PMQRScanner() {
   };
 
   // Update task result
-  const updateTaskResult = async (taskId: string, result: Partial<WorkOrderTask>) => {
+  const updateTaskResult = async (taskId: string, updates: {
+    is_completed?: boolean;
+    actual_value_text?: string | null;
+    actual_value_numeric?: number | null;
+    completed_at?: string | null;
+  }) => {
     try {
       const { error } = await supabase
         .from('work_order_tasks')
-        .update({
-          ...result,
-          updated_at: new Date().toISOString(),
-        })
+        .update(updates)
         .eq('id', taskId);
 
       if (error) throw error;
 
       // Update local state
-      setWorkOrderTasks(prev => 
-        prev.map(task => 
-          task.id === taskId ? { ...task, ...result } : task
+      setWorkOrderTasks(prev =>
+        prev.map(task =>
+          task.id === taskId ? { ...task, ...updates } : task
         )
       );
 
@@ -413,16 +501,14 @@ export function PMQRScanner() {
     const currentTask = workOrderTasks[currentTaskIndex];
     if (!currentTask) return;
 
-    const taskUpdate: Partial<WorkOrderTask> = {
-      status: 'completed',
-      result_value: result.value || '',
-      result_status: result.status || 'pass',
-      notes: result.notes || '',
+    const taskUpdate = {
+      is_completed: true,
+      actual_value_text: result.value || result.notes || '',
+      actual_value_numeric: result.numericValue || null,
       completed_at: new Date().toISOString(),
-      duration_minutes: result.duration || 0,
     };
 
-    await updateTaskResult(currentTask.id!, taskUpdate);
+    await updateTaskResult(currentTask.id, taskUpdate);
 
     // Move to next task
     if (currentTaskIndex < workOrderTasks.length - 1) {
@@ -960,7 +1046,7 @@ function TaskExecutionInterface({
   const [isTaskStarted, setIsTaskStarted] = useState(false);
 
   const currentTask = tasks[currentIndex];
-  const completedTasks = tasks.filter(t => t.status === 'completed').length;
+  const completedTasks = tasks.filter(t => t.is_completed).length;
   const progress = (completedTasks / tasks.length) * 100;
 
   useEffect(() => {
@@ -982,10 +1068,8 @@ function TaskExecutionInterface({
     setStartTime(new Date());
     setIsTaskStarted(true);
     
-    await onUpdateTask(currentTask.id!, {
-      status: 'in_progress',
-      started_at: new Date().toISOString(),
-    });
+    // For now, we'll just track in local state since the table doesn't have a started_at field
+    setIsTaskStarted(true);
   };
 
   const completeTask = async () => {
@@ -1005,10 +1089,9 @@ function TaskExecutionInterface({
   const skipTask = async () => {
     if (!currentTask) return;
 
-    await onUpdateTask(currentTask.id!, {
-      status: 'skipped',
-      result_status: 'na',
-      notes: 'ข้ามการทำงาน',
+    await onUpdateTask(currentTask.id, {
+      is_completed: true,
+      actual_value_text: 'ข้ามการทำงาน',
       completed_at: new Date().toISOString(),
     });
 
@@ -1057,9 +1140,9 @@ function TaskExecutionInterface({
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-bold">
-              {currentTask.step_number}
+              {currentIndex + 1}
             </div>
-            งานที่ {currentIndex + 1}: {currentTask.task_description}
+            งานที่ {currentIndex + 1}: {currentTask.description}
             {currentTask.is_critical === true && (
               <Badge variant="destructive" className="ml-2">
                 สำคัญ
@@ -1069,19 +1152,21 @@ function TaskExecutionInterface({
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Task Info */}
-          <div className="p-3 bg-muted/30 rounded-lg">
-            <div className="text-sm">
-              <div><strong>ประเภทการป้อนข้อมูล:</strong> {currentTask.expected_input_type}</div>
-              {currentTask.standard_text_expected && (
-                <div><strong>ค่าที่คาดหวัง:</strong> {currentTask.standard_text_expected}</div>
-              )}
-              {(currentTask.standard_min_value || currentTask.standard_max_value) && (
-                <div>
-                  <strong>ช่วงค่า:</strong> {currentTask.standard_min_value} - {currentTask.standard_max_value}
-                </div>
-              )}
+          {currentTask.template_detail && (
+            <div className="p-3 bg-muted/30 rounded-lg">
+              <div className="text-sm">
+                <div><strong>ประเภทการป้อนข้อมูล:</strong> {currentTask.template_detail.expected_input_type || 'ข้อความ'}</div>
+                {currentTask.template_detail.standard_text_expected && (
+                  <div><strong>ค่าที่คาดหวัง:</strong> {currentTask.template_detail.standard_text_expected}</div>
+                )}
+                {(currentTask.template_detail.standard_min_value || currentTask.template_detail.standard_max_value) && (
+                  <div>
+                    <strong>ช่วงค่า:</strong> {currentTask.template_detail.standard_min_value} - {currentTask.template_detail.standard_max_value}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Task Controls */}
           {!isTaskStarted ? (
@@ -1100,7 +1185,7 @@ function TaskExecutionInterface({
               <div className="space-y-3">
                 <div>
                   <label className="text-sm font-medium">ผลการตรวจสอบ</label>
-                  {currentTask.expected_input_type === 'boolean' ? (
+                  {currentTask.template_detail?.expected_input_type === 'boolean' ? (
                     <div className="flex gap-2 mt-1">
                       <Button
                         variant={taskResult.value === 'true' ? 'default' : 'outline'}
@@ -1117,7 +1202,7 @@ function TaskExecutionInterface({
                         ไม่ผ่าน
                       </Button>
                     </div>
-                  ) : currentTask.expected_input_type === 'select' ? (
+                  ) : currentTask.template_detail?.expected_input_type === 'select' ? (
                     <Select
                       value={taskResult.value}
                       onValueChange={(value) => setTaskResult(prev => ({ ...prev, value }))}
@@ -1138,7 +1223,7 @@ function TaskExecutionInterface({
                       onChange={(e) => setTaskResult(prev => ({ ...prev, value: e.target.value }))}
                       placeholder="ป้อนผลการตรวจสอบ"
                       className="mt-1"
-                      type={currentTask.expected_input_type === 'number' ? 'number' : 'text'}
+                      type={currentTask.template_detail?.expected_input_type === 'number' ? 'number' : 'text'}
                     />
                   )}
                 </div>
@@ -1237,44 +1322,43 @@ function TaskExecutionInterface({
                 className={`p-2 rounded-lg border ${
                   index === currentIndex
                     ? 'border-primary bg-primary/5'
-                    : task.status === 'completed'
+                    : task.is_completed
                     ? 'border-success bg-success/5'
                     : 'border-muted'
                 }`}
               >
                 <div className="flex items-center gap-2">
                   <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
-                    task.status === 'completed'
+                    task.is_completed
                       ? 'bg-success text-white'
                       : index === currentIndex
                       ? 'bg-primary text-white'
                       : 'bg-muted text-muted-foreground'
                   }`}>
-                    {task.status === 'completed' ? (
+                    {task.is_completed ? (
                       <CheckCircle className="h-3 w-3" />
                     ) : (
-                      task.step_number
+                      index + 1
                     )}
                   </div>
                   <div className="flex-1">
-                    <div className="text-sm font-medium">{task.task_description}</div>
+                    <div className="text-sm font-medium">{task.description}</div>
                     <div className="text-xs text-muted-foreground">
-                      {task.status === 'completed' && task.result_value && (
-                        <>ผลลัพธ์: {task.result_value}</>
+                      {task.is_completed && task.actual_value_text && (
+                        <>ผลลัพธ์: {task.actual_value_text}</>
                       )}
                     </div>
                   </div>
                   <Badge
                     variant={
-                      task.status === 'completed' ? 'default' :
-                      task.status === 'in_progress' ? 'secondary' :
+                      task.is_completed ? 'default' :
+                      index === currentIndex ? 'secondary' :
                       'outline'
                     }
                     className="text-xs"
                   >
-                    {task.status === 'completed' ? 'เสร็จ' :
-                     task.status === 'in_progress' ? 'กำลังทำ' :
-                     task.status === 'skipped' ? 'ข้าม' : 'รอ'}
+                    {task.is_completed ? 'เสร็จ' :
+                     index === currentIndex ? 'กำลังทำ' : 'รอ'}
                   </Badge>
                 </div>
               </div>

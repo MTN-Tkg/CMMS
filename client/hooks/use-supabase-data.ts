@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { createTableService } from '../../shared/supabase';
+import { createTableService } from '../../shared/supabase/database-service';
+import { useAuth } from './useAuth';
 
 interface Asset {
   id: string;
@@ -113,6 +114,7 @@ interface DashboardData {
 }
 
 export function useSupabaseData() {
+  const { session } = useAuth();
   const [data, setData] = useState<DashboardData>({
     assets: [],
     workOrders: [],
@@ -130,9 +132,17 @@ export function useSupabaseData() {
 
   useEffect(() => {
     const fetchData = async () => {
+      // Don't fetch if there's no active session
+      if (!session) {
+        setData(prev => ({ ...prev, loading: false, error: "Please log in to view data." }));
+        return;
+      }
+
       setData(prev => ({ ...prev, loading: true, error: null }));
 
       try {
+        console.log('🔄 Starting data fetch for authenticated user...');
+        
         // Create services for each table
         const assetsService = createTableService('assets');
         const workOrdersService = createTableService('work_orders');
@@ -143,17 +153,8 @@ export function useSupabaseData() {
         const equipmentTypesService = createTableService('equipment_types');
         const pmTemplatesService = createTableService('pm_templates');
 
-        // Fetch data from all tables
-        const [
-          assetsResult,
-          workOrdersResult,
-          partsResult,
-          locationsResult,
-          systemsResult,
-          companiesResult,
-          equipmentTypesResult,
-          pmTemplatesResult,
-        ] = await Promise.all([
+        // Fetch data from all tables with better error handling
+        const results = await Promise.allSettled([
           assetsService.getAll(),
           workOrdersService.getAll(),
           partsService.getAll(),
@@ -164,7 +165,33 @@ export function useSupabaseData() {
           pmTemplatesService.getAll(),
         ]);
 
-        // Check for errors
+        // Process results
+        const [
+          assetsResult,
+          workOrdersResult,
+          partsResult,
+          locationsResult,
+          systemsResult,
+          companiesResult,
+          equipmentTypesResult,
+          pmTemplatesResult,
+        ] = results.map(result =>
+          result.status === 'fulfilled' ? result.value : { data: [], error: result.reason }
+        );
+
+        // Log results for debugging
+        console.log('📊 Data fetch results:', {
+          assets: assetsResult.data?.length || 0,
+          workOrders: workOrdersResult.data?.length || 0,
+          parts: partsResult.data?.length || 0,
+          locations: locationsResult.data?.length || 0,
+          systems: systemsResult.data?.length || 0,
+          companies: companiesResult.data?.length || 0,
+          equipmentTypes: equipmentTypesResult.data?.length || 0,
+          pmTemplates: pmTemplatesResult.data?.length || 0,
+        });
+
+        // Check for critical errors (but don't fail completely)
         const errors = [
           assetsResult.error,
           workOrdersResult.error,
@@ -177,16 +204,10 @@ export function useSupabaseData() {
         ].filter(Boolean);
 
         if (errors.length > 0) {
-          console.error('Errors fetching data:', errors);
-          setData(prev => ({
-            ...prev,
-            loading: false,
-            error: `Failed to fetch some data: ${errors.map(e => e?.message).join(', ')}`,
-          }));
-          return;
+          console.warn('⚠️ Some data fetch errors (continuing with partial data):', errors);
         }
 
-        // Update state with fetched data
+        // Update state with fetched data (use empty arrays for failed fetches)
         setData({
           assets: (assetsResult.data || []) as Asset[],
           workOrders: (workOrdersResult.data || []) as WorkOrder[],
@@ -197,11 +218,13 @@ export function useSupabaseData() {
           equipmentTypes: (equipmentTypesResult.data || []) as EquipmentType[],
           pmTemplates: (pmTemplatesResult.data || []) as PMTemplate[],
           loading: false,
-          error: null,
+          error: errors.length > 0 ? `Partial data load: ${errors.length} tables had issues` : null,
         });
 
+        console.log('✅ Data fetch completed');
+
       } catch (error) {
-        console.error('Error fetching Supabase data:', error);
+        console.error('❌ Critical error fetching Supabase data:', error);
         setData(prev => ({
           ...prev,
           loading: false,
@@ -211,7 +234,7 @@ export function useSupabaseData() {
     };
 
     fetchData();
-  }, [refreshTrigger]);
+  }, [refreshTrigger, session]);
 
   const refresh = () => {
     setRefreshTrigger(prev => prev + 1);

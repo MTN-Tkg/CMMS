@@ -4,7 +4,9 @@
  */
 
 // Core client and configuration
-export { default as supabase, supabaseAdmin, getCurrentUser, getCurrentSession, signOut, isAuthenticated } from './client';
+export { default as supabase, getCurrentUser, getCurrentSession, signOut, isAuthenticated } from './client';
+// NOTE: supabaseAdmin is not exported here as it's for server-side use only
+// If you need the admin client, import it directly from './server'
 export { supabaseConfig, TABLES, CHANNELS } from './config';
 
 // Types

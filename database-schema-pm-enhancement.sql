@@ -46,6 +46,9 @@ CREATE TABLE IF NOT EXISTS work_order_tasks (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Add missing actual_hours column to work_orders
+ALTER TABLE work_orders ADD COLUMN IF NOT EXISTS actual_hours NUMERIC;
+
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_work_order_tasks_work_order_id ON work_order_tasks(work_order_id);
 CREATE INDEX IF NOT EXISTS idx_work_order_tasks_pm_template_detail_id ON work_order_tasks(pm_template_detail_id);

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMMS Database Schema Diagram</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .stat-card .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+        }
+        #diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .table-list {
+            margin-top: 30px;
+        }
+        .table-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .table-item h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .column {
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .column.pk {
+            background: #28a745;
+            color: white;
+        }
+        .column.fk {
+            background: #007bff;
+            color: white;
+        }
+        .legend {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CMMS Database Schema Diagram</h1>
+        <p style="text-align: center; color: #666;">Generated on 28/7/2568 00:43:59</p>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Total Tables</h3>
+                <div class="value">17</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Columns</h3>
+                <div class="value">143</div>
+            </div>
+            <div class="stat-card">
+                <h3>Relationships</h3>
+                <div class="value">18</div>
+            </div>
+        </div>
+
+        <h2>Entity Relationship Diagram</h2>
+        <div id="diagram">
+            <div class="mermaid">
+erDiagram
+    assets {
+        uuid PK id
+        uuid FK equipment_type_id
+        uuid FK system_id
+        integer serial_number
+        string status
+    }
+
+    equipment_types {
+        uuid PK id
+        string name
+        string name_th
+        string description
+    }
+
+    systems {
+        uuid PK id
+        uuid FK company_id
+        string name
+        string name_th
+        string description
+        string code
+        uuid FK location_id
+        timestamp created_at
+        boolean is_active
+    }
+
+    locations {
+        uuid PK id
+        uuid FK company_id
+        string name
+        string code
+        timestamp created_at
+        string address
+        boolean is_active
+    }
+
+    work_orders {
+        uuid PK id
+        string work_type
+        string title
+        string description
+        string status
+        string priority
+        uuid FK asset_id
+        uuid FK location_id
+        uuid FK system_id
+        uuid FK pm_template_id
+        uuid FK assigned_to_user_id
+        uuid FK requested_by_user_id
+        timestamp created_at
+        string scheduled_date
+        string completed_at
+        integer wo_number
+        string estimated_hours
+        string assigned_to
+        string requested_by
+        string total_cost
+        string labor_cost
+        string parts_cost
+        string actual_hours
+        timestamp updated_at
+    }
+
+    work_order_tasks {
+        uuid PK id
+        uuid FK work_order_id
+        string description
+        boolean is_completed
+        string actual_value_text
+        string actual_value_numeric
+        string completed_at
+        boolean is_critical
+    }
+
+    work_order_parts {
+        uuid PK id
+        uuid FK work_order_id
+        uuid FK part_id
+        string quantity_used
+    }
+
+    work_order_attachments {
+        uuid PK id
+        uuid FK work_order_id
+        string file_name
+        string file_path
+    }
+
+    pm_templates {
+        uuid PK id
+        uuid FK company_id
+        uuid FK system_id
+        uuid FK equipment_type_id
+        string name
+        string frequency_type
+        string frequency_value
+        string estimated_minutes
+        string remarks
+        string template_code
+        string template_name
+        string description
+        string estimated_duration
+    }
+
+    pm_template_details {
+        uuid PK id
+        uuid FK pm_template_id
+        integer step_number
+        string task_description
+        string expected_input_type
+        string standard_text_expected
+        string standard_min_value
+        string standard_max_value
+        boolean is_critical
+        string remarks
+    }
+
+    parts {
+        uuid PK id
+        string name
+        string stock_quantity
+        string min_stock_level
+    }
+
+    parts_requisitions {
+        uuid PK id
+        integer req_number
+        string description
+        string status
+        string priority
+        string requested_by
+        string approved_by
+        string approved_at
+        string total_estimated_cost
+        uuid FK work_order_id
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    tools {
+        uuid PK id
+        string name
+        string status
+    }
+
+    tool_checkouts {
+        uuid PK id
+        uuid FK tool_id
+        uuid FK work_order_id
+        uuid FK checked_out_by_user_id
+        string checked_out_at
+        string checked_in_at
+    }
+
+    user_profiles {
+        uuid PK id
+        uuid FK user_id
+        uuid FK company_id
+        string first_name
+        string last_name
+        string role
+        string email
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+        string department
+        string employee_code
+        string phone
+        uuid FK location_id
+        uuid FK manager_id
+        string specialization
+        string certification
+        string skills
+        string certifications
+        string emergency_contact
+    }
+
+    companies {
+        uuid PK id
+        string name
+        string latitude
+        string longitude
+        string code
+        timestamp created_at
+        string email
+        string phone
+        string address
+        boolean is_active
+    }
+
+    notifications {
+
+    }
+
+    assets ||--o{ equipment_types : "equipment_type_id"
+    assets ||--o{ systems : "system_id"
+    systems ||--o{ locations : "location_id"
+    work_orders ||--o{ assets : "asset_id"
+    work_orders ||--o{ locations : "location_id"
+    work_orders ||--o{ systems : "system_id"
+    work_orders ||--o{ pm_templates : "pm_template_id"
+    work_order_tasks ||--o{ work_orders : "work_order_id"
+    work_order_parts ||--o{ work_orders : "work_order_id"
+    work_order_parts ||--o{ parts : "part_id"
+    work_order_attachments ||--o{ work_orders : "work_order_id"
+    pm_templates ||--o{ systems : "system_id"
+    pm_templates ||--o{ equipment_types : "equipment_type_id"
+    pm_template_details ||--o{ pm_templates : "pm_template_id"
+    parts_requisitions ||--o{ work_orders : "work_order_id"
+    tool_checkouts ||--o{ tools : "tool_id"
+    tool_checkouts ||--o{ work_orders : "work_order_id"
+    user_profiles ||--o{ locations : "location_id"
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box" style="background: #28a745;"></div>
+                <span>Primary Key (PK)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: #007bff;"></div>
+                <span>Foreign Key (FK)</span>
+            </div>
+        </div>
+
+        <h2>Table Details</h2>
+        <div class="table-list">
+
+            <div class="table-item">
+                <h3>assets</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">equipment_type_id</div>
+                    <div class="column fk">system_id</div>
+                    <div class="column">serial_number</div>
+                    <div class="column">status</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>equipment_types</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column">name</div>
+                    <div class="column">name_th</div>
+                    <div class="column">description</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>systems</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">company_id</div>
+                    <div class="column">name</div>
+                    <div class="column">name_th</div>
+                    <div class="column">description</div>
+                    <div class="column">code</div>
+                    <div class="column fk">location_id</div>
+                    <div class="column">created_at</div>
+                    <div class="column">is_active</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>locations</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">company_id</div>
+                    <div class="column">name</div>
+                    <div class="column">code</div>
+                    <div class="column">created_at</div>
+                    <div class="column">address</div>
+                    <div class="column">is_active</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>work_orders</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column">work_type</div>
+                    <div class="column">title</div>
+                    <div class="column">description</div>
+                    <div class="column">status</div>
+                    <div class="column">priority</div>
+                    <div class="column fk">asset_id</div>
+                    <div class="column fk">location_id</div>
+                    <div class="column fk">system_id</div>
+                    <div class="column fk">pm_template_id</div>
+                    <div class="column fk">assigned_to_user_id</div>
+                    <div class="column fk">requested_by_user_id</div>
+                    <div class="column">created_at</div>
+                    <div class="column">scheduled_date</div>
+                    <div class="column">completed_at</div>
+                    <div class="column">wo_number</div>
+                    <div class="column">estimated_hours</div>
+                    <div class="column">assigned_to</div>
+                    <div class="column">requested_by</div>
+                    <div class="column">total_cost</div>
+                    <div class="column">labor_cost</div>
+                    <div class="column">parts_cost</div>
+                    <div class="column">actual_hours</div>
+                    <div class="column">updated_at</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>work_order_tasks</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">work_order_id</div>
+                    <div class="column">description</div>
+                    <div class="column">is_completed</div>
+                    <div class="column">actual_value_text</div>
+                    <div class="column">actual_value_numeric</div>
+                    <div class="column">completed_at</div>
+                    <div class="column">is_critical</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>work_order_parts</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">work_order_id</div>
+                    <div class="column fk">part_id</div>
+                    <div class="column">quantity_used</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>work_order_attachments</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">work_order_id</div>
+                    <div class="column">file_name</div>
+                    <div class="column">file_path</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>pm_templates</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">company_id</div>
+                    <div class="column fk">system_id</div>
+                    <div class="column fk">equipment_type_id</div>
+                    <div class="column">name</div>
+                    <div class="column">frequency_type</div>
+                    <div class="column">frequency_value</div>
+                    <div class="column">estimated_minutes</div>
+                    <div class="column">remarks</div>
+                    <div class="column">template_code</div>
+                    <div class="column">template_name</div>
+                    <div class="column">description</div>
+                    <div class="column">estimated_duration</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>pm_template_details</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">pm_template_id</div>
+                    <div class="column">step_number</div>
+                    <div class="column">task_description</div>
+                    <div class="column">expected_input_type</div>
+                    <div class="column">standard_text_expected</div>
+                    <div class="column">standard_min_value</div>
+                    <div class="column">standard_max_value</div>
+                    <div class="column">is_critical</div>
+                    <div class="column">remarks</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>parts</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column">name</div>
+                    <div class="column">stock_quantity</div>
+                    <div class="column">min_stock_level</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>parts_requisitions</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column">req_number</div>
+                    <div class="column">description</div>
+                    <div class="column">status</div>
+                    <div class="column">priority</div>
+                    <div class="column">requested_by</div>
+                    <div class="column">approved_by</div>
+                    <div class="column">approved_at</div>
+                    <div class="column">total_estimated_cost</div>
+                    <div class="column fk">work_order_id</div>
+                    <div class="column">created_at</div>
+                    <div class="column">updated_at</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>tools</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column">name</div>
+                    <div class="column">status</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>tool_checkouts</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">tool_id</div>
+                    <div class="column fk">work_order_id</div>
+                    <div class="column fk">checked_out_by_user_id</div>
+                    <div class="column">checked_out_at</div>
+                    <div class="column">checked_in_at</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>user_profiles</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column fk">user_id</div>
+                    <div class="column fk">company_id</div>
+                    <div class="column">first_name</div>
+                    <div class="column">last_name</div>
+                    <div class="column">role</div>
+                    <div class="column">email</div>
+                    <div class="column">is_active</div>
+                    <div class="column">created_at</div>
+                    <div class="column">updated_at</div>
+                    <div class="column">department</div>
+                    <div class="column">employee_code</div>
+                    <div class="column">phone</div>
+                    <div class="column fk">location_id</div>
+                    <div class="column fk">manager_id</div>
+                    <div class="column">specialization</div>
+                    <div class="column">certification</div>
+                    <div class="column">skills</div>
+                    <div class="column">certifications</div>
+                    <div class="column">emergency_contact</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>companies</h3>
+                <div class="columns">
+                    <div class="column pk">id</div>
+                    <div class="column">name</div>
+                    <div class="column">latitude</div>
+                    <div class="column">longitude</div>
+                    <div class="column">code</div>
+                    <div class="column">created_at</div>
+                    <div class="column">email</div>
+                    <div class="column">phone</div>
+                    <div class="column">address</div>
+                    <div class="column">is_active</div>
+                </div>
+            </div>
+
+            <div class="table-item">
+                <h3>notifications</h3>
+                <div class="columns">
+
+                </div>
+            </div>
+        </div>
+
+        <h2>Relationships Summary</h2>
+        <ul>
+            <li><strong>assets</strong>.equipment_type_id → <strong>equipment_types</strong>.id</li>
+            <li><strong>assets</strong>.system_id → <strong>systems</strong>.id</li>
+            <li><strong>systems</strong>.location_id → <strong>locations</strong>.id</li>
+            <li><strong>work_orders</strong>.asset_id → <strong>assets</strong>.id</li>
+            <li><strong>work_orders</strong>.location_id → <strong>locations</strong>.id</li>
+            <li><strong>work_orders</strong>.system_id → <strong>systems</strong>.id</li>
+            <li><strong>work_orders</strong>.pm_template_id → <strong>pm_templates</strong>.id</li>
+            <li><strong>work_order_tasks</strong>.work_order_id → <strong>work_orders</strong>.id</li>
+            <li><strong>work_order_parts</strong>.work_order_id → <strong>work_orders</strong>.id</li>
+            <li><strong>work_order_parts</strong>.part_id → <strong>parts</strong>.id</li>
+            <li><strong>work_order_attachments</strong>.work_order_id → <strong>work_orders</strong>.id</li>
+            <li><strong>pm_templates</strong>.system_id → <strong>systems</strong>.id</li>
+            <li><strong>pm_templates</strong>.equipment_type_id → <strong>equipment_types</strong>.id</li>
+            <li><strong>pm_template_details</strong>.pm_template_id → <strong>pm_templates</strong>.id</li>
+            <li><strong>parts_requisitions</strong>.work_order_id → <strong>work_orders</strong>.id</li>
+            <li><strong>tool_checkouts</strong>.tool_id → <strong>tools</strong>.id</li>
+            <li><strong>tool_checkouts</strong>.work_order_id → <strong>work_orders</strong>.id</li>
+            <li><strong>user_profiles</strong>.location_id → <strong>locations</strong>.id</li>
+        </ul>
+
+        <h2>Work Order & PM System Design Recommendations</h2>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 5px; margin-top: 20px;">
+            <h3>Current Structure Analysis:</h3>
+            <ul>
+                <li><strong>Core Work Order Tables:</strong> work_orders, work_order_tasks, work_order_parts, work_order_attachments</li>
+                <li><strong>PM System Tables:</strong> pm_templates, pm_template_details</li>
+                <li><strong>Asset Management:</strong> assets, equipment_types, systems, locations</li>
+                <li><strong>Support Tables:</strong> parts, tools, user_profiles, companies</li>
+            </ul>
+
+            <h3>Suggested Enhancements:</h3>
+            <ol>
+                <li><strong>PM Scheduling:</strong>
+                    <ul>
+                        <li>Add <code>pm_schedules</code> table to define recurring PM schedules</li>
+                        <li>Add <code>pm_schedule_instances</code> for tracking generated PM work orders</li>
+                    </ul>
+                </li>
+                <li><strong>Work Order Enhancements:</strong>
+                    <ul>
+                        <li>Add <code>work_order_labor</code> for time tracking</li>
+                        <li>Add <code>work_order_costs</code> for cost tracking</li>
+                        <li>Add <code>work_order_status_history</code> for audit trail</li>
+                    </ul>
+                </li>
+                <li><strong>Asset History:</strong>
+                    <ul>
+                        <li>Add <code>asset_maintenance_history</code> view combining work orders by asset</li>
+                        <li>Add <code>asset_downtime</code> for tracking equipment availability</li>
+                    </ul>
+                </li>
+                <li><strong>Additional Relationships:</strong>
+                    <ul>
+                        <li>Link work_orders to pm_templates (for PM-generated work orders)</li>
+                        <li>Add parent_work_order_id to work_orders (for sub-work orders)</li>
+                        <li>Add parent_asset_id to assets (for asset hierarchy)</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            er: {
+                layoutDirection: 'TB',
+                minEntityWidth: 100,
+                minEntityHeight: 75,
+                entityPadding: 15,
+                useMaxWidth: true
+            }
+        });
+    </script>
+</body>
+</html>

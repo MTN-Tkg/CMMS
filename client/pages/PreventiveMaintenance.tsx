@@ -57,11 +57,21 @@ export default function PreventiveMaintenance() {
   const [scannedQRCode, setScannedQRCode] = useState('');
   const [pmTemplateQRCodes, setPmTemplateQRCodes] = useState([]);
 
-  // Get unique companies from PM templates
-  const companies = Array.from(new Set(pmTemplates.map((pm: PMTemplate) => pm.company_id).filter(Boolean)));
-  
-  // Get unique frequency types
-  const frequencyTypes = Array.from(new Set(pmTemplates.map((pm: PMTemplate) => pm.frequency_type).filter(Boolean)));
+  // Normalize company data
+  const companies = pmTemplates.reduce((acc, pm) => {
+    if (pm.company_id && !acc.some(c => c.value === pm.company_id)) {
+      acc.push({ value: pm.company_id, label: pm.company_id });
+    }
+    return acc;
+  }, [] as { value: string; label: string }[]);
+
+  // Normalize frequency types
+  const frequencyTypes = pmTemplates.reduce((acc, pm) => {
+    if (pm.frequency_type && !acc.some(f => f.value === pm.frequency_type)) {
+      acc.push({ value: pm.frequency_type, label: pm.frequency_type });
+    }
+    return acc;
+  }, [] as { value: string; label: string }[]);
 
   // Filter PM templates based on search and filters
   const filteredTemplates = pmTemplates.filter((template: PMTemplate) => {
@@ -247,8 +257,8 @@ export default function PreventiveMaintenance() {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">ทุกบริษัท</option>
-              {companies.map((company: string) => (
-                <option key={company} value={company}>{company}</option>
+              {companies.map((company) => (
+                <option key={company.value} value={company.value}>{company.label}</option>
               ))}
             </select>
           </div>
@@ -261,8 +271,8 @@ export default function PreventiveMaintenance() {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">ทุกความถี่</option>
-              {frequencyTypes.map((type: string) => (
-                <option key={type} value={type}>{type}</option>
+              {frequencyTypes.map((freq) => (
+                <option key={freq.value} value={freq.value}>{freq.label}</option>
               ))}
             </select>
           </div>

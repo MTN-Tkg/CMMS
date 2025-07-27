@@ -1,20 +1,20 @@
 /**
- * Supabase Client Initialization
- * Creates and exports Supabase client instances for different use cases
+ * Supabase Client (Client-Side)
+ *
+ * This client is intended for use in the browser and is safe to be exposed to the public.
+ * It uses the anonymous key, and all data access is governed by Row Level Security (RLS) policies.
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 import { supabaseConfig, validateSupabaseConfig } from './config';
-import type { Database } from './types';
 
-// Validate configuration on module load
+// Ensure config is loaded and validated
 validateSupabaseConfig();
 
 /**
- * Main Supabase client for client-side operations
- * Uses the anonymous key and includes auth context
+ * Singleton Supabase client instance for client-side operations.
  */
-export const supabase: SupabaseClient<Database> = createClient<Database>(
+export const supabase = createClient(
   supabaseConfig.url,
   supabaseConfig.anonKey,
   {
@@ -32,23 +32,7 @@ export const supabase: SupabaseClient<Database> = createClient<Database>(
 );
 
 /**
- * Admin Supabase client for server-side operations
- * Uses the service role key and bypasses RLS
- * Should only be used on the server side
- */
-export const supabaseAdmin: SupabaseClient<Database> = createClient<Database>(
-  supabaseConfig.url,
-  supabaseConfig.serviceRoleKey || supabaseConfig.anonKey,
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-  }
-);
-
-/**
- * Get the current user session
+ * Get the current user session.
  */
 export const getCurrentUser = async () => {
   const { data: { user }, error } = await supabase.auth.getUser();

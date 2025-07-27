@@ -1,0 +1,954 @@
+{
+  "timestamp": "2025-07-27T17:43:43.014Z",
+  "database": "CMMS Supabase Database",
+  "tablesCount": 17,
+  "tables": {
+    "assets": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "LAK-GEN-01"
+        },
+        {
+          "name": "equipment_type_id",
+          "type": "text",
+          "sampleValue": "EQ-001"
+        },
+        {
+          "name": "system_id",
+          "type": "text",
+          "sampleValue": "SYS001"
+        },
+        {
+          "name": "serial_number",
+          "type": "text",
+          "sampleValue": "SN-G55842A"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "sampleValue": "Working"
+        }
+      ]
+    },
+    "equipment_types": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "EQ-001"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "sampleValue": "Generator"
+        },
+        {
+          "name": "name_th",
+          "type": "text",
+          "sampleValue": "Generator"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "sampleValue": "เครื่องกำเนิดไฟฟ้าสำรองสำหรับใช้ในกรณีไฟฟ้าดับ"
+        }
+      ]
+    },
+    "systems": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "SYS001"
+        },
+        {
+          "name": "company_id",
+          "type": "text",
+          "sampleValue": "LAK"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "sampleValue": "Electrical and Power System"
+        },
+        {
+          "name": "name_th",
+          "type": "text",
+          "sampleValue": "ระบบไฟฟ้าและพลังงาน"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "sampleValue": "ระบบที่เกี่ยวข้องกับการผลิต การจ่าย และการควบคุมพลังงานไฟฟ้าทั้งหมด"
+        },
+        {
+          "name": "code",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "location_id",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-27T01:28:14.113716+00:00"
+        },
+        {
+          "name": "is_active",
+          "type": "boolean",
+          "sampleValue": true
+        }
+      ]
+    },
+    "locations": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "LOC001"
+        },
+        {
+          "name": "company_id",
+          "type": "text",
+          "sampleValue": "LAK"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "sampleValue": "โรงเรือน1"
+        },
+        {
+          "name": "code",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-27T01:10:51.229412+00:00"
+        },
+        {
+          "name": "address",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "is_active",
+          "type": "boolean",
+          "sampleValue": true
+        }
+      ]
+    },
+    "work_orders": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "WO-PM-1753611327133"
+        },
+        {
+          "name": "work_type",
+          "type": "text",
+          "sampleValue": "PM"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "sampleValue": "PM: Checklist ตรวจสอบก่อนไก่เข้า - ฟาร์มไก่"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "sampleValue": "ใช้สำหรับก่อนนำไก่รุ่น/ไก่ไข่เข้าโรงเรือน"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "sampleValue": "in_progress"
+        },
+        {
+          "name": "priority",
+          "type": "integer",
+          "sampleValue": 2
+        },
+        {
+          "name": "asset_id",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "location_id",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "system_id",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "pm_template_id",
+          "type": "text",
+          "sampleValue": "PMT-LAK-TKB-PRE-CHICKEN"
+        },
+        {
+          "name": "assigned_to_user_id",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "requested_by_user_id",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-27T10:15:27.133+00:00"
+        },
+        {
+          "name": "scheduled_date",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "completed_at",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "wo_number",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "estimated_hours",
+          "type": "integer",
+          "sampleValue": 0
+        },
+        {
+          "name": "assigned_to",
+          "type": "text",
+          "sampleValue": "ช่างเทคนิค"
+        },
+        {
+          "name": "requested_by",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "total_cost",
+          "type": "integer",
+          "sampleValue": 0
+        },
+        {
+          "name": "labor_cost",
+          "type": "integer",
+          "sampleValue": 0
+        },
+        {
+          "name": "parts_cost",
+          "type": "integer",
+          "sampleValue": 0
+        },
+        {
+          "name": "actual_hours",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-27T17:32:56.175194+00:00"
+        }
+      ]
+    },
+    "work_order_tasks": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "task-wo-1753635575217-yn0v6vm70-8-1753635575510"
+        },
+        {
+          "name": "work_order_id",
+          "type": "text",
+          "sampleValue": "wo-1753635575217-yn0v6vm70"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "sampleValue": "บันทึกแรงดัน L-N (Volt)"
+        },
+        {
+          "name": "is_completed",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "actual_value_text",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "actual_value_numeric",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "completed_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-27T16:59:45.659+00:00"
+        },
+        {
+          "name": "is_critical",
+          "type": "boolean",
+          "sampleValue": false
+        }
+      ]
+    },
+    "work_order_parts": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "WOP-002"
+        },
+        {
+          "name": "work_order_id",
+          "type": "text",
+          "sampleValue": "WO-2025-002"
+        },
+        {
+          "name": "part_id",
+          "type": "text",
+          "sampleValue": "P-002"
+        },
+        {
+          "name": "quantity_used",
+          "type": "integer",
+          "sampleValue": 1
+        }
+      ]
+    },
+    "work_order_attachments": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "WOA-002"
+        },
+        {
+          "name": "work_order_id",
+          "type": "text",
+          "sampleValue": "WO-2025-002"
+        },
+        {
+          "name": "file_name",
+          "type": "text",
+          "sampleValue": "fan_broken_bearing.jpg"
+        },
+        {
+          "name": "file_path",
+          "type": "text",
+          "sampleValue": "/attachments/fan_broken_bearing.jpg"
+        }
+      ]
+    },
+    "pm_templates": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "PMT-LAK-SYS001-EQ001-MTH"
+        },
+        {
+          "name": "company_id",
+          "type": "text",
+          "sampleValue": "LAK"
+        },
+        {
+          "name": "system_id",
+          "type": "text",
+          "sampleValue": "SYS001"
+        },
+        {
+          "name": "equipment_type_id",
+          "type": "text",
+          "sampleValue": "EQ-001"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "sampleValue": "PM Generator รายเดือน"
+        },
+        {
+          "name": "frequency_type",
+          "type": "text",
+          "sampleValue": "month"
+        },
+        {
+          "name": "frequency_value",
+          "type": "integer",
+          "sampleValue": 1
+        },
+        {
+          "name": "estimated_minutes",
+          "type": "integer",
+          "sampleValue": 180
+        },
+        {
+          "name": "remarks",
+          "type": "text",
+          "sampleValue": "รวมงาน Load Test และ PdM"
+        },
+        {
+          "name": "template_code",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "template_name",
+          "type": "text",
+          "sampleValue": "PM Generator รายเดือน"
+        },
+        {
+          "name": "description",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "estimated_duration",
+          "type": "nullable",
+          "sampleValue": null
+        }
+      ]
+    },
+    "pm_template_details": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "PMTD-LAK-GEN-WKLY-01"
+        },
+        {
+          "name": "pm_template_id",
+          "type": "text",
+          "sampleValue": "PMT-LAK-SYS001-EQ001-WKLY"
+        },
+        {
+          "name": "step_number",
+          "type": "integer",
+          "sampleValue": 1
+        },
+        {
+          "name": "task_description",
+          "type": "text",
+          "sampleValue": "ตรวจความสะอาด"
+        },
+        {
+          "name": "expected_input_type",
+          "type": "text",
+          "sampleValue": "Text"
+        },
+        {
+          "name": "standard_text_expected",
+          "type": "text",
+          "sampleValue": "สะอาด"
+        },
+        {
+          "name": "standard_min_value",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "standard_max_value",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "is_critical",
+          "type": "boolean",
+          "sampleValue": false
+        },
+        {
+          "name": "remarks",
+          "type": "nullable",
+          "sampleValue": null
+        }
+      ]
+    },
+    "parts": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "P-001"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "sampleValue": "ไส้กรองน้ำมันเครื่อง Generator"
+        },
+        {
+          "name": "stock_quantity",
+          "type": "integer",
+          "sampleValue": 10
+        },
+        {
+          "name": "min_stock_level",
+          "type": "integer",
+          "sampleValue": 5
+        }
+      ]
+    },
+    "parts_requisitions": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "pr1"
+        },
+        {
+          "name": "req_number",
+          "type": "text",
+          "sampleValue": "PR-2024-001"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "sampleValue": "Belt replacement parts"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "sampleValue": "pending"
+        },
+        {
+          "name": "priority",
+          "type": "integer",
+          "sampleValue": 2
+        },
+        {
+          "name": "requested_by",
+          "type": "text",
+          "sampleValue": "Technician A"
+        },
+        {
+          "name": "approved_by",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "approved_at",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "total_estimated_cost",
+          "type": "integer",
+          "sampleValue": 150
+        },
+        {
+          "name": "work_order_id",
+          "type": "text",
+          "sampleValue": "wo1"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-26T01:55:17.283687+00:00"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-26T01:55:17.283687+00:00"
+        }
+      ]
+    },
+    "tools": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "T-001"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "sampleValue": "มัลติมิเตอร์"
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "sampleValue": "Available"
+        }
+      ]
+    },
+    "tool_checkouts": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "TC-002"
+        },
+        {
+          "name": "tool_id",
+          "type": "text",
+          "sampleValue": "T-002"
+        },
+        {
+          "name": "work_order_id",
+          "type": "text",
+          "sampleValue": "WO-2025-002"
+        },
+        {
+          "name": "checked_out_by_user_id",
+          "type": "uuid",
+          "sampleValue": "208176d1-540c-42d0-a707-8ccddbec13ad"
+        },
+        {
+          "name": "checked_out_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-25T09:29:05.335969+00:00"
+        },
+        {
+          "name": "checked_in_at",
+          "type": "nullable",
+          "sampleValue": null
+        }
+      ]
+    },
+    "user_profiles": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "sampleValue": "08da004e-a702-4c8a-a108-de299548ba2d"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "sampleValue": "e4a3a58c-5a60-49de-9213-0fdef2bf0bf8"
+        },
+        {
+          "name": "company_id",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "first_name",
+          "type": "text",
+          "sampleValue": "Nattapon"
+        },
+        {
+          "name": "last_name",
+          "type": "text",
+          "sampleValue": "Tipma"
+        },
+        {
+          "name": "role",
+          "type": "text",
+          "sampleValue": "admin"
+        },
+        {
+          "name": "email",
+          "type": "text",
+          "sampleValue": "nattapon.m.mtn@gmail.com"
+        },
+        {
+          "name": "is_active",
+          "type": "boolean",
+          "sampleValue": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-19T09:45:54.485887+00:00"
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-19T09:45:54.485887+00:00"
+        },
+        {
+          "name": "department",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "employee_code",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "phone",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "location_id",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "manager_id",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "specialization",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "certification",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "skills",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "certifications",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "emergency_contact",
+          "type": "nullable",
+          "sampleValue": null
+        }
+      ]
+    },
+    "companies": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "sampleValue": "LAK"
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "sampleValue": "บริษัท ลักษณ์ธนากุล จำกัด"
+        },
+        {
+          "name": "latitude",
+          "type": "numeric",
+          "sampleValue": 18.406512
+        },
+        {
+          "name": "longitude",
+          "type": "numeric",
+          "sampleValue": 98.892852
+        },
+        {
+          "name": "code",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "sampleValue": "2025-07-27T01:10:51.229412+00:00"
+        },
+        {
+          "name": "email",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "phone",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "address",
+          "type": "nullable",
+          "sampleValue": null
+        },
+        {
+          "name": "is_active",
+          "type": "boolean",
+          "sampleValue": true
+        }
+      ]
+    },
+    "notifications": {
+      "columns": [],
+      "empty": true
+    }
+  },
+  "relationships": [
+    {
+      "fromTable": "assets",
+      "fromColumn": "equipment_type_id",
+      "toTable": "equipment_types",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "assets",
+      "fromColumn": "system_id",
+      "toTable": "systems",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "systems",
+      "fromColumn": "location_id",
+      "toTable": "locations",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "systems",
+      "fromColumn": "location_id",
+      "toTable": "locations",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "work_orders",
+      "fromColumn": "asset_id",
+      "toTable": "assets",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "work_orders",
+      "fromColumn": "location_id",
+      "toTable": "locations",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "work_orders",
+      "fromColumn": "system_id",
+      "toTable": "systems",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "work_orders",
+      "fromColumn": "pm_template_id",
+      "toTable": "pm_templates",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "work_order_tasks",
+      "fromColumn": "work_order_id",
+      "toTable": "work_orders",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "work_order_parts",
+      "fromColumn": "work_order_id",
+      "toTable": "work_orders",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "work_order_parts",
+      "fromColumn": "part_id",
+      "toTable": "parts",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "work_order_attachments",
+      "fromColumn": "work_order_id",
+      "toTable": "work_orders",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "pm_templates",
+      "fromColumn": "system_id",
+      "toTable": "systems",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "pm_templates",
+      "fromColumn": "equipment_type_id",
+      "toTable": "equipment_types",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "pm_templates",
+      "fromColumn": "equipment_type_id",
+      "toTable": "equipment_types",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "pm_template_details",
+      "fromColumn": "pm_template_id",
+      "toTable": "pm_templates",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "parts_requisitions",
+      "fromColumn": "work_order_id",
+      "toTable": "work_orders",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "tool_checkouts",
+      "fromColumn": "tool_id",
+      "toTable": "tools",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "tool_checkouts",
+      "fromColumn": "work_order_id",
+      "toTable": "work_orders",
+      "toColumn": "id",
+      "type": "foreign_key"
+    },
+    {
+      "fromTable": "user_profiles",
+      "fromColumn": "location_id",
+      "toTable": "locations",
+      "toColumn": "id",
+      "type": "foreign_key"
+    }
+  ],
+  "summary": {
+    "coreEntities": [
+      "assets",
+      "work_orders",
+      "pm_templates"
+    ],
+    "supportingEntities": [
+      "equipment_types",
+      "systems",
+      "locations",
+      "parts"
+    ],
+    "userEntities": [
+      "user_profiles",
+      "companies"
+    ],
+    "transactionEntities": [
+      "work_order_tasks",
+      "work_order_parts",
+      "work_order_attachments"
+    ]
+  }
+}

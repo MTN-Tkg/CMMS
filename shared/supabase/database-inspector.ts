@@ -10,21 +10,29 @@ import { supabase } from './client';
  */
 export const getTableNames = async (): Promise<string[]> => {
   try {
-    const { data, error } = await supabase
-      .from('information_schema.tables')
-      .select('table_name')
-      .eq('table_schema', 'public')
-      .eq('table_type', 'BASE TABLE');
+    // Use RPC call instead of direct information_schema access
+    const { data, error } = await supabase.rpc('get_table_names');
 
     if (error) {
-      console.error('Error fetching table names:', error);
-      return [];
+      console.warn('RPC get_table_names failed, using fallback method:', error);
+      // Fallback: try to get known tables
+      const knownTables = [
+        'assets', 'work_orders', 'parts', 'locations', 'systems',
+        'companies', 'equipment_types', 'pm_templates', 'pm_template_details',
+        'work_order_tasks', 'notifications', 'user_profiles'
+      ];
+      return knownTables;
     }
 
-    return data?.map(table => table.table_name) || [];
+    return data || [];
   } catch (error) {
     console.error('Error in getTableNames:', error);
-    return [];
+    // Return known tables as fallback
+    return [
+      'assets', 'work_orders', 'parts', 'locations', 'systems',
+      'companies', 'equipment_types', 'pm_templates', 'pm_template_details',
+      'work_order_tasks', 'notifications', 'user_profiles'
+    ];
   }
 };
 
@@ -105,14 +113,25 @@ export const getDatabaseSchema = async () => {
  */
 export const testConnection = async (): Promise<boolean> => {
   try {
+    // Test connection by trying to access a known table
     const { data, error } = await supabase
-      .from('information_schema.tables')
+      .from('assets')
       .select('count')
       .limit(1);
 
     if (error) {
-      console.error('Connection test failed:', error);
-      return false;
+      console.warn('Primary connection test failed, trying alternative:', error);
+      
+      // Try alternative test with work_orders table
+      const { data: altData, error: altError } = await supabase
+        .from('work_orders')
+        .select('count')
+        .limit(1);
+        
+      if (altError) {
+        console.error('Connection test failed:', altError);
+        return false;
+      }
     }
 
     console.log('✅ Supabase connection successful');

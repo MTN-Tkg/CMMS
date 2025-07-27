@@ -28,7 +28,7 @@ const navItems = [
   { path: "/", label: "หน้าหลัก", icon: LayoutDashboard },
   { path: "/work-orders", label: "ใบสั่งงาน", icon: ClipboardList },
   { path: "/preventive-maintenance", label: "PM System", icon: Shield },
-  { path: "/pm-qr-scanner", label: "PM QR Scanner", icon: QrCode },
+  { path: "/pm-qr-scanner", label: "PM Scanner", icon: QrCode },
   { path: "/assets", label: "อุปกรณ์", icon: Wrench },
   { path: "/parts", label: "คลังอะไหล่", icon: Package },
   { path: "/inventory", label: "จัดการสต็อก", icon: BarChart3 },
@@ -39,7 +39,7 @@ const navItems = [
   { path: "/users", label: "ผู้ใช้งาน", icon: Users },
   { path: "/settings", label: "ตั้งค่า", icon: Settings },
   { path: "/data-transfer", label: "จัดการข้อมูล", icon: Download },
-  { path: "/qr-scanner", label: "สแกน QR", icon: QrCode },
+  { path: "/qr-scanner", label: "QR ทั่วไป", icon: QrCode },
 ];
 
 export function MobileNav() {

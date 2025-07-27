@@ -1,0 +1,296 @@
+{
+  "generated": "2025-07-27T17:43:59.761Z",
+  "statistics": {
+    "tables": 17,
+    "totalColumns": 143,
+    "relationships": 18
+  },
+  "tables": {
+    "assets": [
+      "id",
+      "equipment_type_id",
+      "system_id",
+      "serial_number",
+      "status"
+    ],
+    "equipment_types": [
+      "id",
+      "name",
+      "name_th",
+      "description"
+    ],
+    "systems": [
+      "id",
+      "company_id",
+      "name",
+      "name_th",
+      "description",
+      "code",
+      "location_id",
+      "created_at",
+      "is_active"
+    ],
+    "locations": [
+      "id",
+      "company_id",
+      "name",
+      "code",
+      "created_at",
+      "address",
+      "is_active"
+    ],
+    "work_orders": [
+      "id",
+      "work_type",
+      "title",
+      "description",
+      "status",
+      "priority",
+      "asset_id",
+      "location_id",
+      "system_id",
+      "pm_template_id",
+      "assigned_to_user_id",
+      "requested_by_user_id",
+      "created_at",
+      "scheduled_date",
+      "completed_at",
+      "wo_number",
+      "estimated_hours",
+      "assigned_to",
+      "requested_by",
+      "total_cost",
+      "labor_cost",
+      "parts_cost",
+      "actual_hours",
+      "updated_at"
+    ],
+    "work_order_tasks": [
+      "id",
+      "work_order_id",
+      "description",
+      "is_completed",
+      "actual_value_text",
+      "actual_value_numeric",
+      "completed_at",
+      "is_critical"
+    ],
+    "work_order_parts": [
+      "id",
+      "work_order_id",
+      "part_id",
+      "quantity_used"
+    ],
+    "work_order_attachments": [
+      "id",
+      "work_order_id",
+      "file_name",
+      "file_path"
+    ],
+    "pm_templates": [
+      "id",
+      "company_id",
+      "system_id",
+      "equipment_type_id",
+      "name",
+      "frequency_type",
+      "frequency_value",
+      "estimated_minutes",
+      "remarks",
+      "template_code",
+      "template_name",
+      "description",
+      "estimated_duration"
+    ],
+    "pm_template_details": [
+      "id",
+      "pm_template_id",
+      "step_number",
+      "task_description",
+      "expected_input_type",
+      "standard_text_expected",
+      "standard_min_value",
+      "standard_max_value",
+      "is_critical",
+      "remarks"
+    ],
+    "parts": [
+      "id",
+      "name",
+      "stock_quantity",
+      "min_stock_level"
+    ],
+    "parts_requisitions": [
+      "id",
+      "req_number",
+      "description",
+      "status",
+      "priority",
+      "requested_by",
+      "approved_by",
+      "approved_at",
+      "total_estimated_cost",
+      "work_order_id",
+      "created_at",
+      "updated_at"
+    ],
+    "tools": [
+      "id",
+      "name",
+      "status"
+    ],
+    "tool_checkouts": [
+      "id",
+      "tool_id",
+      "work_order_id",
+      "checked_out_by_user_id",
+      "checked_out_at",
+      "checked_in_at"
+    ],
+    "user_profiles": [
+      "id",
+      "user_id",
+      "company_id",
+      "first_name",
+      "last_name",
+      "role",
+      "email",
+      "is_active",
+      "created_at",
+      "updated_at",
+      "department",
+      "employee_code",
+      "phone",
+      "location_id",
+      "manager_id",
+      "specialization",
+      "certification",
+      "skills",
+      "certifications",
+      "emergency_contact"
+    ],
+    "companies": [
+      "id",
+      "name",
+      "latitude",
+      "longitude",
+      "code",
+      "created_at",
+      "email",
+      "phone",
+      "address",
+      "is_active"
+    ],
+    "notifications": []
+  },
+  "relationships": [
+    {
+      "from": "assets",
+      "fromCol": "equipment_type_id",
+      "to": "equipment_types",
+      "toCol": "id"
+    },
+    {
+      "from": "assets",
+      "fromCol": "system_id",
+      "to": "systems",
+      "toCol": "id"
+    },
+    {
+      "from": "systems",
+      "fromCol": "location_id",
+      "to": "locations",
+      "toCol": "id"
+    },
+    {
+      "from": "work_orders",
+      "fromCol": "asset_id",
+      "to": "assets",
+      "toCol": "id"
+    },
+    {
+      "from": "work_orders",
+      "fromCol": "location_id",
+      "to": "locations",
+      "toCol": "id"
+    },
+    {
+      "from": "work_orders",
+      "fromCol": "system_id",
+      "to": "systems",
+      "toCol": "id"
+    },
+    {
+      "from": "work_orders",
+      "fromCol": "pm_template_id",
+      "to": "pm_templates",
+      "toCol": "id"
+    },
+    {
+      "from": "work_order_tasks",
+      "fromCol": "work_order_id",
+      "to": "work_orders",
+      "toCol": "id"
+    },
+    {
+      "from": "work_order_parts",
+      "fromCol": "work_order_id",
+      "to": "work_orders",
+      "toCol": "id"
+    },
+    {
+      "from": "work_order_parts",
+      "fromCol": "part_id",
+      "to": "parts",
+      "toCol": "id"
+    },
+    {
+      "from": "work_order_attachments",
+      "fromCol": "work_order_id",
+      "to": "work_orders",
+      "toCol": "id"
+    },
+    {
+      "from": "pm_templates",
+      "fromCol": "system_id",
+      "to": "systems",
+      "toCol": "id"
+    },
+    {
+      "from": "pm_templates",
+      "fromCol": "equipment_type_id",
+      "to": "equipment_types",
+      "toCol": "id"
+    },
+    {
+      "from": "pm_template_details",
+      "fromCol": "pm_template_id",
+      "to": "pm_templates",
+      "toCol": "id"
+    },
+    {
+      "from": "parts_requisitions",
+      "fromCol": "work_order_id",
+      "to": "work_orders",
+      "toCol": "id"
+    },
+    {
+      "from": "tool_checkouts",
+      "fromCol": "tool_id",
+      "to": "tools",
+      "toCol": "id"
+    },
+    {
+      "from": "tool_checkouts",
+      "fromCol": "work_order_id",
+      "to": "work_orders",
+      "toCol": "id"
+    },
+    {
+      "from": "user_profiles",
+      "fromCol": "location_id",
+      "to": "locations",
+      "toCol": "id"
+    }
+  ]
+}
